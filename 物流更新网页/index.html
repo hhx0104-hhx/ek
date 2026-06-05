@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Order Tracking System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0B0F1A;--bg2:#111827;--card:#1A2035;--card-hover:#1F2740;
+  --border:rgba(255,255,255,.06);--border-active:rgba(99,179,237,.4);
+  --text:#E8ECF4;--text2:#8B95A9;--text3:#5A6478;
+  --accent:#63B3ED;--accent2:#4299E1;--accent-dim:rgba(99,179,237,.1);
+  --green:#48BB78;--green-dim:rgba(72,187,120,.12);
+  --amber:#ECC94B;--amber-dim:rgba(236,201,75,.12);
+  --red:#FC8181;--red-dim:rgba(252,129,129,.12);
+  --orange:#F6AD55;--orange-dim:rgba(246,173,85,.12);
+  --purple:#B794F4;--purple-dim:rgba(183,148,244,.12);
+  --radius:16px;--radius-sm:10px;--radius-xs:6px;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* Animated background */
+.bg-grid{position:fixed;inset:0;z-index:0;opacity:.03;
+  background-image:
+    linear-gradient(rgba(99,179,237,.3) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(99,179,237,.3) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.bg-glow{position:fixed;z-index:0;border-radius:50%;filter:blur(120px);pointer-events:none;}
+.bg-glow-1{width:600px;height:600px;top:-200px;left:-100px;background:rgba(66,153,225,.06);}
+.bg-glow-2{width:500px;height:500px;bottom:-150px;right:-100px;background:rgba(72,187,120,.04);}
+
+.main{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:40px 20px;}
+
+/* Header */
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.brand-icon{width:42px;height:42px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--green));display:flex;align-items:center;justify-content:center;}
+.brand-icon svg{width:22px;height:22px;fill:#fff;}
+.brand h1{font-size:20px;font-weight:600;letter-spacing:-.3px;}
+.brand-sub{font-size:13px;color:var(--text2);margin-bottom:36px;margin-left:54px;}
+
+/* Search Box */
+.search-wrap{position:relative;max-width:560px;margin:0 auto 40px;}
+.search-box{position:relative;display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:4px;transition:border .3s,box-shadow .3s;}
+.search-box:focus-within{border-color:var(--border-active);box-shadow:0 0 0 4px var(--accent-dim);}
+.search-icon{position:absolute;left:18px;color:var(--text3);pointer-events:none;}
+.search-icon svg{width:18px;height:18px;}
+.search-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:15px;padding:14px 16px 14px 46px;}
+.search-input::placeholder{color:var(--text3);}
+.search-btn{padding:12px 24px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap;}
+.search-btn:hover{background:var(--accent2);}
+.search-btn:active{transform:scale(.97);}
+
+/* Quick tags */
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;}
+.tag{padding:6px 14px;border-radius:20px;background:var(--card);border:1px solid var(--border);color:var(--text2);font-size:12px;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+.tag:hover{border-color:var(--border-active);color:var(--accent);background:var(--accent-dim);}
+
+/* Error */
+.error-msg{display:none;text-align:center;padding:40px 20px;}
+.error-msg.show{display:block;animation:fadeUp .4s ease;}
+.error-icon{width:56px;height:56px;border-radius:50%;background:var(--red-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.error-icon svg{width:28px;height:28px;fill:var(--red);}
+.error-title{font-size:16px;font-weight:600;margin-bottom:6px;}
+.error-text{font-size:13px;color:var(--text2);}
+
+/* Result */
+.result{display:none;}
+.result.show{display:block;animation:fadeUp .5s ease;}
+
+/* Order Card */
+.order-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.order-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.order-card.status-arrived::before{background:linear-gradient(90deg,var(--green),var(--accent));}
+.order-card.status-enroute::before{background:linear-gradient(90deg,var(--accent),var(--purple));}
+.order-card.status-pending::before{background:linear-gradient(90deg,var(--amber),var(--orange));}
+.order-card.status-unpaid::before{background:linear-gradient(90deg,var(--red),var(--orange));}
+
+.oc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+.oc-left{display:flex;flex-direction:column;gap:4px;}
+.oc-id{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text3);}
+.oc-title{font-size:18px;font-weight:600;letter-spacing:-.2px;}
+.oc-sub{font-size:13px;color:var(--text2);}
+.oc-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;white-space:nowrap;}
+.oc-badge.arrived{background:var(--green-dim);color:var(--green);}
+.oc-badge.enroute{background:var(--accent-dim);color:var(--accent);}
+.oc-badge.pending{background:var(--amber-dim);color:var(--amber);}
+.oc-badge.unpaid{background:var(--red-dim);color:var(--red);}
+.oc-badge.delivered{background:var(--green-dim);color:var(--green);border:1px solid rgba(72,187,120,.3);}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
+.badge-dot.pulse{animation:pulse 1.5s infinite;}
+
+/* Ship info - restructured */
+.ship-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:20px;font-size:13px;line-height:1.8;color:var(--text2);}
+.ship-box strong{color:var(--text);font-weight:500;}
+.ship-highlight{color:var(--accent);font-weight:500;}
+.ship-current{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--accent-dim);border:1px solid rgba(99,179,237,.2);border-radius:var(--radius-xs);margin-bottom:10px;font-size:14px;font-weight:500;color:var(--accent);}
+.ship-details-toggle{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text3);padding:4px 0;user-select:none;transition:color .2s;}
+.ship-details-toggle:hover{color:var(--text2);}
+.ship-details-toggle svg{width:14px;height:14px;fill:var(--text3);transition:transform .3s;}
+.ship-details-toggle.open svg{transform:rotate(180deg);}
+.ship-details{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.ship-details.open{max-height:200px;}
+.ship-details .ship-details-inner{padding-top:8px;border-top:1px solid var(--border);}
+
+/* Port arrival day counter */
+.port-counter{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--radius-xs);background:var(--green-dim);font-size:12px;font-weight:500;color:var(--green);margin-left:8px;}
+.port-counter svg{width:14px;height:14px;fill:var(--green);flex-shrink:0;}
+
+/* Detail grid */
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px;}
+.detail-item{background:rgba(255,255,255,.02);border-radius:var(--radius-xs);padding:12px 14px;}
+.detail-label{font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.detail-val{font-size:14px;font-weight:500;color:var(--text);}
+.detail-val.paid{color:var(--green);}
+.detail-val.unpaid{color:var(--red);}
+
+/* Box details table */
+.box-section{margin-bottom:24px;}
+.box-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 16px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--text2);transition:all .2s;user-select:none;}
+.box-toggle:hover{background:rgba(255,255,255,.06);border-color:var(--border-active);}
+.box-toggle svg{width:16px;height:16px;fill:var(--text3);transition:transform .3s;}
+.box-toggle.open svg{transform:rotate(180deg);}
+.box-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-dim);padding:2px 8px;border-radius:10px;margin-left:auto;}
+.box-table-wrap{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.box-table-wrap.open{max-height:2000px;}
+.box-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px;}
+.box-table thead th{text-align:left;padding:10px 14px;color:var(--text2);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.02);}
+.box-table tbody td{padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text);vertical-align:middle;font-size:13px;}
+.box-table tbody tr:hover{background:rgba(255,255,255,.04);}
+.box-table .box-num{font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:500;font-size:12px;}
+.box-table .grade{color:var(--text);font-weight:500;}
+.box-table .size{font-family:'JetBrains Mono',monospace;color:var(--text2);}
+.box-table .qty{font-family:'JetBrains Mono',monospace;text-align:right;font-weight:500;color:var(--text);}
+.box-table .wt{text-align:right;font-family:'JetBrains Mono',monospace;color:var(--text3);}
+.box-table .box-divider td{padding:4px 14px;border-bottom:none;}
+.box-table .box-divider .box-num-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;font-weight:600;padding:6px 14px;background:rgba(255,255,255,.02);}
+.box-table .sub-row td{padding-left:32px;font-size:11px;color:var(--text3);}
+.box-table .box-total td{font-weight:600;color:var(--text);border-top:1px solid var(--border);background:rgba(255,255,255,.02);padding:10px 14px;}
+.box-table .box-total .qty{text-align:right;color:var(--accent);}
+.box-table .box-total .wt{text-align:right;color:var(--accent);}
+
+/* List section */
+.list-section{margin-bottom:24px;}
+.list-content{padding:8px 4px;}
+.list-row{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;border-bottom:1px solid rgba(255,255,255,.03);font-size:12px;transition:background .15s;}
+.list-row:last-child{border-bottom:none;}
+.list-row:hover{background:rgba(255,255,255,.02);}
+.list-row.list-repl{border-left:3px solid var(--purple);padding-left:13px;}
+.repl-tag{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--purple-dim);color:var(--purple);font-size:10px;font-weight:600;letter-spacing:.3px;vertical-align:middle;margin-left:4px;}
+.list-item{color:var(--text);font-weight:500;font-family:'JetBrains Mono',monospace;}
+.list-qty{color:var(--accent);font-family:'JetBrains Mono',monospace;font-weight:500;}
+
+/* Timeline */
+.tl{position:relative;padding:16px 0;margin:24px 0;}
+.tl-track{position:absolute;top:24px;left:40px;right:40px;height:3px;background:var(--border);border-radius:2px;}
+.tl-fill{height:100%;border-radius:2px;transition:width .8s ease;}
+.tl-fill.green{background:linear-gradient(90deg,var(--green),var(--accent));}
+.tl-fill.blue{background:linear-gradient(90deg,var(--accent),var(--purple));}
+.tl-fill.amber{background:var(--amber);}
+.tl-fill.red{background:var(--red);opacity:.3;}
+.tl-steps{display:flex;justify-content:space-between;position:relative;z-index:1;}
+.tl-step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:0 0 auto;}
+.tl-dot{width:20px;height:20px;border-radius:50%;border:3px solid var(--text3);background:var(--bg);display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.tl-dot.done{border-color:var(--green);background:var(--green);}
+.tl-dot.done svg{width:10px;height:10px;fill:#fff;}
+.tl-dot.current{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 5px var(--accent-dim);animation:pulse 2s infinite;}
+.tl-dot.warn{border-color:var(--red);background:transparent;}
+.tl-dot.future{border-color:var(--text3);background:transparent;}
+.tl-label{font-size:11px;color:var(--text3);text-align:center;line-height:1.3;max-width:70px;}
+.tl-label.done{color:var(--green);font-weight:500;}
+.tl-label.now{color:var(--accent);font-weight:500;}
+.tl-label.err{color:var(--red);font-weight:500;}
+
+/* Signoff box */
+.signoff{border-radius:var(--radius-sm);padding:16px 18px;margin-top:20px;transition:all .3s;}
+.signoff.good{background:var(--green-dim);border:1px solid rgba(72,187,120,.2);}
+.signoff.delivered{background:var(--green-dim);border:1px solid rgba(72,187,120,.3);}
+.signoff.info{background:var(--accent-dim);border:1px solid rgba(99,179,237,.2);}
+.signoff.warn{background:var(--amber-dim);border:1px solid rgba(236,201,75,.2);}
+.sign-label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.sign-label.good{color:var(--green);}
+.sign-label.delivered{color:var(--green);}
+.sign-label.info{color:var(--accent);}
+.sign-label.warn{color:var(--amber);}
+.sign-value{font-size:18px;font-weight:700;margin-bottom:4px;}
+.sign-value.good{color:var(--green);}
+.sign-value.delivered{color:var(--green);}
+.sign-value.info{color:var(--accent);}
+.sign-value.warn{color:var(--amber);}
+.sign-note{font-size:12px;color:var(--text2);line-height:1.5;}
+
+/* Collapsible signoff */
+.signoff-collapsed{border-radius:var(--radius-xs);padding:10px 14px;margin-top:16px;background:var(--bg2);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3);transition:all .2s;user-select:none;}
+.signoff-collapsed:hover{border-color:var(--border-active);color:var(--text2);}
+.signoff-collapsed svg{width:14px;height:14px;fill:var(--text3);transition:transform .3s;flex-shrink:0;}
+.signoff-collapsed.open svg{transform:rotate(180deg);}
+.signoff-expand-wrap{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.signoff-expand-wrap.open{max-height:200px;}
+
+/* Alert */
+.alert{background:var(--red-dim);border:1px solid rgba(252,129,129,.2);border-radius:var(--radius-sm);padding:14px 16px;margin-top:16px;display:flex;gap:12px;align-items:flex-start;}
+.alert-icon{width:20px;height:20px;min-width:20px;fill:var(--red);margin-top:1px;}
+.alert-body{font-size:13px;color:var(--red);line-height:1.6;}
+.alert-body strong{font-weight:600;}
+
+/* All orders section */
+.all-section{margin-top:40px;}
+.all-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:16px;padding-left:4px;}
+
+/* Mini cards for all */
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;}
+.mini-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all .2s;}
+.mini-card:hover{border-color:var(--border-active);background:var(--card-hover);transform:translateY(-1px);}
+.mini-card.archived{opacity:.55;background:rgba(255,255,255,.015);}
+.mini-card.archived:hover{opacity:1;background:var(--card-hover);}
+.mini-card.archived .mini-id{text-decoration:line-through;color:var(--text3);}
+.mini-id{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;margin-bottom:6px;}
+.mini-status{font-size:11px;display:flex;align-items:center;gap:5px;}
+.mini-dot{width:6px;height:6px;border-radius:50%;}
+.mini-dot.g{background:var(--green);}
+.mini-dot.b{background:var(--accent);}
+.mini-dot.y{background:var(--amber);}
+.mini-dot.r{background:var(--red);}
+.mini-date{font-size:11px;color:var(--text3);margin-top:4px;}
+
+/* Footer */
+.footer{text-align:center;padding:40px 20px 24px;font-size:11px;color:var(--text3);}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+/* Responsive */
+@media(max-width:640px){
+  .main{padding:24px 16px;}
+  .oc-header{flex-direction:column;}
+  .detail-grid{grid-template-columns:1fr 1fr;}
+  .tl-steps{justify-content:space-around;}
+  .tl-track{left:20px;right:20px;}
+  .mini-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* Order Overview Panel */
+.order-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px;}
+.order-panel-title{font-size:16px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.order-panel-badge{font-size:11px;font-family:'JetBrains Mono',monospace;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:4px;font-weight:500;}
+.order-panel-sub{font-size:12px;color:var(--text2);margin-bottom:16px;}
+.order-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.order-stat{background:var(--bg2);border-radius:var(--radius-xs);padding:12px 14px;text-align:center;}
+.order-stat-val{font-size:20px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.order-stat-val.green{color:var(--green);}
+.order-stat-val.accent{color:var(--accent);}
+.order-stat-val.amber{color:var(--amber);}
+.order-stat-val.orange{color:var(--orange);}
+.order-stat-label{font-size:11px;color:var(--text3);margin-top:4px;}
+
+    .payment-progress-label{font-size:11px;color:var(--text3);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+.order-table-wrap{max-height:400px;overflow-y:auto;border-radius:var(--radius-sm);border:1px solid var(--border);}
+.order-table{width:100%;border-collapse:collapse;font-size:13px;}
+.order-table thead{position:sticky;top:0;z-index:1;}
+.order-table th{background:var(--bg2);color:var(--text2);font-weight:500;padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);}
+.order-table th.right{text-align:right;}
+.order-table td{padding:9px 14px;border-bottom:1px solid var(--border);}
+.order-table tr:last-child td{border-bottom:none;}
+.order-table tr:hover td{background:var(--card-hover);}
+.order-table .mono{font-family:'JetBrains Mono',monospace;font-size:12px;}
+
+.status-done{color:var(--green);font-weight:500;}
+.status-partial{color:var(--orange);font-weight:500;}
+.status-pending{color:var(--text3);}
+.prod-status{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:11px;}
+.prod-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.prod-dot.s{background:var(--green);}
+.prod-dot.r{background:var(--accent);animation:readyPulse 2s ease-in-out infinite;box-shadow:0 0 0 2px rgba(99,179,237,.2);}
+.prod-dot.p{background:var(--text3);opacity:.5;}
+.prod-label{color:var(--text3);font-size:10px;}
+
+@keyframes readyPulse{0%,100%{box-shadow:0 0 0 2px rgba(99,179,237,.2);}50%{box-shadow:0 0 0 5px rgba(99,179,237,.05);}}
+
+.progress-bar-mini{width:80px;height:6px;background:var(--bg);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0;}
+.progress-bar-mini .fill{height:100%;border-radius:3px;transition:width .5s;display:block;}
+.progress-bar-mini .fill.done{background:var(--green);}
+.progress-bar-mini .fill.partial{background:var(--orange);}
+.progress-bar-mini .fill.zero{background:var(--text3);opacity:.3;}
+
+.progress-cell{display:flex;align-items:center;gap:2px;white-space:nowrap;}
+
+.order-section-title{font-size:13px;font-weight:600;color:var(--text2);margin:16px 0 8px;padding-left:4px;display:flex;align-items:center;gap:8px;}
+.order-section-title .dot{width:8px;height:8px;border-radius:50%;}
+.order-section-title .dot.g{background:var(--green);}
+.order-section-title .dot.o{background:var(--orange);}
+.order-section-title .dot.y{background:var(--text3);}
+
+/* Filter buttons */
+.filter-bar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.filter-btn{padding:5px 12px;border-radius:16px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:11px;font-family:inherit;font-weight:500;cursor:pointer;transition:all .2s;}
+.filter-btn:hover{border-color:var(--border-active);color:var(--accent);}
+.filter-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
+.filter-count{font-family:'JetBrains Mono',monospace;margin-left:3px;opacity:.7;}
+
+@media(max-width:640px){
+  .order-stats{grid-template-columns:1fr 1fr;}
+  .payment-detail{flex-direction:column;gap:6px;}
+  .payment-total{margin-left:0;}
+  .order-table .hide-mobile{display:none;}
+  .order-table .col-grade{font-size:12px;font-weight:500;white-space:nowrap;}
+}
+
+/* Archive system */
+.archive-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:16px;cursor:pointer;transition:all .2s;user-select:none;font-size:13px;color:var(--text2);}
+.archive-bar:hover{border-color:var(--border-active);color:var(--accent);}
+.archive-bar.open .archive-bar-label svg{transform:rotate(180deg);}
+.archive-bar-label{display:flex;align-items:center;gap:8px;font-weight:500;}
+.archive-bar-label svg{width:16px;height:16px;fill:var(--text3);transition:transform .3s;flex-shrink:0;}
+.archive-count{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--green-dim);color:var(--green);padding:2px 8px;border-radius:10px;}
+.archive-panel{max-height:0;overflow:hidden;transition:max-height .5s ease;}
+.archive-panel.open{max-height:3000px;}
+.archive-panel .order-card{opacity:.75;transition:opacity .3s;}
+.archive-panel .order-card:hover{opacity:1;}
+
+/* Search active state */
+.search-box.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim);}
+.search-clear{padding:10px 18px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;display:none;}
+.search-clear.show{display:inline-flex;align-items:center;gap:6px;}
+.search-clear:hover{border-color:var(--red);color:var(--red);}
+.search-clear svg{width:14px;height:14px;}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<div class="main">
+  <!-- Header -->
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+    </div>
+    <div>
+      <h1>Order Tracking</h1>
+    </div>
+  </div>
+  <p class="brand-sub">Enter your order code to view real-time shipment status</p>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <div class="search-box" id="searchBox">
+      <span class="search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input class="search-input" id="searchInput" type="text" placeholder="Enter order code, e.g. A4, A9, A10..." autocomplete="off">
+      <button class="search-btn" id="searchBtn" onclick="doSearch()">Search</button>
+    </div>
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Clear
+    </button>
+    <div class="tags">
+      <span class="tag" onclick="quickSearch('A4')">A4</span>
+      <span class="tag" onclick="quickSearch('A9')">A9</span>
+      <span class="tag" onclick="quickSearch('A10')">A10</span>
+      <span class="tag" onclick="quickSearch('A11')">A11</span>
+      <span class="tag" onclick="quickSearch('A12-1')">A12-1</span>
+      <span class="tag" onclick="quickSearch('A12-2')">A12-2</span>
+      <span class="tag" onclick="quickSearch('B1')">B1</span>
+      <span class="tag" onclick="quickSearch('B2')">B2</span>
+      <span class="tag" onclick="showAll()">View All</span>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div class="error-msg" id="errorMsg">
+    <div class="error-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    </div>
+    <div class="error-title">Order not found</div>
+    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, EK20260506</div>
+  </div>
+
+  <!-- Result -->
+  <div class="result" id="result"></div>
+
+  <div class="footer">
+    Last updated: 2026-06-05 12:42 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+  </div>
+</div>
+
+<script>
+const checkSvg = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+
+const orders = {
+  'A4': {
+    id: 'A4', status: 'delivered', badge: 'Delivered', badgeClass: 'delivered',
+    title: 'N35 Series Magnets', sub: '5 boxes | 88.45 KG | 87,681 pcs',
+    ship: 'SM KWANGYANG', voyage: '2603E', tracking: 'FEDEX 870810130316',
+    etd: '2026-04-27', etaOrig: '2026-05-23', etaReal: '2026-05-12',
+    highlight: 'Package delivered and signed by customer.',
+    products: 'N35 20x3-5(N-S) / 20x3-5(S-N) / 15x2 / 10x1',
+    pkgSize: '35 x 25 x 20 cm', payment: 'paid',
+    destination: 'LONG BEACH, CA',
+    list: ['N35 20x3-5(N-S) 3648', 'N35 20x3-5(S-N) 3675', 'N35 15x2 4000', 'N35 10x1 50000'],
+    progress: 100, progressColor: 'green',
+    signLabel: 'delivered', signDate: 'Delivered',
+    signNote: 'Vessel arrived Long Beach May 12. Customs cleared. Last-mile delivery via FEDEX completed — customer signed for the package.',
+    steps: [
+      { label: 'Departed\nBusan\n04-27', cls: 'done' },
+      { label: 'Arrived\nLong Beach\n05-12', cls: 'done' },
+      { label: 'Customs &\nUnloading\nCompleted', cls: 'done' },
+      { label: 'Last-mile\nDelivery\nCompleted', cls: 'done' },
+      { label: 'Customer\nSigned', cls: 'done' }
+    ],
+    alert: null,
+    boxes: [
+      { num: 1, weight: 17.50, items: [{ grade: 'N35', size: '20x3-5(N-S)', qty: 2688 }, { grade: 'N35', size: '20x3-5(S-N)', qty: 2688 }, { grade: 'N35', size: '20x3-5(N-S)', qty: 960 }] },
+      { num: 2, weight: 18.50, items: [{ grade: 'N35', size: '20x3-5(S-N)', qty: 987 }, { grade: 'N35', size: '15x2', qty: 2000 }] },
+      { num: 3, weight: 18.00, items: [{ grade: 'N35', size: '15x2', qty: 2000 }, { grade: 'N35', size: '10x1', qty: 21200 }] },
+      { num: 4, weight: 16.95, items: [{ grade: 'N35', size: '10x1', qty: 28800 }] },
+      { num: 5, weight: 17.50, items: [{ grade: 'N35', size: '10x1', qty: 21683 }] }
+    ]
+  },
+  'A9': {
+    id: 'A9', status: 'delivered', badge: 'Delivered', badgeClass: 'delivered',
+    title: 'N35 / N52 Series Magnets', sub: '6 boxes | 101.8 KG | 13,872 pcs',
+    ship: 'SM YANTIAN', voyage: '2603E', tracking: 'UPS 1Z0JH5420314797013',
+    etd: '2026-05-04', etaOrig: '2026-06-04', etaReal: '2026-05-23',
+    highlight: 'Package delivered and signed for on June 4, 2026. Delivered to Brownsville, TX.',
+    products: 'N35 35x3 / 12.7x12.7 / 10x5 / 5x8 / 10x10x6 / 30x2 / N52 22.2x12.7',
+    pkgSize: '35 x 25 x 20 cm', payment: 'paid',
+    destination: 'LONG BEACH, CA',
+    list: ['N35 35x3 800 pcs', 'N35 12.7x12.7 1,944 pcs', 'N35 10x5 15,020 pcs', 'N35 10x10x6 960 pcs', 'N35 5x8 2,000 pcs', 'N35 30x2 200 pcs', 'N52 22x12.7 140 pcs'],
+    progress: 100, progressColor: 'green',
+    signLabel: 'delivered', signDate: 'Delivered Jun 4, 2026',
+    signNote: 'Vessel arrived Long Beach May 23 (12 days early). Customs cleared. UPS last-mile delivery completed — package signed for on June 4 in Brownsville, TX.',
+    steps: [
+      { label: 'Departed\nYantian\n05-04', cls: 'done' },
+      { label: 'Arrived\nLong Beach\n05-23', cls: 'done' },
+      { label: 'Customs &\nUnloading\nCompleted', cls: 'done' },
+      { label: 'Last-mile\nUPS Delivery\nCompleted', cls: 'done' },
+      { label: 'Customer\nSigned', cls: 'done' }
+    ],
+    alert: null,
+    boxes: [
+      { num: 1, weight: 16.05, items: [{ grade: 'N35', size: '35x3', qty: 216 }, { grade: 'N35', size: '12.7x12.7', qty: 864 }] },
+      { num: 2, weight: 17.05, items: [{ grade: 'N35', size: '35x3', qty: 162 }, { grade: 'N35', size: '12.7x12.7', qty: 1080 }] },
+      { num: 3, weight: 17.55, items: [{ grade: 'N35', size: '35x3', qty: 206 }, { grade: 'N35', size: '10x5', qty: 4224 }] },
+      { num: 4, weight: 17.00, items: [{ grade: 'N35', size: '35x3', qty: 216 }, { grade: 'N35', size: '10x5', qty: 3168 }, { grade: 'N35', size: '5x8', qty: 2000 }] },
+      { num: 5, weight: 17.70, items: [{ grade: 'N35', size: '10x5', qty: 5516 }, { grade: 'N35', size: '10x10x6', qty: 240 }] },
+      { num: 6, weight: 17.45, items: [{ grade: 'N35', size: '10x10x6', qty: 720 }, { grade: 'N35', size: '10x5', qty: 2112 }, { grade: 'N35', size: '30x2', qty: 200 }, { grade: 'N52', size: '22.2x12.7', qty: 140 }] }
+    ]
+  },
+  'A10': {
+    id: 'A10', status: 'delivered', badge: 'Delivered', badgeClass: 'delivered',
+    title: 'N35 / N52 Series Magnets', sub: '6 boxes | 114.2 KG | 7,628 pcs',
+    ship: 'COSCO TAICANG', voyage: '109E', tracking: 'UPS 1Z0JH5420330875514',
+    etd: '2026-05-07', etaOrig: '2026-06-07', etaReal: '2026-05-23',
+    highlight: 'Package delivered and signed for on June 4, 2026. Delivered to Brownsville, TX.',
+    products: 'N35 30x3 / 25x3-5(N-S) / 25x3-5(S-N) / 30x5 / 12x6 / N52 15x15',
+    pkgSize: '35 x 25 x 20 cm', payment: 'paid',
+    destination: 'LONG BEACH, CA',
+    list: ['N35 30x3 3,866 pcs', 'N35 25x3-5(N-S) 1,005 pcs', 'N35 25x3-5(S-N) 1,005 pcs', 'N35 30x5 200 pcs', 'N35 12x6 2,000 pcs', 'N52 15x15 520 pcs'],
+    progress: 100, progressColor: 'green',
+    signLabel: 'delivered', signDate: 'Delivered Jun 4, 2026',
+    signNote: 'Vessel arrived Long Beach May 23 (15 days early). Customs cleared. UPS last-mile delivery completed — package signed for on June 4 in Brownsville, TX.',
+    steps: [
+      { label: 'Departed\nDaxie\n05-07', cls: 'done' },
+      { label: 'Arrived\nLong Beach\n05-23', cls: 'done' },
+      { label: 'Customs &\nUnloading\nCompleted', cls: 'done' },
+      { label: 'Last-mile\nUPS Delivery\nCompleted', cls: 'done' },
+      { label: 'Customer\nSigned', cls: 'done' }
+    ],
+    alert: null,
+    boxes: [
+      { num: 1, weight: 19.45, items: [{ grade: 'N35', size: '30x3', qty: 950 }, { grade: 'N35', size: '25x3-5(N-S)', qty: 312 }] },
+      { num: 2, weight: 19.80, items: [{ grade: 'N35', size: '30x3', qty: 972 }, { grade: 'N35', size: '25x3-5(N-S)', qty: 312 }] },
+      { num: 3, weight: 19.75, items: [{ grade: 'N35', size: '30x3', qty: 972 }, { grade: 'N35', size: '25x3-5(N-S)', qty: 312 }] },
+      { num: 4, weight: 19.70, items: [{ grade: 'N35', size: '30x3', qty: 972 }, { grade: 'N35', size: '25x3-5(N-S)', qty: 69 }, { grade: 'N35', size: '30x5', qty: 92 }] },
+      { num: 5, weight: 18.70, items: [{ grade: 'N35', size: '25x3-5(S-N)', qty: 537 }, { grade: 'N35', size: '12x6', qty: 1890 }, { grade: 'N35', size: '30x5', qty: 108 }] },
+      { num: 6, weight: 16.60, items: [{ grade: 'N52', size: '15x15', qty: 520 }, { grade: 'N35', size: '12x6', qty: 110 }, { grade: 'N35', size: '25x3-5(S-N)', qty: 468 }] }
+    ]
+  },
+  'A11': {
+    id: 'A11', status: 'arrived', badge: 'Arrived at Port', badgeClass: 'arrived',
+    title: 'N35 Series Magnets', sub: '6 boxes | 119.4 KG | 155,775 pcs',
+    ship: 'CSCL YELLOW SEA', voyage: '', tracking: 'UPS 1Z035B4X0328780897',
+    etd: '2026-05-14', etaOrig: '2026-06-14', etaReal: '2026-05-31',
+    highlight: 'Vessel at Long Beach since May 31. Customs clearance in progress. UPS label created — awaiting pickup.',
+    products: 'N35 10x2 / 5x2 / 5x3 / 16x10',
+    pkgSize: '35 x 25 x 20 cm', payment: 'paid',
+    destination: 'LONG BEACH, CA',
+    list: ['N35 10x2 59035', 'N35 5x2 25000', 'N35 5x3 55100', 'N35 16x10 1015'],
+    progress: 72, progressColor: 'green',
+    signLabel: 'good', signDate: 'June 5 — June 11, 2026',
+    signNote: 'Vessel arrived Long Beach May 31 (14 days early). Customs clearance in progress. UPS label created (May 11) — awaiting pickup after customs release.',
+    steps: [
+      { label: 'Departed\nYantian\n05-14', cls: 'done' },
+      { label: 'Arrived\nLong Beach\n05-31', cls: 'done' },
+      { label: 'Customs &\nUnloading\nIn Progress', cls: 'current' },
+      { label: 'Last-mile\nUPS\nLabel Created', cls: 'future' },
+      { label: 'Customer\nSigned', cls: 'future' }
+    ],
+    alert: null,
+    boxes: [
+      { num: 1, weight: 20.20, items: [{ grade: 'N35', size: '10x2', qty: 16726 }, { grade: 'N35', size: '5x2', qty: 25000 }, { grade: 'N35', size: '5x3', qty: 3004 }] },
+      { num: 2, weight: 20.00, items: [{ grade: 'N35', size: '10x2', qty: 16407 }, { grade: 'N35', size: '5x2', qty: 25000 }, { grade: 'N35', size: '5x3', qty: 3004 }] },
+      { num: 3, weight: 20.00, items: [{ grade: 'N35', size: '10x2', qty: 16416 }] },
+      { num: 4, weight: 20.00, items: [{ grade: 'N35', size: '10x2', qty: 9486 }, { grade: 'N35', size: '5x3', qty: 39072 }, { grade: 'N35', size: '16x10', qty: 135 }] },
+      { num: 5, weight: 19.60, items: [{ grade: 'N35', size: '5x3', qty: 39072 }, { grade: 'N35', size: '16x10', qty: 135 }] },
+      { num: 6, weight: 19.60, items: [{ grade: 'N35', size: '5x3', qty: 13024 }, { grade: 'N35', size: '16x10', qty: 880 }] }
+    ]
+  },
+  'A12-1': {
+    id: 'A12-1', status: 'enroute', badge: 'En Route — ETA Jun 13', badgeClass: 'enroute',
+    title: 'Sm2Co17N30 Series Magnets', sub: '1 box | 20.0 KG | 40,000 pcs',
+    ship: 'CSCL SUMMER', voyage: '074E', tracking: 'UPS 1ZK6B4410314170456',
+    etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-13',
+    highlight: 'CSCL SUMMER at 46\u00b0N 161\u00b0E, speed 16.8 kn, heading to Long Beach. ETA June 13 11:00 UTC. UPS label created — awaiting vessel arrival.',
+    products: 'Sm2Co17N30 5x3',
+    pkgSize: '35 x 25 x 25 cm', payment: 'paid',
+    destination: 'LONG BEACH, CA',
+    list: ['Sm2Co17N30 5x3 40000'],
+    progress: 45, progressColor: 'blue',
+    signLabel: 'info', signDate: 'June 16 — June 22, 2026',
+    signNote: 'Based on AIS ETA June 13 + 3-7 business days for customs clearance and last-mile delivery. UPS label already created (May 18).',
+    steps: [
+      { label: 'Departed\n05-28', cls: 'done' },
+      { label: 'En Route\nETA 06-13', cls: 'current' },
+      { label: 'Arrive\nLong Beach\n~06-13', cls: 'future' },
+      { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
+      { label: 'Customer\nSigned', cls: 'future' }
+    ],
+    alert: null,
+    boxes: [
+      { num: 1, weight: 20.00, items: [{ grade: 'Sm2Co17N30', size: '5x3', qty: 40000 }] }
+    ]
+  },
+  'A12-2': {
+    id: 'A12-2', status: 'enroute', badge: 'En Route — ETA Jun 10', badgeClass: 'enroute',
+    title: 'N35 20x10x2 Series Magnets', sub: '6 boxes | 122.7 KG | 40,100 pcs',
+    ship: 'PELICAN I', voyage: '13E', tracking: 'UPS 1Z035B4X0306404709',
+    etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-10',
+    highlight: 'PELICAN I crossed 180\u00b0, now at 46\u00b0N 172\u00b0W, speed 20.3 kn. ETA June 10 11:00 UTC. UPS label created — awaiting vessel arrival.',
+    products: 'N35 20x10x2',
+    pkgSize: '35 x 25 x 25 cm', payment: 'paid',
+    destination: 'LOS ANGELES, CA',
+    list: ['N35 20x10x2 40100'],
+    progress: 55, progressColor: 'blue',
+    signLabel: 'info', signDate: 'June 13 — June 19, 2026',
+    signNote: 'Based on AIS ETA June 10 + 3-7 business days for customs clearance and last-mile delivery. UPS label already created (May 25).',
+    steps: [
+      { label: 'Departed\n05-28', cls: 'done' },
+      { label: 'En Route\nETA 06-10', cls: 'current' },
+      { label: 'Arrive\nLos Angeles\n~06-10', cls: 'future' },
+      { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
+      { label: 'Customer\nSigned', cls: 'future' }
+    ],
+    alert: null,
+    boxes: [
+      { num: 1, weight: 20.45, items: [{ grade: 'N35', size: '20x10x2', qty: 6720 }] },
+      { num: 2, weight: 20.45, items: [{ grade: 'N35', size: '20x10x2', qty: 6720 }] },
+      { num: 3, weight: 20.45, items: [{ grade: 'N35', size: '20x10x2', qty: 6720 }] },
+      { num: 4, weight: 20.45, items: [{ grade: 'N35', size: '20x10x2', qty: 6720 }] },
+      { num: 5, weight: 20.45, items: [{ grade: 'N35', size: '20x10x2', qty: 6720 }] },
+      { num: 6, weight: 20.45, items: [{ grade: 'N35', size: '20x10x2', qty: 6500 }] }
+    ]
+  },
+  'B1': {
+    id: 'B1', status: 'enroute', badge: 'En Route', badgeClass: 'enroute',
+    title: 'N35 Series Magnets', sub: '8 boxes | 154.65 KG | 124,700 pcs (incl. 700 pcs replenishment)',
+    ship: 'TBD', voyage: '', tracking: 'UPS 1Z035B4X0310559946',
+    etd: '2026-06-05', etaOrig: '2026-07-05', etaReal: null,
+    highlight: 'Shipment dispatched Jun 5. UPS label created — awaiting pickup.',
+    products: 'N35 3x1.5 / 4x2 / 4x4 / 10x10 / 12x2 / 12x5 / 20x20x5 / 20x3-5',
+    pkgSize: 'TBD', payment: 'paid',
+    destination: '',
+    list: ['N35 3x1.5 40,000', 'N35 4x2 50,000', 'N35 4x4 10,000', 'N35 10x10 8,000', 'N35 12x2 8,000', 'N35 12x5 5,000', 'N35 20x20x5 3,000', 'N35 20x3-5 700 (Replenishment)'],
+    progress: 15, progressColor: 'blue',
+    signLabel: 'info', signDate: 'July 8 — July 14, 2026',
+    signNote: 'Based on ETA July 5 + 3-7 business days for customs clearance and last-mile delivery.',
+    steps: [
+      { label: 'Departed\n06-05', cls: 'done' },
+      { label: 'En Route\nETA ~07-05', cls: 'current' },
+      { label: 'Arrive\nTBD\n~07-05', cls: 'future' },
+      { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
+      { label: 'Customer\nSigned', cls: 'future' }
+    ],
+    alert: null,
+    orderId: 'EK20260506',
+    boxes: [
+      { num: 1, weight: 18.10, items: [{ grade: 'N35', size: '4x4', qty: 10000 }, { grade: 'N35', size: '12x2', qty: 8000 }] },
+      { num: 2, weight: 19.30, items: [{ grade: 'N35', size: '20x20x5', qty: 1176 }, { grade: 'N35', size: '3x1.5', qty: 4720 }, { grade: 'N35', size: '12x5', qty: 72 }] },
+      { num: 3, weight: 21.50, items: [{ grade: 'N35', size: '20x20x5', qty: 1368 }] },
+      { num: 4, weight: 19.25, items: [{ grade: 'N35', size: '12x5', qty: 4312 }] },
+      { num: 5, weight: 21.15, items: [{ grade: 'N35', size: '20x20x5', qty: 456 }, { grade: 'N35', size: '12x5', qty: 616 }, { grade: 'N35', size: '4x2', qty: 42120 }, { grade: 'N35', size: '3x1.5', qty: 35280 }] },
+      { num: 6, weight: 18.95, items: [{ grade: 'N35', size: '10x10', qty: 3080 }] },
+      { num: 7, weight: 18.95, items: [{ grade: 'N35', size: '10x10', qty: 3080 }] },
+      { num: 8, weight: 17.45, items: [{ grade: 'N35', size: '10x10', qty: 1840 }, { grade: 'N35', size: '4x2', qty: 7880 }, { grade: 'N35', size: '20x3-5', qty: 700, repl: true }] }
+    ]
+  },
+  'B2': {
+    id: 'B2', status: 'pending', badge: 'Pending Shipment', badgeClass: 'pending',
+    title: 'N35 Series Magnets', sub: '7 boxes | 138.53 KG | 106,500 pcs',
+    ship: 'TBD', voyage: '', tracking: 'Not assigned',
+    etd: '2026-06-11', etaOrig: '2026-07-11', etaReal: null,
+    highlight: 'Shipment booking in progress. 7 boxes ready. ETD June 11.',
+    products: 'N35 5x1 / 8x5 / 10x5x2 / 12x4 / 15x2 / 15x5 / 40x5',
+    pkgSize: 'TBD', payment: 'paid',
+    destination: '',
+    list: ['N35 5x1 60,000', 'N35 8x5 8,000', 'N35 10x5x2 10,000', 'N35 12x4 2,000', 'N35 15x2 25,000', 'N35 15x5 1,000', 'N35 40x5 500'],
+    progress: 5, progressColor: 'blue',
+    signLabel: 'info', signDate: 'July 14 — July 20, 2026',
+    signNote: 'Based on ETA July 11 + 3-7 business days for customs clearance and last-mile delivery.',
+    steps: [
+      { label: 'Ship\nBooking\nPending', cls: 'current' },
+      { label: 'Depart\n~06-11', cls: 'future' },
+      { label: 'Arrive\nTBD\n~07-11', cls: 'future' },
+      { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
+      { label: 'Customer\nSigned', cls: 'future' }
+    ],
+    alert: null,
+    orderId: 'EK20260506',
+    boxes: [
+      { num: 1, weight: 15.45, items: [{ grade: 'N35', size: '40x5', qty: 304 }] },
+      { num: 2, weight: 16.65, items: [{ grade: 'N35', size: '40x5', qty: 196 }, { grade: 'N35', size: '12x4', qty: 1890 }] },
+      { num: 3, weight: 21.50, items: [{ grade: 'N35', size: '8x5', qty: 8000 }, { grade: 'N35', size: '15x5', qty: 880 }] },
+      { num: 4, weight: 21.80, items: [{ grade: 'N35', size: '15x2', qty: 7980 }, { grade: 'N35', size: '5x1', qty: 2976 }] },
+      { num: 5, weight: 19.65, items: [{ grade: 'N35', size: '15x2', qty: 6840 }, { grade: 'N35', size: '15x5', qty: 120 }, { grade: 'N35', size: '12x4', qty: 110 }] },
+      { num: 6, weight: 21.70, items: [{ grade: 'N35', size: '15x2', qty: 6760 }, { grade: 'N35', size: '10x5x2', qty: 4720 }] },
+      { num: 7, weight: 21.78, items: [{ grade: 'N35', size: '15x2', qty: 3420 }, { grade: 'N35', size: '5x1', qty: 57024 }, { grade: 'N35', size: '10x5x2', qty: 5280 }] }
+    ]
+  }
+};
+
+// ========== EK20260506 Order Master Data ==========
+const orderEK20260506 = {
+  id: 'EK20260506',
+  totalProducts: 22,
+  totalQty: 321100,
+  totalAmount: 37653,
+  paidAmount: 27653,
+  pendingAmount: 10000,
+  items: [
+    { grade: 'N35', size: '3x1.5',    ordered: 40000 },
+    { grade: 'N35', size: '4x2',      ordered: 50000 },
+    { grade: 'N35', size: '4x4',      ordered: 10000 },
+    { grade: 'N35', size: '5x1',      ordered: 60000 },
+    { grade: 'N35', size: '6x4',      ordered: 10000 },
+    { grade: 'N35', size: '8x5',      ordered: 8000 },
+    { grade: 'N35', size: '10x10',    ordered: 8000 },
+    { grade: 'N35', size: '10x5x2',   ordered: 10000 },
+    { grade: 'N35', size: '12x2',     ordered: 8000 },
+    { grade: 'N35', size: '12x4',     ordered: 2000 },
+    { grade: 'N35', size: '12x5',     ordered: 5000 },
+    { grade: 'N35', size: '15x2',     ordered: 25000 },
+    { grade: 'N35', size: '15x5',     ordered: 1000 },
+    { grade: 'N35', size: '20x10x2',  ordered: 40000 },
+    { grade: 'N35', size: '20x20x5',  ordered: 3000 },
+    { grade: 'N35', size: '20x3-5',   ordered: 20000 },
+    { grade: 'N35', size: '20x5-5',   ordered: 1500 },
+    { grade: 'N35', size: '20x5x2',   ordered: 6000 },
+    { grade: 'N35', size: '25x3',     ordered: 5000 },
+    { grade: 'N35', size: '25x3-5',   ordered: 8000 },
+    { grade: 'N35', size: '40x5',     ordered: 500 },
+    { grade: 'N35', size: '40x20x10', ordered: 100 }
+  ],
+  // Shipped data computed from B1 + B2 (excl. replenishment items)
+  shipped: {
+    'N35 3x1.5':    40000,
+    'N35 4x2':      50000,
+    'N35 4x4':      10000,
+    'N35 10x10':     8000,
+    'N35 12x2':      8000,
+    'N35 12x5':      5000,
+    'N35 20x20x5':   3000,
+    'N35 5x1':      60000,
+    'N35 8x5':       8000,
+    'N35 10x5x2':   10000,
+    'N35 12x4':      2000,
+    'N35 15x2':     25000,
+    'N35 15x5':      1000,
+    'N35 40x5':       500
+  },
+  shipments: ['B1', 'B2'],
+  produced: []
+};
+
+function renderOrderOverview(ord) {
+  const producedSet = new Set(ord.produced || []);
+  let totalShipped = 0, totalRemaining = 0, doneCount = 0, partialCount = 0, pendingCount = 0, producingCount = 0, readyCount = 0;
+  const rows = ord.items.map(item => {
+    const key = item.grade + ' ' + item.size;
+    const shippedQty = ord.shipped[key] || 0;
+    const remaining = item.ordered - shippedQty;
+    const pct = item.ordered > 0 ? Math.min((shippedQty / item.ordered) * 100, 100) : 0;
+    totalShipped += shippedQty;
+    totalRemaining += Math.max(remaining, 0);
+    let status, statusCls, barCls;
+    if (shippedQty >= item.ordered) {
+      status = 'Shipped'; statusCls = 'status-done'; barCls = 'done'; doneCount++;
+    } else if (shippedQty > 0) {
+      status = 'Partial'; statusCls = 'status-partial'; barCls = 'partial'; partialCount++;
+    } else {
+      status = 'Pending'; statusCls = 'status-pending'; barCls = 'zero'; pendingCount++;
+    }
+    let prodHtml, prodStatusKey;
+    if (shippedQty >= item.ordered) {
+      prodHtml = '<span class="prod-status"><span class="prod-dot s"></span>Shipped</span>';
+      prodStatusKey = 'shipped';
+    } else if (producedSet.has(key)) {
+      prodHtml = '<span class="prod-status"><span class="prod-dot r"></span>Ready</span>';
+      prodStatusKey = 'ready';
+      readyCount++;
+    } else {
+      prodHtml = '<span class="prod-status"><span class="prod-dot p"></span>Producing</span>';
+      prodStatusKey = 'producing';
+      producingCount++;
+    }
+    return `<tr data-status="${prodStatusKey}">
+      <td class="col-grade">${item.grade}</td>
+      <td class="mono hide-mobile">${item.size}</td>
+      <td class="mono" style="text-align:right">${item.ordered.toLocaleString()}</td>
+      <td class="mono" style="text-align:right">${shippedQty.toLocaleString()}</td>
+      <td class="mono ${statusCls}" style="text-align:right">${Math.max(remaining,0).toLocaleString()}</td>
+      <td><div class="progress-cell"><span class="progress-bar-mini"><span class="fill ${barCls}" style="width:${pct}%"></span></span><span class="${statusCls}">${Math.round(pct)}%</span></div></td>
+      <td>${prodHtml}</td>
+    </tr>`;
+  }).join('');
+
+  const overallPct = (totalShipped / ord.totalQty * 100).toFixed(1);
+
+  // Shipment references
+  const shipmentLinks = ord.shipments.map(sid => {
+    const so = orders[sid];
+    if (so) return `<span class="mini-card" style="display:inline-flex;padding:8px 12px;margin:4px;cursor:pointer;" onclick="quickSearch('${sid}')">#${sid} <span style="color:var(--text3);margin-left:6px;">${so.badge}</span></span>`;
+    return `<span style="display:inline-block;padding:8px 12px;margin:4px;background:var(--bg2);border-radius:var(--radius-xs);">#${sid}</span>`;
+  }).join('');
+
+  return `
+  <div class="order-panel">
+    <div class="order-panel-title">
+      Order Overview
+      <span class="order-panel-badge">${ord.id}</span>
+    </div>
+    <div class="order-panel-sub">${ord.totalProducts} product lines | ${ord.totalQty.toLocaleString()} pcs total | ${ord.shipments.length} shipment(s)</div>
+
+    <div class="order-stats">
+      <div class="order-stat">
+        <div class="order-stat-val accent">${ord.totalQty.toLocaleString()}</div>
+        <div class="order-stat-label">Total Ordered</div>
+      </div>
+      <div class="order-stat">
+        <div class="order-stat-val green">${totalShipped.toLocaleString()}</div>
+        <div class="order-stat-label">Total Shipped</div>
+      </div>
+      <div class="order-stat">
+        <div class="order-stat-val amber">${totalRemaining.toLocaleString()}</div>
+        <div class="order-stat-label">Remaining</div>
+      </div>
+      <div class="order-stat">
+        <div class="order-stat-val ${parseFloat(overallPct)>50?'green':'orange'}">${overallPct}%</div>
+        <div class="order-stat-label">Fulfillment</div>
+      </div>
+    </div>
+
+    <div class="order-section-title"><span class="dot g"></span>Shipped (${doneCount} completed${partialCount>0?', '+partialCount+' partial':''})</div>
+    <div class="order-section-title"><span class="dot o"></span>Ready (${readyCount} produced, awaiting shipment)</div>
+    <div class="order-section-title"><span class="dot y"></span>Producing (${producingCount} in production)</div>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" onclick="filterTable('all')">All<span class="filter-count">${ord.items.length}</span></button>
+      <button class="filter-btn" onclick="filterTable('shipped')"><span class="prod-dot s" style="display:inline-block;vertical-align:middle;margin-right:3px;"></span>Shipped<span class="filter-count">${doneCount}</span></button>
+      <button class="filter-btn" onclick="filterTable('ready')"><span class="prod-dot r" style="display:inline-block;vertical-align:middle;margin-right:3px;"></span>Ready<span class="filter-count">${readyCount}</span></button>
+      <button class="filter-btn" onclick="filterTable('producing')"><span class="prod-dot p" style="display:inline-block;vertical-align:middle;margin-right:3px;"></span>Producing<span class="filter-count">${producingCount}</span></button>
+    </div>
+
+    <div class="order-table-wrap">
+      <table class="order-table">
+        <thead><tr>
+          <th class="col-grade">Grade</th><th class="mono hide-mobile">Size (mm)</th><th class="right">Ordered</th><th class="right">Shipped</th><th class="right">Remaining</th><th>Fulfillment</th><th>Status</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr style="font-weight:600;background:var(--bg2);">
+          <td colspan="2" style="color:var(--text2);font-size:12px;">TOTAL</td>
+          <td class="mono" style="text-align:right">${ord.totalQty.toLocaleString()}</td>
+          <td class="mono" style="text-align:right;color:var(--green)">${totalShipped.toLocaleString()}</td>
+          <td class="mono" style="text-align:right;color:var(--amber)">${totalRemaining.toLocaleString()}</td>
+          <td><div class="progress-cell"><span class="progress-bar-mini"><span class="fill ${parseFloat(overallPct)>50?'done':'partial'}" style="width:${overallPct}%"></span></span><span class="${parseFloat(overallPct)>50?'status-done':'status-partial'}">${overallPct}%</span></div></td>
+          <td></td>
+        </tr></tfoot>
+      </table>
+    </div>
+
+    <div style="margin-top:16px;font-size:12px;color:var(--text2);">
+      <strong>Related Shipments:</strong>
+      <div style="margin-top:6px;">${shipmentLinks}</div>
+    </div>
+  </div>`;
+}
+
+function renderBoxTable(boxes, orderId) {
+  const chevronSvg = '<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>';
+  let totalQty = 0, totalWt = 0;
+  boxes.forEach(b => { totalWt += b.weight; b.items.forEach(it => totalQty += it.qty); });
+
+  const tbodyHtml = boxes.map((box, bi) => {
+    let rows = '';
+    const boxTotalQty = box.items.reduce((s, it) => s + it.qty, 0);
+    box.items.forEach((it, ii) => {
+      rows += `<tr class="${ii > 0 ? 'sub-row' : ''}">
+        <td class="box-num">${ii === 0 ? 'Box ' + box.num : ''}</td>
+        <td class="grade">${it.grade}</td>
+        <td class="size">${it.size}</td>
+        <td class="qty">${it.qty.toLocaleString()} pcs${it.repl ? ' <span class="repl-tag">Replenishment</span>' : ''}</td>
+        <td class="wt">${ii === 0 ? box.weight.toFixed(2) + ' kg' : ''}</td>
+      </tr>`;
+    });
+    rows += `<tr class="box-total"><td colspan="3"></td><td class="qty">${boxTotalQty.toLocaleString()} pcs</td><td class="wt">${box.weight.toFixed(2)} kg</td></tr>`;
+    return rows;
+  }).join('');
+
+  const boxId = 'boxTable_' + orderId;
+  return `
+  <div class="box-section">
+    <div class="box-toggle" id="${boxId}_toggle" onclick="toggleBox('${boxId}')">
+      ${chevronSvg}
+      Box Details
+      <span class="box-count">${boxes.length} boxes / ${totalQty.toLocaleString()} pcs / ${totalWt.toFixed(2)} kg</span>
+    </div>
+    <div class="box-table-wrap" id="${boxId}_wrap">
+      <table class="box-table">
+        <thead><tr><th>Box</th><th>Grade</th><th>Size (mm)</th><th style="text-align:right">Quantity</th><th style="text-align:right">Weight</th></tr></thead>
+        <tbody>${tbodyHtml}</tbody>
+        <tfoot><tr class="box-total" style="font-size:12px;">
+          <td colspan="3" style="text-align:right;color:var(--text3);font-weight:400;">Total</td>
+          <td class="qty">${totalQty.toLocaleString()} pcs</td>
+          <td class="wt">${totalWt.toFixed(2)} kg</td>
+        </tr></tfoot>
+      </table>
+    </div>
+  </div>`;
+}
+
+function toggleBox(id) {
+  const toggle = document.getElementById(id + '_toggle');
+  const wrap = document.getElementById(id + '_wrap');
+  toggle.classList.toggle('open');
+  wrap.classList.toggle('open');
+}
+
+function renderListSection(list, orderId) {
+  if (!list || list.length === 0) return '';
+  const listHtml = list.map(item => {
+    let isRepl = false;
+    let cleanItem = item;
+    if (item.includes('(Replenishment)')) {
+      isRepl = true;
+      cleanItem = item.replace('(Replenishment)', '').trim();
+    }
+    const parts = cleanItem.split(' ');
+    const qty = parts.pop();
+    const gradeSize = parts.join(' ');
+    return `<div class="list-row${isRepl ? ' list-repl' : ''}"><span class="list-item">${gradeSize} ${isRepl ? '<span class="repl-tag">Replenishment</span>' : ''}</span><span class="list-qty">${qty}</span></div>`;
+  }).join('');
+
+  const listId = 'list_' + orderId;
+  return `
+  <div class="list-section">
+    <div class="box-toggle" id="${listId}_toggle" onclick="toggleBox('${listId}')">
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+      Shipment List
+      <span class="box-count">${list.length} items</span>
+    </div>
+    <div class="box-table-wrap" id="${listId}_wrap">
+      <div class="list-content">${listHtml}</div>
+    </div>
+  </div>`;
+}
+
+function renderCard(o) {
+  const stepsHtml = o.steps.map(s => {
+    const dotCls = s.cls === 'done' ? 'done' : s.cls === 'current' ? 'current' : s.cls === 'warn' ? 'warn' : 'future';
+    const labelCls = s.cls === 'done' ? 'done' : s.cls === 'current' ? 'now' : s.cls === 'warn' ? 'err' : '';
+    const dotInner = s.cls === 'done' ? checkSvg : '';
+    return `<div class="tl-step">
+      <div class="tl-dot ${dotCls}">${dotInner}</div>
+      <div class="tl-label ${labelCls}">${s.label.replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }).join('');
+
+  const alertHtml = o.alert ? `
+    <div class="alert">
+      <svg class="alert-icon" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+      <div class="alert-body"><strong>${o.alert.title}:</strong> ${o.alert.text}</div>
+    </div>` : '';
+
+  // Port arrival day counter
+  let portCounterHtml = '';
+  if (o.etaReal && (o.status === 'arrived' || o.status === 'enroute')) {
+    const arrivalDate = new Date(o.etaReal + 'T00:00:00');
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const daysDiff = Math.floor((today - arrivalDate) / (1000*60*60*24));
+    if (daysDiff >= 0) {
+      portCounterHtml = `<span class="port-counter"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>${daysDiff === 0 ? 'Arrived today' : daysDiff + ' days at port'}</span>`;
+    }
+  }
+
+  // Ship box restructured: current status + collapsible details
+  const shipDetailsId = 'shipDet_' + o.id;
+  const isDetailsOpen = o.status === 'arrived' || o.status === 'enroute' || o.status === 'delivered';
+  let currentStatusText = o.highlight;
+  if (o.status === 'delivered') currentStatusText = 'Package delivered and signed by customer.';
+  else if (o.status === 'arrived') currentStatusText = `Vessel arrived at ${o.destination||'port'} on ${o.etaReal}. Customs clearance in progress.`;
+  else if (o.status === 'pending' && o.ship === 'TBD') currentStatusText = o.highlight;
+  else if (o.status === 'enroute') currentStatusText = o.highlight;
+
+  const shipBoxHtml = `
+  <div class="ship-box">
+    <div class="ship-current">
+      <span class="badge-dot ${o.status==='enroute'?'pulse':''}"></span>
+      ${currentStatusText}
+      ${portCounterHtml}
+    </div>
+    <div class="ship-details-toggle ${isDetailsOpen?'open':''}" onclick="toggleShipDetails('${shipDetailsId}')">
+      <span>Shipping Details</span>
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+    <div class="ship-details ${isDetailsOpen?'open':''}" id="${shipDetailsId}">
+      <div class="ship-details-inner">
+        <strong>Vessel:</strong> ${o.ship}${o.voyage?' / Voyage '+o.voyage:''}<br>
+        <strong>ETD:</strong> ${o.etd} | <strong>Original ETA ${o.destination||'Long Beach'}:</strong> ${o.etaOrig}
+        ${o.etaReal?' | <strong>Real-time ETA:</strong> <span class="ship-highlight">'+o.etaReal+'</span>':''}<br>
+        <strong>Last-mile Tracking:</strong> ${o.tracking}
+      </div>
+    </div>
+  </div>`;
+
+  // Signoff: collapsible for pending orders
+  const isSignoffPending = o.status === 'pending' || o.status === 'unpaid';
+  const signoffId = 'signoff_' + o.id;
+  let signoffHtml;
+  if (isSignoffPending) {
+    signoffHtml = `
+    <div class="signoff-collapsed" id="${signoffId}_toggle" onclick="toggleSignoff('${signoffId}')">
+      <span>Estimated Sign-off: ${o.signDate}</span>
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+    <div class="signoff-expand-wrap" id="${signoffId}_wrap">
+      <div class="signoff ${o.signLabel}">
+        <div class="sign-label ${o.signLabel}">Estimated Customer Sign-off</div>
+        <div class="sign-value ${o.signLabel}">${o.signDate}</div>
+        <div class="sign-note">${o.signNote}</div>
+      </div>
+    </div>`;
+  } else {
+    signoffHtml = `
+    <div class="signoff ${o.signLabel}">
+      <div class="sign-label ${o.signLabel}">${o.status === 'delivered' ? 'Customer Sign-off Status' : 'Estimated Customer Sign-off'}</div>
+      <div class="sign-value ${o.signLabel}">${o.signDate}</div>
+      <div class="sign-note">${o.signNote}</div>
+    </div>`;
+  }
+
+  return `
+  <div class="order-card status-${o.status}">
+    <div class="oc-header">
+      <div class="oc-left">
+        <span class="oc-id">Order #${o.id}</span>
+        <div class="oc-title">${o.title}</div>
+        <div class="oc-sub">${o.sub}</div>
+      </div>
+      <span class="oc-badge ${o.badgeClass}">
+        <span class="badge-dot ${o.status==='enroute'?'pulse':''}"></span>
+        ${o.badge}
+      </span>
+    </div>
+    ${shipBoxHtml}
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="detail-label">Products</div>
+        <div class="detail-val">${o.products}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Package Size</div>
+        <div class="detail-val">${o.pkgSize}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Destination</div>
+        <div class="detail-val">${o.destination||'LONG BEACH, CA'}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Payment</div>
+        <div class="detail-val ${o.payment}">${o.payment==='paid'?'Paid':'Unpaid'}</div>
+      </div>
+    </div>
+    ${renderBoxTable(o.boxes, o.id)}
+    ${renderListSection(o.list, o.id)}
+    <div class="tl">
+      <div class="tl-track"><div class="tl-fill ${o.progressColor}" style="width:${o.progress}%"></div></div>
+      <div class="tl-steps">${stepsHtml}</div>
+    </div>
+    ${alertHtml}
+    ${signoffHtml}
+  </div>`;
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim().toUpperCase().replace(/\s/g,'');
+  const clearBtn = document.getElementById('searchClear');
+  const searchBox = document.getElementById('searchBox');
+  document.getElementById('errorMsg').classList.remove('show');
+  document.getElementById('result').classList.remove('show');
+
+  if (!q) { showAll(); clearBtn.classList.remove('show'); searchBox.classList.remove('active'); return; }
+
+  clearBtn.classList.add('show');
+  searchBox.classList.add('active');
+
+  // Check if it's a master order (e.g. EK20260506)
+  const masterOrderKey = 'order' + q;
+  if (window[masterOrderKey]) {
+    const masterOrd = window[masterOrderKey];
+    let html = renderOrderOverview(masterOrd);
+    masterOrd.shipments.forEach(sid => {
+      if (orders[sid]) html += renderCard(orders[sid]);
+    });
+    document.getElementById('result').innerHTML = html;
+    document.getElementById('result').classList.add('show');
+    return;
+  }
+
+  // Check if it's a shipment code starting with B
+  const match = orders[q];
+  if (!match) {
+    document.getElementById('errorMsg').classList.add('show');
+    return;
+  }
+
+  let html = renderCard(match);
+  // If this shipment belongs to a master order, show order context
+  if (match.orderId && window['order' + match.orderId]) {
+    html = renderOrderOverview(window['order' + match.orderId]) + html;
+  }
+  document.getElementById('result').innerHTML = html;
+  document.getElementById('result').classList.add('show');
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchClear').classList.remove('show');
+  document.getElementById('searchBox').classList.remove('active');
+  document.getElementById('errorMsg').classList.remove('show');
+  showAll();
+}
+
+function quickSearch(code) {
+  document.getElementById('searchInput').value = code;
+  doSearch();
+}
+
+function toggleShipDetails(id) {
+  const toggle = document.getElementById(id);
+  toggle.classList.toggle('open');
+}
+
+function toggleSignoff(id) {
+  document.getElementById(id + '_toggle').classList.toggle('open');
+  document.getElementById(id + '_wrap').classList.toggle('open');
+}
+
+function filterTable(status) {
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.closest('.filter-btn').classList.add('active');
+  // Filter rows
+  document.querySelectorAll('.order-table tbody tr').forEach(tr => {
+    const rowStatus = tr.getAttribute('data-status');
+    tr.style.display = (status === 'all' || rowStatus === status) ? '' : 'none';
+  });
+}
+
+function showAll() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('errorMsg').classList.remove('show');
+  document.getElementById('searchClear').classList.remove('show');
+  document.getElementById('searchBox').classList.remove('active');
+
+  // Separate active vs archived (delivered) orders
+  const activeOrders = [];
+  const archivedOrders = [];
+  Object.values(orders).forEach(o => {
+    if (o.status === 'delivered') archivedOrders.push(o);
+    else activeOrders.push(o);
+  });
+
+  const activeCards = activeOrders.map(o => renderCard(o)).join('');
+  const archivedCards = archivedOrders.map(o => renderCard(o)).join('');
+
+  const archiveHtml = archivedOrders.length > 0 ? `
+    <div class="archive-bar" id="archiveBar" onclick="toggleArchive()">
+      <div class="archive-bar-label">
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        View Archived (${archivedOrders.length} delivered)
+      </div>
+      <span class="archive-count">Delivered</span>
+    </div>
+    <div class="archive-panel" id="archivePanel">${archivedCards}</div>
+  ` : '';
+
+  // mini-grid: show ALL orders (including archived) for customer overview
+  const miniGrid = Object.values(orders).map(o => {
+    const dotCls = o.status==='arrived'?'g':o.status==='enroute'?'b':o.status==='pending'?'y':'r';
+    const etaText = o.etaReal ? 'ETA: '+o.etaReal : 'ETA: '+o.etaOrig;
+    const archivedCls = o.status==='delivered' ? ' archived' : '';
+    return `<div class="mini-card${archivedCls}" onclick="quickSearch('${o.id}')">
+      <div class="mini-id">#${o.id}</div>
+      <div class="mini-status"><span class="mini-dot ${dotCls}"></span>${o.badge}</div>
+      <div class="mini-date">${etaText}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('result').innerHTML = `
+    ${renderOrderOverview(orderEK20260506)}
+    <div class="all-section">
+      <div class="all-title">All Shipments Overview</div>
+      <div class="mini-grid">${miniGrid}</div>
+    </div>
+    ${archiveHtml}
+    <div style="margin-top:20px;">${activeCards}</div>`;
+  document.getElementById('result').classList.add('show');
+}
+
+function toggleArchive() {
+  const bar = document.getElementById('archiveBar');
+  const panel = document.getElementById('archivePanel');
+  bar.classList.toggle('open');
+  panel.classList.toggle('open');
+}
+
+document.getElementById('searchInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doSearch();
+});
+
+// Auto show all on load
+showAll();
+</script>
+</body>
+</html>
