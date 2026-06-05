@@ -387,7 +387,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-05 12:42 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-05 15:06 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -603,21 +603,21 @@ const orders = {
     ]
   },
   'B2': {
-    id: 'B2', status: 'pending', badge: 'Pending Shipment', badgeClass: 'pending',
+    id: 'B2', status: 'enroute', badge: 'En Route', badgeClass: 'enroute',
     title: 'N35 Series Magnets', sub: '7 boxes | 138.53 KG | 106,500 pcs',
-    ship: 'TBD', voyage: '', tracking: 'Not assigned',
+    ship: 'TBD', voyage: '', tracking: 'UPS 1Z035B4X0310559946',
     etd: '2026-06-11', etaOrig: '2026-07-11', etaReal: null,
-    highlight: 'Shipment booking in progress. 7 boxes ready. ETD June 11.',
+    highlight: 'UPS label created — awaiting pickup. ETD June 11.',
     products: 'N35 5x1 / 8x5 / 10x5x2 / 12x4 / 15x2 / 15x5 / 40x5',
     pkgSize: 'TBD', payment: 'paid',
     destination: '',
     list: ['N35 5x1 60,000', 'N35 8x5 8,000', 'N35 10x5x2 10,000', 'N35 12x4 2,000', 'N35 15x2 25,000', 'N35 15x5 1,000', 'N35 40x5 500'],
-    progress: 5, progressColor: 'blue',
+    progress: 15, progressColor: 'blue',
     signLabel: 'info', signDate: 'July 14 — July 20, 2026',
     signNote: 'Based on ETA July 11 + 3-7 business days for customs clearance and last-mile delivery.',
     steps: [
-      { label: 'Ship\nBooking\nPending', cls: 'current' },
-      { label: 'Depart\n~06-11', cls: 'future' },
+      { label: 'Label\nCreated\n~06-05', cls: 'done' },
+      { label: 'En Route\nETA ~07-11', cls: 'current' },
       { label: 'Arrive\nTBD\n~07-11', cls: 'future' },
       { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
       { label: 'Customer\nSigned', cls: 'future' }
