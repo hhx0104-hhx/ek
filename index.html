@@ -387,7 +387,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-08 11:36 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-08 11:46 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -485,23 +485,23 @@ const orders = {
     ]
   },
   'A11': {
-    id: 'A11', status: 'arrived', badge: 'Arrived at Port', badgeClass: 'arrived',
+    id: 'A11', status: 'inland', badge: 'In Transit — Ontario, CA', badgeClass: 'enroute',
     title: 'N35 Series Magnets', sub: '6 boxes | 119.4 KG | 155,775 pcs',
     ship: 'CSCL YELLOW SEA', voyage: '', tracking: 'UPS 1Z035B4X0328780897',
     etd: '2026-05-14', etaOrig: '2026-06-14', etaReal: '2026-05-31',
-    highlight: 'Vessel at Long Beach since May 31. Customs clearance in progress. UPS label created — awaiting pickup.',
+    highlight: 'Package picked up by UPS (Jun 8). Arrived at Ontario, CA facility — in transit to customer. Customs cleared.',
     products: 'N35 10x2 / 5x2 / 5x3 / 16x10',
     pkgSize: '35 x 25 x 20 cm', payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: ['N35 10x2 59035', 'N35 5x2 25000', 'N35 5x3 55100', 'N35 16x10 1015'],
-    progress: 72, progressColor: 'green',
-    signLabel: 'good', signDate: 'June 5 — June 11, 2026',
-    signNote: 'Vessel arrived Long Beach May 31 (14 days early). Customs clearance in progress. UPS label created (May 11) — awaiting pickup after customs release.',
+    progress: 85, progressColor: 'green',
+    signLabel: 'good', signDate: 'June 9 — June 10, 2026',
+    signNote: 'UPS picked up package Jun 8. Arrived at Ontario, CA facility. Delivery expected within 1-2 business days.',
     steps: [
       { label: 'Departed\nYantian\n05-14', cls: 'done' },
       { label: 'Arrived\nLong Beach\n05-31', cls: 'done' },
-      { label: 'Customs &\nUnloading\nIn Progress', cls: 'current' },
-      { label: 'Last-mile\nUPS\nLabel Created', cls: 'future' },
+      { label: 'Customs\nCleared', cls: 'done' },
+      { label: 'In Transit\nOntario, CA', cls: 'current' },
       { label: 'Customer\nSigned', cls: 'future' }
     ],
     alert: null,
@@ -519,12 +519,12 @@ const orders = {
     title: 'Sm2Co17N30 Series Magnets', sub: '1 box | 20.0 KG | 40,000 pcs',
     ship: 'CSCL SUMMER', voyage: '074E', tracking: 'UPS 1ZK6B4410314170456',
     etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-13',
-    highlight: 'CSCL SUMMER at 46\u00b036.5\'N 161\u00b009.4\'E, speed 16.8 kn, heading 73.2\u00b0 to Long Beach. ETA June 13 11:00 UTC. AIS updated Jun 5 17:52 UTC. UPS label created — awaiting vessel arrival.',
+    highlight: 'CSCL SUMMER at 47\u00b002.2\'N 159\u00b027.3\'W, speed 18.3 kn, heading 108\u00b0 to Long Beach. ETA June 13 11:00 UTC. AIS updated Jun 8 11:37 UTC. UPS label created \u2014 awaiting vessel arrival.',
     products: 'Sm2Co17N30 5x3',
     pkgSize: '35 x 25 x 25 cm', payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: ['Sm2Co17N30 5x3 40000'],
-    progress: 45, progressColor: 'blue',
+    progress: 55, progressColor: 'blue',
     signLabel: 'info', signDate: 'June 16 — June 22, 2026',
     signNote: 'Based on AIS ETA June 13 + 3-7 business days for customs clearance and last-mile delivery. UPS label already created (May 18).',
     steps: [
@@ -544,13 +544,13 @@ const orders = {
     title: 'N35 20x10x2 Series Magnets', sub: '6 boxes | 122.7 KG | 40,100 pcs',
     ship: 'PELICAN I', voyage: '13E', tracking: 'UPS 1Z035B4X0306404709',
     etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-10',
-    highlight: 'PELICAN I at 46\u00b003.7\'N 172\u00b006.1\'W, speed 20.3 kn, heading 84\u00b0 to Los Angeles. ETA June 10 11:00 UTC. AIS updated Jun 5 11:58 UTC. UPS label created — awaiting vessel arrival.',
+    highlight: 'PELICAN I at 42\u00b008.9\'N 141\u00b002.8\'W, speed 20.9 kn, heading 112\u00b0 to Los Angeles. ETA June 10 20:00 UTC. AIS updated Jun 8 05:41 UTC. UPS label created \u2014 awaiting vessel arrival.',
     products: 'N35 20x10x2',
     pkgSize: '35 x 25 x 25 cm', payment: 'paid',
     destination: 'LOS ANGELES, CA',
     list: ['N35 20x10x2 40100'],
-    progress: 55, progressColor: 'blue',
-    signLabel: 'info', signDate: 'June 13 — June 19, 2026',
+    progress: 70, progressColor: 'blue',
+    signLabel: 'info', signDate: 'June 13 — June 17, 2026',
     signNote: 'Based on AIS ETA June 10 + 3-7 business days for customs clearance and last-mile delivery. UPS label already created (May 25).',
     steps: [
       { label: 'Departed\n05-28', cls: 'done' },
@@ -686,7 +686,7 @@ const orderEK20260506 = {
     'N35 40x5':       500
   },
   shipments: ['B1', 'B2'],
-  produced: []
+  produced: ['N35 20x5x2', 'N35 40x20x10']
 };
 
 function renderOrderOverview(ord) {
