@@ -224,6 +224,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .mini-dot.b{background:var(--accent);}
 .mini-dot.y{background:var(--amber);}
 .mini-dot.r{background:var(--red);}
+.mini-dot.o{background:var(--orange);}
 .mini-date{font-size:11px;color:var(--text3);margin-top:4px;}
 
 /* Footer */
@@ -387,7 +388,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-08 12:33 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-08 12:46 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1114,7 +1115,7 @@ function showAll() {
 
   // mini-grid: show ALL orders (including archived) for customer overview
   const miniGrid = Object.values(orders).map(o => {
-    const dotCls = o.status==='arrived'?'g':o.status==='enroute'?'b':o.status==='inland'?'b':o.status==='pending'?'y':'r';
+    const dotCls = o.status==='delivered'?'g':o.status==='inland'?'o':o.status==='enroute'?'b':o.status==='pending'?'y':'r';
     const etaText = o.etaReal ? 'ETA: '+o.etaReal : 'ETA: '+o.etaOrig;
     const archivedCls = o.status==='delivered' ? ' archived' : '';
     return `<div class="mini-card${archivedCls}" onclick="quickSearch('${o.id}')">
