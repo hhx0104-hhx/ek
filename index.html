@@ -387,7 +387,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-08 11:46 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-08 12:33 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -495,13 +495,13 @@ const orders = {
     destination: 'LONG BEACH, CA',
     list: ['N35 10x2 59035', 'N35 5x2 25000', 'N35 5x3 55100', 'N35 16x10 1015'],
     progress: 85, progressColor: 'green',
-    signLabel: 'good', signDate: 'June 9 — June 10, 2026',
+    signLabel: 'info', signDate: 'June 9 — June 10, 2026',
     signNote: 'UPS picked up package Jun 8. Arrived at Ontario, CA facility. Delivery expected within 1-2 business days.',
     steps: [
       { label: 'Departed\nYantian\n05-14', cls: 'done' },
       { label: 'Arrived\nLong Beach\n05-31', cls: 'done' },
       { label: 'Customs\nCleared', cls: 'done' },
-      { label: 'In Transit\nOntario, CA', cls: 'current' },
+      { label: 'Last-mile\nUPS\nIn Transit', cls: 'current' },
       { label: 'Customer\nSigned', cls: 'future' }
     ],
     alert: null,
@@ -1114,7 +1114,7 @@ function showAll() {
 
   // mini-grid: show ALL orders (including archived) for customer overview
   const miniGrid = Object.values(orders).map(o => {
-    const dotCls = o.status==='arrived'?'g':o.status==='enroute'?'b':o.status==='pending'?'y':'r';
+    const dotCls = o.status==='arrived'?'g':o.status==='enroute'?'b':o.status==='inland'?'b':o.status==='pending'?'y':'r';
     const etaText = o.etaReal ? 'ETA: '+o.etaReal : 'ETA: '+o.etaOrig;
     const archivedCls = o.status==='delivered' ? ' archived' : '';
     return `<div class="mini-card${archivedCls}" onclick="quickSearch('${o.id}')">
