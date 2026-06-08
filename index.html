@@ -388,7 +388,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-08 12:46 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-08 17:00 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -490,7 +490,7 @@ const orders = {
     title: 'N35 Series Magnets', sub: '6 boxes | 119.4 KG | 155,775 pcs',
     ship: 'CSCL YELLOW SEA', voyage: '', tracking: 'UPS 1Z035B4X0328780897',
     etd: '2026-05-14', etaOrig: '2026-06-14', etaReal: '2026-05-31',
-    highlight: 'Package picked up by UPS (Jun 8). Arrived at Ontario, CA facility — in transit to customer. Customs cleared.',
+    highlight: 'UPS picked up package Jun 8. Arrived at Ontario, CA facility (Jun 7, 17:08 local). In transit — awaiting delivery. Customs cleared.',
     products: 'N35 10x2 / 5x2 / 5x3 / 16x10',
     pkgSize: '35 x 25 x 20 cm', payment: 'paid',
     destination: 'LONG BEACH, CA',
@@ -574,23 +574,23 @@ const orders = {
     id: 'B1', status: 'enroute', badge: 'En Route', badgeClass: 'enroute',
     title: 'N35 Series Magnets', sub: '8 boxes | 154.65 KG | 124,700 pcs (incl. 700 pcs replenishment)',
     ship: 'TBD', voyage: '', tracking: 'UPS 1Z035B4X0310559946',
-    etd: '2026-06-05', etaOrig: '2026-07-05', etaReal: null,
-    highlight: 'Shipment dispatched Jun 5. Delay notice: carrier rolled cargo — departure rescheduled. ETA subject to update.',
+    etd: '2026-06-12', etaOrig: '2026-07-12', etaReal: null,
+    highlight: 'Shipment dispatched Jun 12. UPS label created May 30 — awaiting pickup. Delay: carrier rolled cargo (船司甩柜), departure rescheduled from Jun 5 to Jun 12.',
     products: 'N35 3x1.5 / 4x2 / 4x4 / 10x10 / 12x2 / 12x5 / 20x20x5 / 20x3-5',
     pkgSize: 'TBD', payment: 'paid',
     destination: '',
     list: ['N35 3x1.5 40,000', 'N35 4x2 50,000', 'N35 4x4 10,000', 'N35 10x10 8,000', 'N35 12x2 8,000', 'N35 12x5 5,000', 'N35 20x20x5 3,000', 'N35 20x3-5 700 (Replenishment)'],
     progress: 15, progressColor: 'blue',
-    signLabel: 'warn', signDate: 'Delayed — ETA TBD',
-    signNote: 'Carrier rolled cargo (甩柜). Original ETD Jun 5 delayed. New departure schedule pending confirmation.',
+    signLabel: 'warn', signDate: 'Delayed — ETA Jul 12 + TBD',
+    signNote: 'Carrier rolled cargo (船司甩柜). ETD pushed from Jun 5 to Jun 12. ETA Jul 12 pending — may be further delayed. UPS label created (May 30).',
     steps: [
-      { label: 'Departed\n06-05', cls: 'done' },
-      { label: 'En Route\nETA TBD', cls: 'warn' },
-      { label: 'Arrive\nTBD', cls: 'future' },
+      { label: 'Departed\n06-12', cls: 'done' },
+      { label: 'En Route\nETA ~07-12', cls: 'warn' },
+      { label: 'Arrive\nTBD\n~07-12', cls: 'future' },
       { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
       { label: 'Customer\nSigned', cls: 'future' }
     ],
-    alert: { title: 'Delay Notice', text: 'Carrier rolled cargo (船司甩柜). Shipment has been delayed. New ETD is pending — ETA will be updated once rescheduled.' },
+    alert: { title: 'Delay Notice', text: 'Carrier rolled cargo (船司甩柜). ETD delayed from Jun 5 to Jun 12. ETA is estimated Jul 12 — subject to further updates.' },
     orderId: 'EK20260506',
     boxes: [
       { num: 1, weight: 18.10, items: [{ grade: 'N35', size: '4x4', qty: 10000 }, { grade: 'N35', size: '12x2', qty: 8000 }] },
@@ -608,22 +608,23 @@ const orders = {
     title: 'N35 Series Magnets', sub: '7 boxes | 138.53 KG | 106,500 pcs',
     ship: 'TBD', voyage: '', tracking: 'UPS 1Z035B4X0315697985',
     etd: '2026-06-12', etaOrig: '2026-07-12', etaReal: null,
-    highlight: 'Shipment dispatched Jun 12. UPS label created — awaiting pickup.',
+    highlight: 'Shipment dispatched Jun 12. UPS label created Jun 5 — awaiting pickup. Customs inspection delay reported.',
     products: 'N35 5x1 / 8x5 / 10x5x2 / 12x4 / 15x2 / 15x5 / 40x5',
     pkgSize: 'TBD', payment: 'paid',
     destination: '',
     list: ['N35 5x1 60,000', 'N35 8x5 8,000', 'N35 10x5x2 10,000', 'N35 12x4 2,000', 'N35 15x2 25,000', 'N35 15x5 1,000', 'N35 40x5 500'],
     progress: 15, progressColor: 'blue',
-    signLabel: 'info', signDate: 'July 19 — July 25, 2026',
-    signNote: 'Based on ETA July 12 + 3-7 business days for customs clearance and last-mile delivery.',
+    signLabel: 'warn', signDate: 'Delayed — Customs Inspection',
+    signNote: 'Customs inspection (海关查验) will delay shipment. ETA Jul 12 + 3-7 business days for customs clearance and last-mile delivery. Subject to further updates.',
     steps: [
       { label: 'Departed\n06-12', cls: 'done' },
-      { label: 'En Route\nETA ~07-12', cls: 'current' },
+      { label: 'Customs\nInspection\nDelayed', cls: 'warn' },
+      { label: 'En Route\nETA ~07-12', cls: 'future' },
       { label: 'Arrive\nTBD\n~07-12', cls: 'future' },
       { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
       { label: 'Customer\nSigned', cls: 'future' }
     ],
-    alert: null,
+    alert: { title: 'Customs Inspection', text: '海关查验 — shipment is undergoing customs inspection which will cause delay. ETA may be pushed beyond Jul 12.' },
     orderId: 'EK20260506',
     boxes: [
       { num: 1, weight: 15.45, items: [{ grade: 'N35', size: '40x5', qty: 304 }] },
