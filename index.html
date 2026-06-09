@@ -371,6 +371,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('A12-2')">A12-2</span>
       <span class="tag" onclick="quickSearch('B1')">B1</span>
       <span class="tag" onclick="quickSearch('B2')">B2</span>
+      <span class="tag" onclick="quickSearch('C1')">C1 ✈</span>
       <span class="tag" onclick="showAll()">View All</span>
     </div>
   </div>
@@ -381,14 +382,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
     </div>
     <div class="error-title">Order not found</div>
-    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, EK20260506</div>
+    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, C1, EK20260506</div>
   </div>
 
   <!-- Result -->
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-08 17:00 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-09 11:37 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -520,12 +521,12 @@ const orders = {
     title: 'Sm2Co17N30 Series Magnets', sub: '1 box | 20.0 KG | 40,000 pcs',
     ship: 'CSCL SUMMER', voyage: '074E', tracking: 'UPS 1ZK6B4410314170456',
     etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-13',
-    highlight: 'CSCL SUMMER at 47\u00b002.2\'N 159\u00b027.3\'W, speed 18.3 kn, heading 108\u00b0 to Long Beach. ETA June 13 11:00 UTC. AIS updated Jun 8 11:37 UTC. UPS label created \u2014 awaiting vessel arrival.',
+    highlight: 'CSCL SUMMER at 46\u00b021.4\'N 156\u00b003.2\'W, speed 18.0 kn, heading 107.4\u00b0 to Long Beach. ETA June 13 11:00 UTC. AIS updated Jun 8 19:38 UTC. UPS label created \u2014 awaiting vessel arrival.',
     products: 'Sm2Co17N30 5x3',
     pkgSize: '35 x 25 x 25 cm', payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: ['Sm2Co17N30 5x3 40000'],
-    progress: 55, progressColor: 'blue',
+    progress: 60, progressColor: 'blue',
     signLabel: 'info', signDate: 'June 16 — June 22, 2026',
     signNote: 'Based on AIS ETA June 13 + 3-7 business days for customs clearance and last-mile delivery. UPS label already created (May 18).',
     steps: [
@@ -545,14 +546,14 @@ const orders = {
     title: 'N35 20x10x2 Series Magnets', sub: '6 boxes | 122.7 KG | 40,100 pcs',
     ship: 'PELICAN I', voyage: '13E', tracking: 'UPS 1Z035B4X0306404709',
     etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-10',
-    highlight: 'PELICAN I at 42\u00b008.9\'N 141\u00b002.8\'W, speed 20.9 kn, heading 112\u00b0 to Los Angeles. ETA June 10 20:00 UTC. AIS updated Jun 8 05:41 UTC. UPS label created \u2014 awaiting vessel arrival.',
+    highlight: 'PELICAN I at 38\u00b057.6\'N 131\u00b039.3\'W, speed 21.1 kn, heading 116.8\u00b0 to Los Angeles. ETA June 10 20:00 UTC. AIS updated Jun 9 04:28 UTC. Arriving tomorrow \u2014 UPS label ready for pickup.',
     products: 'N35 20x10x2',
     pkgSize: '35 x 25 x 25 cm', payment: 'paid',
     destination: 'LOS ANGELES, CA',
     list: ['N35 20x10x2 40100'],
-    progress: 70, progressColor: 'blue',
+    progress: 85, progressColor: 'blue',
     signLabel: 'info', signDate: 'June 13 — June 17, 2026',
-    signNote: 'Based on AIS ETA June 10 + 3-7 business days for customs clearance and last-mile delivery. UPS label already created (May 25).',
+    signNote: 'AIS ETA June 10 (tomorrow). 3-7 business days for customs clearance and last-mile delivery after arrival. UPS label already created (May 25).',
     steps: [
       { label: 'Departed\n05-28', cls: 'done' },
       { label: 'En Route\nETA 06-10', cls: 'current' },
@@ -573,12 +574,12 @@ const orders = {
   'B1': {
     id: 'B1', status: 'enroute', badge: 'En Route', badgeClass: 'enroute',
     title: 'N35 Series Magnets', sub: '8 boxes | 154.65 KG | 124,700 pcs (incl. 700 pcs replenishment)',
-    ship: 'TBD', voyage: '', tracking: 'UPS 1Z035B4X0310559946',
+    ship: 'EVER FUTURE', voyage: '1224-034E', tracking: 'UPS 1Z035B4X0310559946',
     etd: '2026-06-12', etaOrig: '2026-07-12', etaReal: null,
-    highlight: 'Shipment dispatched Jun 12. UPS label created May 30 — awaiting pickup. Delay: carrier rolled cargo (船司甩柜), departure rescheduled from Jun 5 to Jun 12.',
+    highlight: 'Vessel EVER FUTURE (1224-034E) departed Jun 12. UPS label created May 30 — awaiting vessel arrival. Original departure delayed from Jun 5 to Jun 12 (carrier rolled cargo).',
     products: 'N35 3x1.5 / 4x2 / 4x4 / 10x10 / 12x2 / 12x5 / 20x20x5 / 20x3-5',
     pkgSize: 'TBD', payment: 'paid',
-    destination: '',
+    destination: 'LOS ANGELES, CA',
     list: ['N35 3x1.5 40,000', 'N35 4x2 50,000', 'N35 4x4 10,000', 'N35 10x10 8,000', 'N35 12x2 8,000', 'N35 12x5 5,000', 'N35 20x20x5 3,000', 'N35 20x3-5 700 (Replenishment)'],
     progress: 15, progressColor: 'blue',
     signLabel: 'warn', signDate: 'Delayed — ETA Jul 12 + TBD',
@@ -634,6 +635,31 @@ const orders = {
       { num: 5, weight: 19.65, items: [{ grade: 'N35', size: '15x2', qty: 6840 }, { grade: 'N35', size: '15x5', qty: 120 }, { grade: 'N35', size: '12x4', qty: 110 }] },
       { num: 6, weight: 21.70, items: [{ grade: 'N35', size: '15x2', qty: 6760 }, { grade: 'N35', size: '10x5x2', qty: 4720 }] },
       { num: 7, weight: 21.78, items: [{ grade: 'N35', size: '15x2', qty: 3420 }, { grade: 'N35', size: '5x1', qty: 57024 }, { grade: 'N35', size: '10x5x2', qty: 5280 }] }
+    ]
+  },
+  'C1': {
+    id: 'C1', status: 'pending', badge: 'In Production', badgeClass: 'pending',
+    title: 'N35 Air Freight Order', sub: '1 item | 3.6 KG | 1,800 pcs',
+    ship: 'Air Freight', voyage: '', tracking: 'Not assigned',
+    etd: 'TBD', etaOrig: 'TBD', etaReal: null,
+    highlight: 'Air freight order placed Jun 4. N35 25.4x6.35x1.5 (1,800 pcs) — currently in production. Will ship via air once ready.',
+    products: 'N35 25.4x6.35x1.5',
+    pkgSize: 'TBD', payment: 'TBD',
+    destination: 'TBD',
+    list: ['N35 25.4x6.35x1.5 1,800'],
+    progress: 10, progressColor: 'blue',
+    signLabel: 'info', signDate: 'TBD',
+    signNote: 'Product currently in production. Air freight ETD and ETA will be confirmed once production is complete.',
+    steps: [
+      { label: 'Order\nPlaced\n06-04', cls: 'done' },
+      { label: 'In\nProduction', cls: 'current' },
+      { label: 'Air\nFreight\nTBD', cls: 'future' },
+      { label: 'Customs\n& Delivery\nTBD', cls: 'future' },
+      { label: 'Customer\nSigned', cls: 'future' }
+    ],
+    alert: null,
+    boxes: [
+      { num: 1, weight: 3.60, items: [{ grade: 'N35', size: '25.4x6.35x1.5', qty: 1800 }] }
     ]
   }
 };
