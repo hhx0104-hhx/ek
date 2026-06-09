@@ -206,8 +206,38 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .alert-body{font-size:13px;color:var(--red);line-height:1.6;}
 .alert-body strong{font-weight:600;}
 
+/* Update banner */
+.update-banner{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;position:relative;overflow:hidden;}
+.update-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--green),var(--accent));}
+.update-banner-title{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.update-banner-title svg{width:14px;height:14px;fill:var(--accent);}
+.update-banner-time{font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-weight:500;}
+.update-banner-content{font-size:13px;color:var(--text2);line-height:1.7;margin-top:6px;}
+.update-banner-content li{margin-bottom:4px;list-style:none;padding-left:16px;position:relative;}
+.update-banner-content li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.update-banner-content li.warn::before{background:var(--amber);}
+.update-banner-content li.good::before{background:var(--green);}
+.update-banner-content li.hot::before{background:var(--red);}
+
+/* Air freight section */
+.air-section{margin-top:32px;}
+.air-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:12px;padding-left:4px;display:flex;align-items:center;gap:8px;}
+.air-title svg{width:18px;height:18px;fill:var(--accent);}
+.air-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.air-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;transition:all .2s;}
+.air-card:hover{border-color:var(--border-active);background:var(--card-hover);}
+.air-card-id{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.air-card-id svg{width:16px;height:16px;fill:var(--accent);}
+.air-card-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);}
+.air-card-row:last-child{border-bottom:none;}
+.air-card-row .label{color:var(--text3);}
+.air-card-row .value{color:var(--text);font-weight:500;font-family:'JetBrains Mono',monospace;}
+.air-card-row .value.status-producing{color:var(--amber);}
+.air-card-row .value.status-pending{color:var(--text3);}
+.air-card-row .value.paid{color:var(--green);}
+
 /* All orders section */
-.all-section{margin-top:40px;}
+.all-section{margin-top:24px;}
 .all-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:16px;padding-left:4px;}
 
 /* Mini cards for all */
@@ -389,7 +419,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-09 11:37 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-09 11:47 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1152,12 +1182,77 @@ function showAll() {
     </div>`;
   }).join('');
 
+  // Air freight orders
+  const airOrders = Object.values(orders).filter(o => o.ship === 'Air Freight' || o.id === 'C1');
+  const airCards = airOrders.map(o => {
+    const prodStatusCls = o.status === 'pending' ? 'status-pending' : 'status-producing';
+    return `<div class="air-card">
+      <div class="air-card-id"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>#${o.id}</div>
+      <div class="air-card-row"><span class="label">Product</span><span class="value">${o.products}</span></div>
+      <div class="air-card-row"><span class="label">Quantity</span><span class="value">${o.sub.split('|').pop().trim()}</span></div>
+      <div class="air-card-row"><span class="label">Status</span><span class="value ${prodStatusCls}">${o.badge}</span></div>
+      <div class="air-card-row"><span class="label">Tracking</span><span class="value">${o.tracking}</span></div>
+      <div class="air-card-row"><span class="label">Payment</span><span class="value ${o.payment==='paid'?'paid':''}">${o.payment}</span></div>
+    </div>`;
+  }).join('');
+
+  const airSectionHtml = airOrders.length > 0 ? `
+    <div class="air-section">
+      <div class="air-title"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>Air Freight Orders</div>
+      <div class="air-grid">${airCards}</div>
+    </div>
+  ` : '';
+
+  // Build latest updates list
+  const today = new Date();
+  const fmt = (d) => d.toISOString().slice(0,10);
+  const timeFmt = (d) => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+
+  let updates = [];
+  // A11
+  const a11 = orders['A11'];
+  if (a11) updates.push(`<li class="hot">${a11.id}: ${a11.highlight}</li>`);
+  // A12-2
+  const a122 = orders['A12-2'];
+  if (a122) updates.push(`<li>${a122.id}: ${a122.highlight}</li>`);
+  // A12-1
+  const a121 = orders['A12-1'];
+  if (a121) updates.push(`<li>${a121.id}: ${a121.highlight}</li>`);
+  // B1
+  const b1 = orders['B1'];
+  if (b1) updates.push(`<li class="warn">${b1.id}: ${b1.highlight}</li>`);
+  // B2
+  const b2 = orders['B2'];
+  if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
+  // C1
+  const c1 = orders['C1'];
+  if (c1) updates.push(`<li>${c1.id}: ${c1.highlight}</li>`);
+  // A4/A9/A10 delivered
+  ['A4','A9','A10'].forEach(id => {
+    const o = orders[id];
+    if (o) updates.push(`<li class="good">${o.id}: ${o.highlight}</li>`);
+  });
+
+  const updateBannerHtml = `
+  <div class="update-banner">
+    <div class="update-banner-title">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      Latest Updates
+      <span style="margin-left:auto;" class="update-banner-time">${timeFmt(today)} (GMT+8)</span>
+    </div>
+    <ul class="update-banner-content">
+      ${updates.join('')}
+    </ul>
+  </div>`;
+
   document.getElementById('result').innerHTML = `
+    ${updateBannerHtml}
     ${renderOrderOverview(orderEK20260506)}
     <div class="all-section">
       <div class="all-title">All Shipments Overview</div>
       <div class="mini-grid">${miniGrid}</div>
     </div>
+    ${airSectionHtml}
     ${archiveHtml}
     <div style="margin-top:20px;">${activeCards}</div>`;
   document.getElementById('result').classList.add('show');
