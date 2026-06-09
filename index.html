@@ -219,23 +219,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .update-banner-content li.good::before{background:var(--green);}
 .update-banner-content li.hot::before{background:var(--red);}
 
-/* Air freight section */
-.air-section{margin-top:32px;}
-.air-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:12px;padding-left:4px;display:flex;align-items:center;gap:8px;}
-.air-title svg{width:18px;height:18px;fill:var(--accent);}
-.air-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
-.air-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;transition:all .2s;}
-.air-card:hover{border-color:var(--border-active);background:var(--card-hover);}
-.air-card-id{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.air-card-id svg{width:16px;height:16px;fill:var(--accent);}
-.air-card-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);}
-.air-card-row:last-child{border-bottom:none;}
-.air-card-row .label{color:var(--text3);}
-.air-card-row .value{color:var(--text);font-weight:500;font-family:'JetBrains Mono',monospace;}
-.air-card-row .value.status-producing{color:var(--amber);}
-.air-card-row .value.status-pending{color:var(--text3);}
-.air-card-row .value.paid{color:var(--green);}
-
 /* All orders section */
 .all-section{margin-top:24px;}
 .all-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:16px;padding-left:4px;}
@@ -1182,26 +1165,9 @@ function showAll() {
     </div>`;
   }).join('');
 
-  // Air freight orders
+  // Air freight orders — render as full cards (same format as ocean shipments)
   const airOrders = Object.values(orders).filter(o => o.ship === 'Air Freight' || o.id === 'C1');
-  const airCards = airOrders.map(o => {
-    const prodStatusCls = o.status === 'pending' ? 'status-pending' : 'status-producing';
-    return `<div class="air-card">
-      <div class="air-card-id"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>#${o.id}</div>
-      <div class="air-card-row"><span class="label">Product</span><span class="value">${o.products}</span></div>
-      <div class="air-card-row"><span class="label">Quantity</span><span class="value">${o.sub.split('|').pop().trim()}</span></div>
-      <div class="air-card-row"><span class="label">Status</span><span class="value ${prodStatusCls}">${o.badge}</span></div>
-      <div class="air-card-row"><span class="label">Tracking</span><span class="value">${o.tracking}</span></div>
-      <div class="air-card-row"><span class="label">Payment</span><span class="value ${o.payment==='paid'?'paid':''}">${o.payment}</span></div>
-    </div>`;
-  }).join('');
-
-  const airSectionHtml = airOrders.length > 0 ? `
-    <div class="air-section">
-      <div class="air-title"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>Air Freight Orders</div>
-      <div class="air-grid">${airCards}</div>
-    </div>
-  ` : '';
+  const airCardsHtml = airOrders.map(o => renderCard(o)).join('');
 
   // Build latest updates list
   const today = new Date();
@@ -1248,11 +1214,11 @@ function showAll() {
   document.getElementById('result').innerHTML = `
     ${updateBannerHtml}
     ${renderOrderOverview(orderEK20260506)}
+    ${airCardsHtml}
     <div class="all-section">
       <div class="all-title">All Shipments Overview</div>
       <div class="mini-grid">${miniGrid}</div>
     </div>
-    ${airSectionHtml}
     ${archiveHtml}
     <div style="margin-top:20px;">${activeCards}</div>`;
   document.getElementById('result').classList.add('show');
