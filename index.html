@@ -440,7 +440,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-09 12:01 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-11 10:54 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -538,18 +538,18 @@ const orders = {
     ]
   },
   'A11': {
-    id: 'A11', status: 'inland', badge: 'In Transit — Ontario, CA', badgeClass: 'enroute',
+    id: 'A11', status: 'inland', badge: 'UPS In Transit — Arlington, TX → Destination', badgeClass: 'enroute',
     title: 'N35 Series Magnets', sub: '6 boxes | 119.4 KG | 155,775 pcs',
     ship: 'CSCL YELLOW SEA', voyage: '', tracking: 'UPS 1Z035B4X0328780897',
     etd: '2026-05-14', etaOrig: '2026-06-14', etaReal: '2026-05-31',
-    highlight: 'UPS picked up package Jun 8. Arrived at Ontario, CA facility (Jun 7, 17:08 local). In transit — awaiting delivery. Customs cleared.',
+    highlight: 'UPS in transit — departed Arlington, TX facility Jun 10 (17:36 local). Customs cleared. Package picked up Jun 8. Est. delivery within 1–2 business days.',
     products: 'N35 10x2 / 5x2 / 5x3 / 16x10',
     pkgSize: '35 x 25 x 20 cm', payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: ['N35 10x2 59035', 'N35 5x2 25000', 'N35 5x3 55100', 'N35 16x10 1015'],
-    progress: 85, progressColor: 'green',
-    signLabel: 'info', signDate: 'June 9 — June 10, 2026',
-    signNote: 'UPS picked up package Jun 8. Arrived at Ontario, CA facility. Delivery expected within 1-2 business days.',
+    progress: 90, progressColor: 'green',
+    signLabel: 'info', signDate: 'Est. Jun 11 — Jun 12, 2026',
+    signNote: 'UPS picked up Jun 8. Departed Arlington, TX facility Jun 10 at 17:36. In transit to final destination — estimated delivery Jun 11–12.',
     steps: [
       { label: 'Departed\nYantian\n05-14', cls: 'done' },
       { label: 'Arrived\nLong Beach\n05-31', cls: 'done' },
@@ -572,14 +572,14 @@ const orders = {
     title: 'Sm2Co17N30 Series Magnets', sub: '1 box | 20.0 KG | 40,000 pcs',
     ship: 'CSCL SUMMER', voyage: '074E', tracking: 'UPS 1ZK6B4410314170456',
     etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-13',
-    highlight: 'CSCL SUMMER at 46\u00b021.4\'N 156\u00b003.2\'W, speed 18.0 kn, heading 107.4\u00b0 to Long Beach. ETA June 13 11:00 UTC. AIS updated Jun 8 19:38 UTC. UPS label created \u2014 awaiting vessel arrival.',
+    highlight: 'CSCL SUMMER at 38\u00b045.1\'N 133\u00b012.6\'W, speed 17.8 kn, heading 121.5\u00b0 to Long Beach. ETA June 13 11:00. AIS updated Jun 11 08:26. UPS label ready for pickup after arrival.',
     products: 'Sm2Co17N30 5x3',
     pkgSize: '35 x 25 x 25 cm', payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: ['Sm2Co17N30 5x3 40000'],
-    progress: 60, progressColor: 'blue',
-    signLabel: 'info', signDate: 'June 16 — June 22, 2026',
-    signNote: 'Based on AIS ETA June 13 + 3-7 business days for customs clearance and last-mile delivery. UPS label already created (May 18).',
+    progress: 80, progressColor: 'blue',
+    signLabel: 'info', signDate: 'June 16 — June 20, 2026',
+    signNote: 'AIS ETA June 13. 3-5 business days for customs clearance and last-mile delivery. UPS label already created (May 18).',
     steps: [
       { label: 'Departed\n05-28', cls: 'done' },
       { label: 'En Route\nETA 06-13', cls: 'current' },
@@ -593,22 +593,22 @@ const orders = {
     ]
   },
   'A12-2': {
-    id: 'A12-2', status: 'enroute', badge: 'En Route — ETA Jun 10', badgeClass: 'enroute',
+    id: 'A12-2', status: 'inland', badge: 'Arrived — Los Angeles Port', badgeClass: 'enroute',
     title: 'N35 20x10x2 Series Magnets', sub: '6 boxes | 122.7 KG | 40,100 pcs',
     ship: 'PELICAN I', voyage: '13E', tracking: 'UPS 1Z035B4X0306404709',
-    etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-10',
-    highlight: 'PELICAN I at 38\u00b057.6\'N 131\u00b039.3\'W, speed 21.1 kn, heading 116.8\u00b0 to Los Angeles. ETA June 10 20:00 UTC. AIS updated Jun 9 04:28 UTC. Arriving tomorrow \u2014 UPS label ready for pickup.',
+    etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-11',
+    highlight: 'PELICAN I moored at Los Angeles (33\u00b045.994\'N 118\u00b016.413\'W), speed 0 kn. Vessel arrived Jun 11. Awaiting customs clearance and UPS pickup.',
     products: 'N35 20x10x2',
     pkgSize: '35 x 25 x 25 cm', payment: 'paid',
     destination: 'LOS ANGELES, CA',
     list: ['N35 20x10x2 40100'],
-    progress: 85, progressColor: 'blue',
-    signLabel: 'info', signDate: 'June 13 — June 17, 2026',
-    signNote: 'AIS ETA June 10 (tomorrow). 3-7 business days for customs clearance and last-mile delivery after arrival. UPS label already created (May 25).',
+    progress: 75, progressColor: 'blue',
+    signLabel: 'info', signDate: 'June 14 — June 18, 2026',
+    signNote: 'Vessel arrived Los Angeles Jun 11. Customs clearance expected 1-3 business days, then UPS last-mile delivery. UPS label already created (May 25). Est. customer sign-off Jun 14–18.',
     steps: [
       { label: 'Departed\n05-28', cls: 'done' },
-      { label: 'En Route\nETA 06-10', cls: 'current' },
-      { label: 'Arrive\nLos Angeles\n~06-10', cls: 'future' },
+      { label: 'Arrived\nLos Angeles\n06-11', cls: 'done' },
+      { label: 'Customs\nClearance\nIn Progress', cls: 'current' },
       { label: 'Last-mile\nDelivery\nTBD', cls: 'future' },
       { label: 'Customer\nSigned', cls: 'future' }
     ],
@@ -689,26 +689,26 @@ const orders = {
     ]
   },
   'C1': {
-    id: 'C1', status: 'pending', badge: 'In Production', badgeClass: 'pending',
+    id: 'C1', status: 'enroute', badge: 'Shipped — SF Express', badgeClass: 'enroute',
     title: 'N35 Air Freight Order', sub: '1 item | 3.6 KG | 1,800 pcs',
-    ship: 'Air Freight', voyage: '', tracking: 'Not assigned',
-    etd: 'TBD', etaOrig: 'TBD', etaReal: null,
-    highlight: 'Air freight order placed Jun 4. N35 25.4x6.35x1.5 (1,800 pcs) — currently in production. Will ship via air once ready.',
+    ship: 'Air Freight', voyage: '', tracking: 'SF 6047614780512',
+    etd: '2026-06-11', etaOrig: '2026-06-20', etaReal: '2026-06-20',
+    highlight: 'Production complete. Shipped via SF Express (SF6047614780512). ETD Jun 11, ETA Jun 20. Destination: Mexico. Payment pending.',
     products: 'N35 25.4x6.35x1.5',
-    pkgSize: 'TBD', payment: 'TBD',
-    destination: 'TBD',
+    pkgSize: '1 package', payment: 'unpaid',
+    destination: 'MX',
     list: ['N35 25.4x6.35x1.5 1,800'],
-    progress: 10, progressColor: 'blue',
-    signLabel: 'info', signDate: 'TBD',
-    signNote: 'Product currently in production. Air freight ETD and ETA will be confirmed once production is complete.',
+    progress: 50, progressColor: 'blue',
+    signLabel: 'warn', signDate: 'Payment Pending — ETA Jun 20',
+    signNote: 'Production complete. Shipped via SF Express Jun 11. ETA June 20 to Mexico. Air freight cost USD 382.97. Payment not yet received.',
     steps: [
       { label: 'Order\nPlaced\n06-04', cls: 'done' },
-      { label: 'In\nProduction', cls: 'current' },
-      { label: 'Air\nFreight\nTBD', cls: 'future' },
-      { label: 'Customs\n& Delivery\nTBD', cls: 'future' },
+      { label: 'Production\nComplete\n06-11', cls: 'done' },
+      { label: 'Air Freight\nSF Express\nIn Transit', cls: 'current' },
+      { label: 'Customs\n& Delivery\nMexico', cls: 'future' },
       { label: 'Customer\nSigned', cls: 'future' }
     ],
-    alert: null,
+    alert: { title: 'Payment Required', text: 'Air freight order shipped Jun 11 via SF Express (SF6047614780512). Air freight cost: USD 382.97. Payment not yet received — please arrange payment.' },
     boxes: [
       { num: 1, weight: 3.60, items: [{ grade: 'N35', size: '25.4x6.35x1.5', qty: 1800 }] }
     ]
@@ -765,7 +765,7 @@ const orderEK20260506 = {
     'N35 40x5':       500
   },
   shipments: ['B1', 'B2'],
-  produced: ['N35 20x5x2', 'N35 40x20x10']
+  produced: ['N35 20x5x2', 'N35 40x20x10', 'N35 20x3-5', 'N35 20x5-5']
 };
 
 function renderOrderOverview(ord) {
@@ -1346,24 +1346,24 @@ function showAll() {
   const timeFmt = (d) => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
 
   let updates = [];
-  // A11
+  // A12-2 arrived at port — most urgent
+  const a122 = orders['A12-2'];
+  if (a122) updates.push(`<li class="hot">${a122.id}: ${a122.highlight}</li>`);
+  // A11 last-mile in transit
   const a11 = orders['A11'];
   if (a11) updates.push(`<li class="hot">${a11.id}: ${a11.highlight}</li>`);
-  // A12-2
-  const a122 = orders['A12-2'];
-  if (a122) updates.push(`<li>${a122.id}: ${a122.highlight}</li>`);
   // A12-1
   const a121 = orders['A12-1'];
   if (a121) updates.push(`<li>${a121.id}: ${a121.highlight}</li>`);
-  // B1
-  const b1 = orders['B1'];
-  if (b1) updates.push(`<li class="warn">${b1.id}: ${b1.highlight}</li>`);
-  // B2
-  const b2 = orders['B2'];
-  if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
-  // C1
+  // C1 air freight shipped
   const c1 = orders['C1'];
   if (c1) updates.push(`<li>${c1.id}: ${c1.highlight}</li>`);
+  // B2 delayed
+  const b2 = orders['B2'];
+  if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
+  // B1 delayed
+  const b1 = orders['B1'];
+  if (b1) updates.push(`<li class="warn">${b1.id}: ${b1.highlight}</li>`);
   // A4/A9/A10 delivered
   ['A4','A9','A10'].forEach(id => {
     const o = orders[id];
