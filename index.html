@@ -76,6 +76,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .order-card.status-arrived::before{background:linear-gradient(90deg,var(--green),var(--accent));}
 .order-card.status-enroute::before{background:linear-gradient(90deg,var(--accent),var(--purple));}
 .order-card.status-pending::before{background:linear-gradient(90deg,var(--amber),var(--orange));}
+.order-card.status-inspection::before{background:linear-gradient(90deg,var(--orange),var(--amber));}
 .order-card.status-unpaid::before{background:linear-gradient(90deg,var(--red),var(--orange));}
 
 .oc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
@@ -88,6 +89,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .oc-badge.enroute{background:var(--accent-dim);color:var(--accent);}
 .oc-badge.pending{background:var(--amber-dim);color:var(--amber);}
 .oc-badge.unpaid{background:var(--red-dim);color:var(--red);}
+.oc-badge.warn{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(236,201,75,.3);}
 .oc-badge.delivered{background:var(--green-dim);color:var(--green);border:1px solid rgba(72,187,120,.3);}
 .badge-dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
 .badge-dot.pulse{animation:pulse 1.5s infinite;}
@@ -160,6 +162,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .tl-fill.green{background:linear-gradient(90deg,var(--green),var(--accent));}
 .tl-fill.blue{background:linear-gradient(90deg,var(--accent),var(--purple));}
 .tl-fill.amber{background:var(--amber);}
+.tl-fill.orange{background:linear-gradient(90deg,var(--orange),var(--amber));}
 .tl-fill.red{background:var(--red);opacity:.3;}
 .tl-steps{display:flex;justify-content:space-between;position:relative;z-index:1;}
 .tl-step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:0 0 auto;}
@@ -440,7 +443,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-15 11:03 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-15 11:22 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -656,28 +659,28 @@ const orders = {
     ]
   },
   'B2': {
-    id: 'B2', status: 'enroute', badge: 'En Route — ETA Jun 28', badgeClass: 'enroute',
+    id: 'B2', status: 'inspection', badge: 'Customs Inspection', badgeClass: 'warn',
     title: 'N35 Series Magnets', sub: '7 boxes | 138.53 KG | 106,500 pcs',
-    ship: 'EVER FUTURE', voyage: '1224-034E', tracking: 'UPS 1Z035B4X0315697985',
+    ship: 'With B1 — EVER FUTURE', voyage: '1224-034E', tracking: 'UPS 1Z035B4X0315697985',
     etd: '2026-06-12', etaOrig: '2026-07-12', etaReal: '2026-06-28',
-    highlight: 'Cargo loaded ahead of schedule. Customs inspection completed. Vessel EVER FUTURE en route — ETA Los Angeles Jun 28. UPS label created.',
+    highlight: 'Shipped with B1 on EVER FUTURE. Currently under customs inspection — expected delay.',
     products: 'N35 5x1 / 8x5 / 10x5x2 / 12x4 / 15x2 / 15x5 / 40x5',
     pkgSize: '7 boxes', payment: 'paid',
     destination: 'LOS ANGELES, CA',
     list: ['N35 5x1 60,000', 'N35 8x5 8,000', 'N35 10x5x2 10,000', 'N35 12x4 2,000', 'N35 15x2 25,000', 'N35 15x5 1,000', 'N35 40x5 500'],
-    progress: 30, progressColor: 'blue',
-    signLabel: 'info', signDate: 'Est. Jul 1 — Jul 5, 2026',
-    signNote: 'Customs inspection completed. EVER FUTURE departed Jun 12. ETA Los Angeles Jun 28 per AIS. 3-5 business days for customs + last-mile delivery after arrival.',
+    progress: 25, progressColor: 'orange',
+    signLabel: 'warn', signDate: 'Delayed — Customs Inspection',
+    signNote: 'Cargo loaded ahead of schedule on EVER FUTURE (with B1). Currently under customs inspection causing delay. ETA Los Angeles ~Jun 28 after inspection clearance.',
     steps: [
       { label: 'Cargo\nLoaded\n(Ahead)', cls: 'done' },
-      { label: 'Customs\nInspection\nCompleted', cls: 'done' },
-      { label: 'Departed\n06-12', cls: 'done' },
-      { label: 'En Route\nETA 06-28', cls: 'current' },
+      { label: 'Customs\nInspection\nIn Progress', cls: 'current' },
+      { label: 'Departed\n06-12', cls: 'future' },
+      { label: 'En Route\nETA 06-28', cls: 'future' },
       { label: 'Arrive\nLos Angeles\n~06-28', cls: 'future' },
       { label: 'Last-mile\nDelivery', cls: 'future' },
       { label: 'Customer\nSigned', cls: 'future' }
     ],
-    alert: null,
+    alert: { title: 'Customs Inspection', text: 'Shipment under customs inspection — expected delay. Shipped with B1 on EVER FUTURE.' },
     orderId: 'EK20260506',
     boxes: [
       { num: 1, weight: 15.45, items: [{ grade: 'N35', size: '40x5', qty: 304 }] },
@@ -1328,7 +1331,7 @@ function showAll() {
 
   // mini-grid: show ALL orders (including archived) for customer overview
   const miniGrid = Object.values(orders).map(o => {
-    const dotCls = o.status==='delivered'?'g':o.status==='inland'?'o':o.status==='enroute'?'b':o.status==='pending'?'y':'r';
+    const dotCls = o.status==='delivered'?'g':o.status==='inland'?'o':o.status==='enroute'?'b':o.status==='pending'?'y':o.status==='inspection'?'o':'r';
     const etaText = o.etaReal ? 'ETA: '+o.etaReal : 'ETA: '+o.etaOrig;
     const archivedCls = o.status==='delivered' ? ' archived' : '';
     return `<div class="mini-card${archivedCls}" onclick="quickSearch('${o.id}')">
