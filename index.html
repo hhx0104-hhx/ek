@@ -444,7 +444,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-22 17:25 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-22 17:40 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -730,26 +730,26 @@ const orders = {
     ]
   },
   'C1': {
-    id: 'C1', status: 'enroute', badge: 'Shipped — SF Express', badgeClass: 'enroute',
+    id: 'C1', status: 'delivered', badge: 'Delivered — Jun 22', badgeClass: 'delivered',
     title: 'N35 Air Freight Order', sub: '1 item | 3.6 KG | 1,800 pcs',
     ship: 'Air Freight', voyage: '', tracking: 'JMX300890804576',
-    etd: '2026-06-11', etaOrig: '2026-06-20', etaReal: '2026-06-20',
-    highlight: 'Production complete. Shipped via air freight (JMX300890804576). ETD Jun 11, ETA Jun 20. Destination: Mexico. Payment pending.',
+    etd: '2026-06-11', etaOrig: '2026-06-20', etaReal: '2026-06-22',
+    highlight: 'Air freight delivered Jun 22 to Mexico. Customer received.',
     products: 'N35 25.4x6.35x1.5',
     pkgSize: '1 package', payment: 'unpaid',
     destination: 'MX',
     list: ['N35 25.4x6.35x1.5 1,800'],
-    progress: 50, progressColor: 'blue',
-    signLabel: 'warn', signDate: 'Payment Pending — ETA Jun 20',
-    signNote: 'Production complete. Shipped via air freight Jun 11. Tracking: JMX300890804576. ETA June 20 to Mexico. Air freight cost USD 382.97. Payment not yet received.',
+    progress: 100, progressColor: 'green',
+    signLabel: 'delivered', signDate: 'Delivered Jun 22, 2026',
+    signNote: 'Air freight delivered Jun 22 to Mexico. Tracking: JMX300890804576. Air freight cost USD 382.97. Payment not yet received.',
     steps: [
       { label: 'Order\nPlaced\n06-04', cls: 'done' },
       { label: 'Production\nComplete\n06-11', cls: 'done' },
-      { label: 'Air Freight\nSF Express\nIn Transit', cls: 'current' },
-      { label: 'Customs\n& Delivery\nMexico', cls: 'future' },
-      { label: 'Customer\nSigned', cls: 'future' }
+      { label: 'Air Freight\nShipped\n06-11', cls: 'done' },
+      { label: 'Customs\n& Delivery\nMexico', cls: 'done' },
+      { label: 'Customer\nSigned\n06-22', cls: 'done' }
     ],
-    alert: { title: 'Payment Required', text: 'Air freight order shipped Jun 11. Tracking: JMX300890804576. Air freight cost: USD 382.97. Payment not yet received — please arrange payment.' },
+    alert: { title: 'Payment Required', text: 'Air freight order delivered Jun 22. Tracking: JMX300890804576. Air freight cost: USD 382.97. Payment not yet received — please arrange payment.' },
     boxes: [
       { num: 1, weight: 3.60, items: [{ grade: 'N35', size: '25.4x6.35x1.5', qty: 1800 }] }
     ]
@@ -1401,7 +1401,7 @@ function showAll() {
   // B2 customs inspection
   const b2 = orders['B2'];
   if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
-  // C1 air freight shipped
+  // C1 air freight delivered (payment pending)
   const c1 = orders['C1'];
   if (c1) updates.push(`<li class="warn">${c1.id}: ${c1.highlight}</li>`);
   // B3 pending
