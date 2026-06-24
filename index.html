@@ -77,6 +77,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .order-card.status-enroute::before{background:linear-gradient(90deg,var(--accent),var(--purple));}
 .order-card.status-pending::before{background:linear-gradient(90deg,var(--amber),var(--orange));}
 .order-card.status-inspection::before{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.order-card.status-producing::before{background:linear-gradient(90deg,var(--blue),var(--amber));}
 .order-card.status-unpaid::before{background:linear-gradient(90deg,var(--red),var(--orange));}
 
 .oc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
@@ -427,6 +428,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('B2')">B2</span>
       <span class="tag" onclick="quickSearch('B3')">B3</span>
       <span class="tag" onclick="quickSearch('C1')">C1 ✈</span>
+      <span class="tag" onclick="quickSearch('C2')">C2 ✈</span>
       <span class="tag" onclick="showAll()">View All</span>
     </div>
   </div>
@@ -437,14 +439,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
     </div>
     <div class="error-title">Order not found</div>
-    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, C1, EK20260506</div>
+    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, C1, C2, EK20260506</div>
   </div>
 
   <!-- Result -->
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-22 17:40 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-24 11:58 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -694,23 +696,22 @@ const orders = {
     ]
   },
   'B3': {
-    id: 'B3', status: 'pending', badge: 'Pending Shipment', badgeClass: 'pending',
+    id: 'B3', status: 'enroute', badge: 'En Route — ETA Jul 24', badgeClass: 'enroute',
     title: 'N35 Series Magnets', sub: '9 boxes | 146.95 KG | 25,377 pcs',
-    ship: '', voyage: '', tracking: 'Not assigned',
+    ship: '', voyage: '', tracking: 'UPS 1Z035B4X0332533646',
     etd: '2026-06-24', etaOrig: '2026-07-24', etaReal: '2026-07-24',
-    highlight: 'Cargo ready. ETD Jun 24. Awaiting vessel assignment.',
+    highlight: 'Departed Jun 24. UPS label assigned (1Z035B4X0332533646). ETA Los Angeles Jul 24.',
     products: 'N35 20x3-5 / 20x5-5 / 20x5x2 / 40x20x10',
     pkgSize: '9 boxes', payment: 'paid',
     destination: 'LOS ANGELES, CA',
     list: ['N35 20x3-5 17,777', 'N35 20x5-5 1,500', 'N35 20x5x2 6,000', 'N35 40x20x10 100'],
-    progress: 10, progressColor: 'amber',
+    progress: 20, progressColor: 'blue',
     signLabel: 'info', signDate: 'Est. Jul 24 — Jul 28, 2026',
-    signNote: 'Cargo ready. ETD Jun 24, ETA Los Angeles Jul 24. Vessel TBD. All boxes paid.',
+    signNote: 'Departed Jun 24. UPS tracking: 1Z035B4X0332533646. ETA Los Angeles Jul 24. All boxes paid.',
     steps: [
       { label: 'Cargo\nReady', cls: 'done' },
-      { label: 'Vessel\nAssignment\n(TBD)', cls: 'current' },
-      { label: 'Departed\nETA 06-24', cls: 'future' },
-      { label: 'En Route', cls: 'future' },
+      { label: 'Departed\n06-24', cls: 'done' },
+      { label: 'En Route\nETA 07-24', cls: 'current' },
       { label: 'Arrive\nLos Angeles\n~07-24', cls: 'future' },
       { label: 'Last-mile\nDelivery', cls: 'future' },
       { label: 'Customer\nSigned', cls: 'future' }
@@ -752,6 +753,32 @@ const orders = {
     alert: { title: 'Payment Required', text: 'Air freight order delivered Jun 22. Tracking: JMX300890804576. Air freight cost: USD 382.97. Payment not yet received — please arrange payment.' },
     boxes: [
       { num: 1, weight: 3.60, items: [{ grade: 'N35', size: '25.4x6.35x1.5', qty: 1800 }] }
+    ]
+  },
+  'C2': {
+    id: 'C2', status: 'producing', badge: 'In Production', badgeClass: 'pending',
+    title: 'N35 Ring Magnets', sub: '1 item | ~0.4 KG | 410 pcs',
+    ship: 'Air Freight', voyage: '', tracking: 'Not assigned',
+    etd: '', etaOrig: '', etaReal: '',
+    highlight: 'Production in progress. N35 10x3-4.5 and 10x3-5 ring magnets. Air freight cost: USD 120. Payment pending.',
+    products: 'N35 10x3-4.5 / 10x3-5 ring',
+    pkgSize: '1 item', payment: 'unpaid',
+    destination: 'MX',
+    list: ['N35 10x3-4.5 205', 'N35 10x3-5 ring 205'],
+    progress: 25, progressColor: 'amber',
+    signLabel: 'info', signDate: 'TBD — Pending Production',
+    signNote: 'Production in progress. Estimated air freight cost: USD 120. ETD/ETA TBD upon completion. Payment not yet received.',
+    steps: [
+      { label: 'Order\nPlaced', cls: 'done' },
+      { label: 'Production\nIn Progress', cls: 'current' },
+      { label: 'Air Freight\nShipment', cls: 'future' },
+      { label: 'Customs\n& Delivery\nMexico', cls: 'future' },
+      { label: 'Customer\nSigned', cls: 'future' }
+    ],
+    alert: { title: 'Payment Required', text: 'Air freight order in production. Estimated air freight cost: USD 120. Payment not yet received — please arrange payment.' },
+    boxes: [
+      { num: 1, weight: 0.20, items: [{ grade: 'N35', size: '10x3-4.5', qty: 205 }] },
+      { num: 2, weight: 0.20, items: [{ grade: 'N35', size: '10x3-5 ring', qty: 205 }] }
     ]
   }
 };
@@ -810,8 +837,8 @@ const orderEK20260506 = {
     'N35 20x3-5':   17777
   },
   shipments: ['B1', 'B2', 'B3'],
-  produced: [],
-  producing: ['N35 6x4', 'N35 25x3', 'N35 25x3-5', 'N35 20x10x2']
+  produced: ['N35 6x4', 'N35 25x3', 'N35 20x10x2', 'N35 20x3-5', 'N35 25x3-5'],
+  producing: []
 };
 
 function renderOrderOverview(ord) {
@@ -961,7 +988,7 @@ function renderAirOverview(airOrders) {
     } else if (o.status === 'enroute' || o.tracking !== 'Not assigned') {
       itemStatus = 'Shipped'; itemStatusCls = 'shipped'; progress = 75; progressCls = 'shipped';
       shippedCount++;
-    } else if (o.badge === 'In Production') {
+    } else if (o.status === 'producing' || o.badge === 'In Production') {
       itemStatus = 'Producing'; itemStatusCls = 'producing'; progress = 25; progressCls = 'producing';
       producingCount++;
     } else {
@@ -1372,7 +1399,7 @@ function showAll() {
 
   // mini-grid: show ALL orders (including archived) for customer overview
   const miniGrid = Object.values(orders).map(o => {
-    const dotCls = o.status==='delivered'?'g':o.status==='inland'?'o':o.status==='enroute'?'b':o.status==='pending'?'y':o.status==='inspection'?'o':'r';
+    const dotCls = o.status==='delivered'?'g':o.status==='inland'?'o':o.status==='enroute'?'b':o.status==='pending'?'y':o.status==='inspection'?'o':o.status==='producing'?'y':'r';
     const etaText = o.etaReal ? 'ETA: '+o.etaReal : 'ETA: '+o.etaOrig;
     const archivedCls = o.status==='delivered' ? ' archived' : '';
     return `<div class="mini-card${archivedCls}" onclick="quickSearch('${o.id}')">
@@ -1383,7 +1410,7 @@ function showAll() {
   }).join('');
 
   // Air freight orders — render as overview panel
-  const airOrders = Object.values(orders).filter(o => o.ship === 'Air Freight' || o.id === 'C1');
+  const airOrders = Object.values(orders).filter(o => o.ship === 'Air Freight' || o.id === 'C1' || o.id === 'C2');
   const airOverviewHtml = renderAirOverview(airOrders);
 
   // Build latest updates list
@@ -1401,12 +1428,15 @@ function showAll() {
   // B2 customs inspection
   const b2 = orders['B2'];
   if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
+  // B3 departed Jun 24
+  const b3 = orders['B3'];
+  if (b3) updates.push(`<li class="hot">${b3.id}: ${b3.highlight}</li>`);
+  // C2 air freight in production
+  const c2 = orders['C2'];
+  if (c2) updates.push(`<li class="warn">${c2.id}: ${c2.highlight}</li>`);
   // C1 air freight delivered (payment pending)
   const c1 = orders['C1'];
   if (c1) updates.push(`<li class="warn">${c1.id}: ${c1.highlight}</li>`);
-  // B3 pending
-  const b3 = orders['B3'];
-  if (b3) updates.push(`<li>${b3.id}: ${b3.highlight}</li>`);
   // A12-2 delivered
   const a122 = orders['A12-2'];
   if (a122) updates.push(`<li class="good">${a122.id}: ${a122.highlight}</li>`);
