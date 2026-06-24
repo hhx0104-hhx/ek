@@ -254,11 +254,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .air-status.shipped{background:var(--green-dim);color:var(--green);}
 .air-status.delivered{background:var(--green-dim);color:var(--green);border:1px solid rgba(72,187,120,.3);}
 .air-progress-wrap{width:100px;height:6px;background:var(--bg);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;}
-.air-progress-wrap .fill{height:100%;border-radius:3px;transition:width .5s;}
-.air-progress-wrap .fill.pending{background:var(--amber);}
-.air-progress-wrap .fill.producing{background:var(--accent);}
-.air-progress-wrap .fill.shipped{background:var(--green);}
-.air-progress-wrap .fill.delivered{background:var(--green);}
+.air-progress-wrap .fill{height:100%;border-radius:3px;transition:width .5s;background:var(--text3);opacity:.3;}
+.air-progress-wrap .fill.pending{background:var(--amber)!important;opacity:1!important;}
+.air-progress-wrap .fill.producing{background:var(--accent)!important;opacity:1!important;}
+.air-progress-wrap .fill.shipped{background:var(--green)!important;opacity:1!important;}
+.air-progress-wrap .fill.delivered{background:var(--green)!important;opacity:1!important;}
 .air-progress-text{font-size:11px;margin-left:6px;font-family:'JetBrains Mono',monospace;}
 .air-progress-text.green{color:var(--green);}
 .air-progress-text.amber{color:var(--amber);}
@@ -450,7 +450,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-24 12:06 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-24 12:11 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
