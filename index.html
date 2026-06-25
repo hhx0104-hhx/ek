@@ -737,15 +737,15 @@ const orders = {
   },
   'B4': {
     id: 'B4', status: 'pending', badge: 'ETD Jul 2 & Jul 9', badgeClass: 'pending',
-    title: 'N35 Series Magnets', sub: '16 boxes | 245.5 KG | 41,680 pcs',
+    title: 'N35 Series Magnets', sub: '19 boxes | 245.5 KG | 55,776 pcs',
     ship: '', voyage: '', tracking: 'Not assigned',
     etd: '2026-07-02', etaOrig: '2026-08-02', etaReal: '',
     highlight: 'Two sub-batches. Sub-batch 1 ETD Jul 2 (N35 25x3 + 20x10x2). Sub-batch 2 ETD Jul 9 (N35 25x3-5 + 6x4 + 20x3-5). All paid.',
     products: 'N35 25x3 / 25x3-5 / 6x4 / 20x3-5 / 20x10x2',
-    pkgSize: '16 boxes', payment: 'paid',
+    pkgSize: '19 boxes', payment: 'paid',
     destination: 'LOS ANGELES, CA',
-    list: ['N35 25x3 5,000', 'N35 25x3-5 5,000', 'N35 6x4 10,000', 'N35 20x3-5 2,224', 'N35 20x10x2 30,200'],
-    progress: 5, progressColor: 'orange',
+    list: ['N35 25x3 5,000', 'N35 25x3-5 5,552', 'N35 6x4 10,000', 'N35 20x3-5 2,224', 'N35 20x10x2 33,000'],
+    progress: 10, progressColor: 'orange',
     signLabel: 'info', signDate: 'Est. Aug 2 — Aug 6, 2026',
     signNote: 'Two sub-batches planned. Sub-batch 1 ETD Jul 2. Sub-batch 2 ETD Jul 9. Vessel TBD. 3-5 business days customs + last-mile after arrival.',
     steps: [
@@ -768,7 +768,7 @@ Signed', cls: 'future' }
     alert: { title: 'Two Sub-Batches', text: 'B4 has two sub-batches with different ETDs: Jul 2 (25x3 + 20x10x2) and Jul 9 (25x3-5 + 6x4 + 20x3-5). Vessel assignment pending.' },
     orderId: 'EK20260506',
     boxes: [
-      // Sub-batch 1 — ETD Jul 2
+      // Sub-batch 1 — ETD Jul 2 (10 boxes)
       { num: 1, weight: 14.75, items: [{ grade: 'N35', size: '25x3', qty: 1248 }] },
       { num: 2, weight: 14.75, items: [{ grade: 'N35', size: '25x3', qty: 1248 }] },
       { num: 3, weight: 14.75, items: [{ grade: 'N35', size: '25x3', qty: 1248 }] },
@@ -776,18 +776,22 @@ Signed', cls: 'future' }
       { num: 5, weight: 19.90, items: [{ grade: 'N35', size: '25x3', qty: 8 }, { grade: 'N35', size: '20x10x2', qty: 6600 }] },
       { num: 6, weight: 21.30, items: [{ grade: 'N35', size: '20x10x2', qty: 7000 }] },
       { num: 7, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
-      // Sub-batch 2 — ETD Jul 9
-      { num: 8, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
-      { num: 9, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
-      { num: 10, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
-      { num: 11, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 256 }, { grade: 'N35', size: '25x3-5(S-N)', qty: 256 }] },
-      { num: 12, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(S-N)', qty: 1248 }] },
-      { num: 13, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(S-N)', qty: 1248 }] },
-      { num: 14, weight: 14.00, items: [{ grade: 'N35', size: '6x4', qty: 10000 }, { grade: 'N35', size: '20x3-5(N-S)', qty: 1112 }] },
-      { num: 15, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(S-N)', qty: 1112 }] },
-      { num: 16, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(N-S)/(S-N)', qty: 1112 }] }
+      { num: 8, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
+      { num: 9, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
+      { num: 10, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
+      // Sub-batch 2 — ETD Jul 9 (9 boxes)
+      { num: 11, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
+      { num: 12, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
+      { num: 13, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
+      { num: 14, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 256 }, { grade: 'N35', size: '25x3-5(S-N)', qty: 256 }] },
+      { num: 15, weight: 14.00, items: [{ grade: 'N35', size: '6x4', qty: 10000 }] },
+      { num: 16, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(N-S)', qty: 1112 }] },
+      { num: 17, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(S-N)', qty: 1112 }] },
+      { num: 18, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(N-S)', qty: 1112 }] },
+      { num: 19, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(S-N)', qty: 1112 }] }
     ]
   },
+
 
   'C1': {
     id: 'C1', status: 'delivered', badge: 'Delivered — Jun 22', badgeClass: 'delivered',
@@ -895,7 +899,7 @@ const orderEK20260506 = {
     'N35 20x5-5':    1500,
     'N35 20x3-5':   17777
   },
-  shipments: ['B1', 'B2', 'B3'],
+  shipments: ['B1', 'B2', 'B3', 'B4'],
   produced: ['N35 6x4', 'N35 25x3', 'N35 20x10x2', 'N35 20x3-5', 'N35 25x3-5'],
   producing: []
 };
