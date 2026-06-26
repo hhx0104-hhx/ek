@@ -1,27 +1,31 @@
 # Automation Memory — Edgar Kunkeler 物流每日更新
 
-## 2026-06-08 17:00 Execution
+## 2026-06-26 11:35 Execution
 
 ### Data Sources
-- Excel: `Order progress - AI.xlsx` — read all batch data
-- 17track API: queried 5 UPS tracking numbers via `gettracklist`
-- ShipFinder AIS: attempted but all AIS sites blocked (ShipNext, MarineTraffic, VesselFinder, MyShipTracking)
+- Excel: `Order progress - AI.xlsx` — read all batch data (Delivery List, EK20260506, Air freight order)
+- 17track API: queried 6 UPS tracking numbers via `gettracklist`
 
 ### Changes Applied
-1. **B1**: ETD updated from 2026-06-05 → 2026-06-12, ETA from 2026-07-05 → 2026-07-12. Delay reason: 船司甩柜
-2. **B2**: Added customs inspection delay alert (海关查验). Updated steps, sign-off, and alert.
-3. **A11**: Updated highlight text with precise UPS pickup and facility arrival time
-4. **Footer**: Timestamp updated to 2026-06-08 17:00
+1. **A12-1**: status changed from inland → delivered. UPS delivered Jun 24 Brownsville, TX. Transit 3 days (Ontario CA → Brownsville TX). Updated badge, progress 100, steps, sign-off.
+2. **B2**: ETD changed from '' → '2026-06-12' (per Excel source)
+3. **Footer**: Timestamp updated to 2026-06-26 11:35
 
-### No Changes
-- A12-1 (CSCL SUMMER): AIS sites unreachable, no UPS update (InfoReceived)
-- A12-2 (PELICAN I): AIS sites unreachable, no UPS update (InfoReceived)
-- A4/A9/A10: Delivered/archived, no changes
-- EK20260506 master order: Production status already in sync with Excel
+### No Changes (Already in Sync)
+- A11: Already delivered in HTML
+- A12-2: Already delivered in HTML
+- A4/A9/A10: Delivered/archived
+- B1: EVER FUTURE vessel name already in HTML
+- B3/B4/B5/C1/C2: Already in HTML
+- EK20260506: All products shipped, produced array empty
+
+### 17track Summary
+- A11: Delivered Jun 11 (BROWNSVILLE, TX)
+- A12-1: Delivered Jun 24 (BROWNSVILLE, TX) — NEW
+- A12-2: Delivered Jun 18 (BROWNSVILLE, TX)
+- B1: InfoReceived (Label Created May 30)
+- B2: InfoReceived (Label Created Jun 5)
+- B3: Not registered (tracking number not found in API)
 
 ### Git
-- Committed and pushed to `origin/main` (81f8398)
-
-### Notes
-- AIS vessel tracking sites are all behind Cloudflare/WAF protection and unreachable via WebFetch
-- 17track API working correctly via PowerShell Invoke-WebRequest
+- Commit: bf6c30f → pushed to origin/main

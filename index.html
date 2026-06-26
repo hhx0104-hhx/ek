@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-26 11:35 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-26 11:50 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -593,19 +593,11 @@ const orders = {
     signLabel: 'delivered', signDate: 'Delivered Jun 24, 2026',
     signNote: 'UPS delivered Jun 24 to Brownsville, TX. Picked up Jun 21 at Ontario, CA. Transit 3 days.',
     steps: [
-      { label: 'Departed
-05-28', cls: 'done' },
-      { label: 'Arrived
-Long Beach
-06-13', cls: 'done' },
-      { label: 'Customs
-Cleared', cls: 'done' },
-      { label: 'Last-mile
-UPS
-Delivery', cls: 'done' },
-      { label: 'Customer
-Signed
-06-24', cls: 'done' }
+      { label: 'Departed\n05-28', cls: 'done' },
+      { label: 'Arrived\nLong Beach\n06-13', cls: 'done' },
+      { label: 'Customs\nCleared', cls: 'done' },
+      { label: 'Last-mile\nUPS\nDelivery', cls: 'done' },
+      { label: 'Customer\nSigned\n06-24', cls: 'done' }
     ],
     alert: null,
 id: 'A12-2', status: 'delivered', badge: 'Delivered — Jun 18', badgeClass: 'delivered',
@@ -649,7 +641,7 @@ id: 'A12-2', status: 'delivered', badge: 'Delivered — Jun 18', badgeClass: 'de
     list: ['N35 3x1.5 40,000', 'N35 4x2 50,000', 'N35 4x4 10,000', 'N35 10x10 8,000', 'N35 12x2 8,000', 'N35 12x5 5,000', 'N35 20x20x5 3,000', 'N35 20x3-5 700 (Replenishment)'],
     progress: 35, progressColor: 'blue',
     signLabel: 'info', signDate: 'Est. Jul 1 — Jul 5, 2026',
-    signNote: 'EVER FUTURE departed Jun 12. Position: 37°58.674'N 131°30.295'W (North Pacific), speed 17.6 kn, heading 122° (SE). ETA Los Angeles Jun 28 10:00 per AIS (Jun 26). 3-5 business days customs + last-mile after arrival.',
+    signNote: 'EVER FUTURE departed Jun 12. Position: 37\u00b058.674\'N 131\u00b030.295\'W (North Pacific), speed 17.6 kn, heading 122\u00b0 (SE). ETA Los Angeles Jun 28 10:00 per AIS (Jun 26). 3-5 business days customs + last-mile after arrival.',
     steps: [
       { label: 'Departed\n06-12', cls: 'done' },
       { label: 'En Route\nETA 06-28', cls: 'current' },
