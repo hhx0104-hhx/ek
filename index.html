@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-26 13:26 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-26 13:55 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1064,9 +1064,9 @@ const orders = {
   },
   'A12-1': {
     id: 'A12-1',
-    status: 'enroute',
-    badge: 'En Route — ETA Jun 28',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered — Jun 24',
+    badgeClass: 'delivered',
     title: 'Sm2Co17N30 Series Magnets',
     sub: '1 box | 20.00 KG | 40,000 pcs',
     ship: 'CSCL SUMMER',
@@ -1074,8 +1074,8 @@ const orders = {
     tracking: 'UPS 1ZK6B4410314170456',
     etd: '2026-05-28',
     etaOrig: '2026-06-28',
-    etaReal: '2026-06-28',
-    highlight: 'CSCL SUMMER en route — scheduled ETA Long Beach Jun 28. AIS shows vessel at 53\u00b035.518\'N 170\u00b032.823\'E (North Pacific) on return leg to Ningbo.',
+    etaReal: '2026-06-24',
+    highlight: 'UPS delivered Jun 24 — Brownsville, TX. Customer received.',
     products: 'Sm2Co17N30 5x3',
     pkgSize: '35 x 25 x 25 cm',
     payment: 'paid',
@@ -1083,31 +1083,31 @@ const orders = {
     list: [
       'Sm2Co17N30 5x3 40000'
     ],
-    progress: 60,
-    progressColor: 'blue',
-    signLabel: 'info',
-    signDate: 'Est. Jun 30 — Jul 3, 2026',
-    signNote: 'CSCL SUMMER en route — scheduled ETA Long Beach Jun 28. 3-5 business days customs + last-mile after arrival.',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
+    signDate: 'Delivered Jun 24, 2026',
+    signNote: 'UPS delivered Jun 24 to Brownsville, TX. Ontario CA → Arlington TX → Brownsville TX. Transit 3 days.',
     steps: [
       {
         label: 'Departed\n05-28',
         cls: 'done'
       },
       {
-        label: 'En Route\nETA 06-28',
-        cls: 'current'
+        label: 'Arrived\nLos Angeles\n06-11',
+        cls: 'done'
       },
       {
-        label: 'Arrive\nLong Beach\n~06-28',
-        cls: 'future'
+        label: 'Customs\nCleared',
+        cls: 'done'
       },
       {
-        label: 'Last-mile\nUPS\nDelivery',
-        cls: 'future'
+        label: 'Last-mile\nUPS\nDelivered',
+        cls: 'done'
       },
       {
-        label: 'Customer\nSigned',
-        cls: 'future'
+        label: 'Customer\nSigned\n06-24',
+        cls: 'done'
       }
     ],
     alert: null,
