@@ -432,6 +432,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('B2')">B2</span>
       <span class="tag" onclick="quickSearch('B3')">B3</span>
       <span class="tag" onclick="quickSearch('B4')">B4</span>
+      <span class="tag" onclick="quickSearch('B5')">B5</span>
       <span class="tag" onclick="quickSearch('C1')">C1 ✈</span>
       <span class="tag" onclick="quickSearch('C2')">C2 ✈</span>
       <span class="tag" onclick="showAll()">View All</span>
@@ -444,14 +445,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
     </div>
     <div class="error-title">Order not found</div>
-    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, C1, C2, EK20260506</div>
+    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, B5, C1, C2, EK20260506</div>
   </div>
 
   <!-- Result -->
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-06-25 18:06 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-06-26 11:04 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -579,24 +580,24 @@ const orders = {
     ]
   },
   'A12-1': {
-    id: 'A12-1', status: 'inland', badge: 'UPS In Transit — Est. Jun 25', badgeClass: 'enroute',
+    id: 'A12-1', status: 'inland', badge: 'UPS In Transit — Est. Jun 28', badgeClass: 'enroute',
     title: 'Sm2Co17N30 Series Magnets', sub: '1 box | 20.0 KG | 40,000 pcs',
     ship: 'CSCL SUMMER', voyage: '074E', tracking: 'UPS 1ZK6B4410314170456',
-    etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-25',
-    highlight: 'UPS picked up Jun 21. Departed Ontario, CA facility. In transit — UPS estimated delivery Jun 25.',
+    etd: '2026-05-28', etaOrig: '2026-06-28', etaReal: '2026-06-28',
+    highlight: 'UPS picked up Jun 21. Departed Ontario, CA facility. In transit — UPS estimated delivery Jun 28.',
     products: 'Sm2Co17N30 5x3',
     pkgSize: '35 x 25 x 25 cm', payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: ['Sm2Co17N30 5x3 40000'],
     progress: 92, progressColor: 'green',
-    signLabel: 'info', signDate: 'Est. Jun 25, 2026',
-    signNote: 'UPS picked up Jun 21 at Ontario, CA. Departed facility same day. UPS official estimated delivery: Jun 25.',
+    signLabel: 'info', signDate: 'Est. Jun 28, 2026',
+    signNote: 'UPS picked up Jun 21 at Ontario, CA. Departed facility same day. UPS official estimated delivery: Jun 28.',
     steps: [
       { label: 'Departed\n05-28', cls: 'done' },
       { label: 'Arrived\nLong Beach\n06-13', cls: 'done' },
       { label: 'Customs\nCleared', cls: 'done' },
       { label: 'Last-mile\nUPS\nIn Transit', cls: 'current' },
-      { label: 'Customer\nSigned\n~06-25', cls: 'future' }
+      { label: 'Customer\nSigned\n~06-28', cls: 'future' }
     ],
     alert: null,
     boxes: [
@@ -638,14 +639,14 @@ const orders = {
     title: 'N35 Series Magnets', sub: '8 boxes | 154.65 KG | 124,700 pcs (incl. 700 pcs replenishment)',
     ship: 'EVER FUTURE', voyage: '1224-034E', tracking: 'UPS 1Z035B4X0310559946',
     etd: '2026-06-12', etaOrig: '2026-07-12', etaReal: '2026-06-28',
-    highlight: 'EVER FUTURE at 40°23.340\'N 136°56.834\'W, speed 18.6 kn, heading 119° (SE). ETA Los Angeles Jun 28 10:00. AIS updated Jun 25.',
+    highlight: 'EVER FUTURE at 37°58.674\'N 131°30.295\'W, speed 17.6 kn, heading 122° (SE). ETA Los Angeles Jun 28 10:00. AIS updated Jun 26.',
     products: 'N35 3x1.5 / 4x2 / 4x4 / 10x10 / 12x2 / 12x5 / 20x20x5 / 20x3-5',
     pkgSize: '8 boxes', payment: 'paid',
     destination: 'LOS ANGELES, CA',
     list: ['N35 3x1.5 40,000', 'N35 4x2 50,000', 'N35 4x4 10,000', 'N35 10x10 8,000', 'N35 12x2 8,000', 'N35 12x5 5,000', 'N35 20x20x5 3,000', 'N35 20x3-5 700 (Replenishment)'],
     progress: 35, progressColor: 'blue',
     signLabel: 'info', signDate: 'Est. Jul 1 — Jul 5, 2026',
-    signNote: 'EVER FUTURE departed Jun 12. Position: 40°23.340'N 136°56.834'W (North Pacific), speed 18.6 kn, heading 119° (SE). ETA Los Angeles Jun 28 10:00 per AIS (Jun 25). 3-5 business days customs + last-mile after arrival.',
+    signNote: 'EVER FUTURE departed Jun 12. Position: 37°58.674'N 131°30.295'W (North Pacific), speed 17.6 kn, heading 122° (SE). ETA Los Angeles Jun 28 10:00 per AIS (Jun 26). 3-5 business days customs + last-mile after arrival.',
     steps: [
       { label: 'Departed\n06-12', cls: 'done' },
       { label: 'En Route\nETA 06-28', cls: 'current' },
@@ -736,25 +737,23 @@ const orders = {
     ]
   },
   'B4': {
-    id: 'B4', status: 'pending', badge: 'ETD Jul 2 & Jul 9', badgeClass: 'pending',
-    title: 'N35 Series Magnets', sub: '19 boxes | 245.5 KG | 55,776 pcs',
+    id: 'B4', status: 'pending', badge: 'ETD Jul 2', badgeClass: 'pending',
+    title: 'N35 Series Magnets', sub: '10 boxes | 178.6 KG | 38,000 pcs',
     ship: '', voyage: '', tracking: 'Not assigned',
     etd: '2026-07-02', etaOrig: '2026-08-02', etaReal: '',
-    highlight: 'Two sub-batches. Sub-batch 1 ETD Jul 2 (N35 25x3 + 20x10x2). Sub-batch 2 ETD Jul 9 (N35 25x3-5 + 6x4 + 20x3-5). All paid.',
-    products: 'N35 25x3 / 25x3-5 / 6x4 / 20x3-5 / 20x10x2',
-    pkgSize: '19 boxes', payment: 'paid',
+    highlight: 'Sub-batch 1: N35 25x3 (5,000 pcs) + 20x10x2 (33,000 pcs). ETD Jul 2. All paid. Vessel TBD.',
+    products: 'N35 25x3 / 20x10x2',
+    pkgSize: '10 boxes', payment: 'paid',
     destination: 'LOS ANGELES, CA',
-    list: ['N35 25x3 5,000', 'N35 25x3-5 5,552', 'N35 6x4 10,000', 'N35 20x3-5 2,224', 'N35 20x10x2 33,000'],
+    list: ['N35 25x3 5,000', 'N35 20x10x2 33,000'],
     progress: 10, progressColor: 'orange',
     signLabel: 'info', signDate: 'Est. Aug 2 — Aug 6, 2026',
-    signNote: 'Two sub-batches planned. Sub-batch 1 ETD Jul 2. Sub-batch 2 ETD Jul 9. Vessel TBD. 3-5 business days customs + last-mile after arrival.',
+    signNote: 'ETD Jul 2. Vessel TBD. 3-5 business days customs + last-mile after arrival.',
     steps: [
       { label: 'Production
 Complete', cls: 'done' },
-      { label: 'Sub-batch 1
-ETD Jul 2', cls: 'current' },
-      { label: 'Sub-batch 2
-ETD Jul 9', cls: 'future' },
+      { label: 'ETD
+Jul 2', cls: 'current' },
       { label: 'Vessel
 Departure', cls: 'future' },
       { label: 'En Route', cls: 'future' },
@@ -765,10 +764,9 @@ Delivery', cls: 'future' },
       { label: 'Customer
 Signed', cls: 'future' }
     ],
-    alert: { title: 'Two Sub-Batches', text: 'B4 has two sub-batches with different ETDs: Jul 2 (25x3 + 20x10x2) and Jul 9 (25x3-5 + 6x4 + 20x3-5). Vessel assignment pending.' },
+    alert: null,
     orderId: 'EK20260506',
     boxes: [
-      // Sub-batch 1 — ETD Jul 2 (10 boxes)
       { num: 1, weight: 14.75, items: [{ grade: 'N35', size: '25x3', qty: 1248 }] },
       { num: 2, weight: 14.75, items: [{ grade: 'N35', size: '25x3', qty: 1248 }] },
       { num: 3, weight: 14.75, items: [{ grade: 'N35', size: '25x3', qty: 1248 }] },
@@ -778,20 +776,51 @@ Signed', cls: 'future' }
       { num: 7, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
       { num: 8, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
       { num: 9, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
-      { num: 10, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] },
-      // Sub-batch 2 — ETD Jul 9 (9 boxes)
-      { num: 11, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
-      { num: 12, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
-      { num: 13, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
-      { num: 14, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 256 }, { grade: 'N35', size: '25x3-5(S-N)', qty: 256 }] },
-      { num: 15, weight: 14.00, items: [{ grade: 'N35', size: '6x4', qty: 10000 }] },
-      { num: 16, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(N-S)', qty: 1112 }] },
-      { num: 17, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(S-N)', qty: 1112 }] },
-      { num: 18, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(N-S)', qty: 1112 }] },
-      { num: 19, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(S-N)', qty: 1112 }] }
+      { num: 10, weight: 20.15, items: [{ grade: 'N35', size: '20x10x2', qty: 6600 }] }
     ]
   },
-
+  'B5': {
+    id: 'B5', status: 'pending', badge: 'ETD Jul 9', badgeClass: 'pending',
+    title: 'N35 Series Magnets', sub: '9 boxes | 110.0 KG | 17,776 pcs',
+    ship: '', voyage: '', tracking: 'Not assigned',
+    etd: '2026-07-09', etaOrig: '2026-08-09', etaReal: '',
+    highlight: 'Sub-batch 2: N35 25x3-5 (5,552 pcs) + 6x4 (10,000 pcs) + 20x3-5 (2,224 pcs). ETD Jul 9. All paid. Vessel TBD.',
+    products: 'N35 25x3-5 / 6x4 / 20x3-5',
+    pkgSize: '9 boxes', payment: 'paid',
+    destination: 'LOS ANGELES, CA',
+    list: ['N35 25x3-5 5,552', 'N35 6x4 10,000', 'N35 20x3-5 2,224'],
+    progress: 5, progressColor: 'orange',
+    signLabel: 'info', signDate: 'Est. Aug 9 — Aug 13, 2026',
+    signNote: 'ETD Jul 9. Vessel TBD. 3-5 business days customs + last-mile after arrival.',
+    steps: [
+      { label: 'Production
+Complete', cls: 'done' },
+      { label: 'ETD
+Jul 9', cls: 'current' },
+      { label: 'Vessel
+Departure', cls: 'future' },
+      { label: 'En Route', cls: 'future' },
+      { label: 'Arrive
+Los Angeles', cls: 'future' },
+      { label: 'Last-mile
+Delivery', cls: 'future' },
+      { label: 'Customer
+Signed', cls: 'future' }
+    ],
+    alert: null,
+    orderId: 'EK20260506',
+    boxes: [
+      { num: 1, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
+      { num: 2, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
+      { num: 3, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 1248 }] },
+      { num: 4, weight: 12.00, items: [{ grade: 'N35', size: '25x3-5(N-S)', qty: 256 }, { grade: 'N35', size: '25x3-5(S-N)', qty: 256 }] },
+      { num: 5, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(S-N)', qty: 1248 }] },
+      { num: 6, weight: 13.00, items: [{ grade: 'N35', size: '25x3-5(S-N)', qty: 1248 }] },
+      { num: 7, weight: 14.00, items: [{ grade: 'N35', size: '6x4', qty: 10000 }, { grade: 'N35', size: '20x3-5(N-S)', qty: 1112 }] },
+      { num: 8, weight: 14.00, items: [{ grade: 'N35', size: '20x3-5(S-N)', qty: 1112 }] },
+      { num: 9, weight: 7.00, items: [{ grade: 'N35', size: '20x3-5(N-S)', qty: 0 }] }
+    ]
+  },
 
   'C1': {
     id: 'C1', status: 'delivered', badge: 'Delivered — Jun 22', badgeClass: 'delivered',
@@ -878,7 +907,7 @@ const orderEK20260506 = {
     { grade: 'N35', size: '40x5',     ordered: 500 },
     { grade: 'N35', size: '40x20x10', ordered: 100 }
   ],
-  // Shipped data computed from B1 + B2 (excl. replenishment items)
+  // Shipped data computed from B1 + B2 + B3 + B4 + B5
   shipped: {
     'N35 3x1.5':    40000,
     'N35 4x2':      50000,
@@ -897,10 +926,14 @@ const orderEK20260506 = {
     'N35 20x5x2':    6000,
     'N35 40x20x10':   100,
     'N35 20x5-5':    1500,
-    'N35 20x3-5':   17777
+    'N35 20x3-5':   17777,
+    'N35 25x3':      5000,
+    'N35 25x3-5':    5552,
+    'N35 6x4':      10000,
+    'N35 20x10x2':  39000
   },
-  shipments: ['B1', 'B2', 'B3', 'B4'],
-  produced: ['N35 6x4', 'N35 25x3', 'N35 20x10x2', 'N35 20x3-5', 'N35 25x3-5'],
+  shipments: ['B1', 'B2', 'B3', 'B4', 'B5'],
+  produced: [],
   producing: []
 };
 
