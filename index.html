@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-09 11:34 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-09 11:53 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1246,7 +1246,7 @@ const orders = {
   B1: {
     id: 'B1',
     status: 'enroute',
-    badge: 'En Route — ETA Jun 28',
+    badge: 'En Route — ETA 2026-07-12',
     badgeClass: 'enroute',
     title: 'N35 Series Magnets',
     sub: '8 boxes | 154.65 KG | 124,700 pcs (incl. 700 pcs replenishment)',
@@ -1255,8 +1255,8 @@ const orders = {
     tracking: 'UPS 1Z035B4X0310559946',
     etd: '2026-06-12',
     etaOrig: '2026-07-12',
-    etaReal: '2026-06-28',
-    highlight: 'EVER FUTURE at 37\u00b044.733\'N 131\u00b001.729\'W, speed ~17.6 kn, heading 122\u00b0 (SE). ETA Los Angeles Jun 28 10:00 per AIS (updated Jun 26). UPS label created; carrier has not yet received the package.',
+    etaReal: '2026-07-12',
+    highlight: 'EVER FUTURE en route to Los Angeles. ETA 2026-07-12. UPS tracking assigned: UPS 1Z035B4X0310559946.',
     products: 'N35 3x1.5 / 4x2 / 4x4 / 10x10 / 12x2 / 12x5 / 20x20x5 / 20x3-5',
     pkgSize: '8 boxes',
     payment: 'paid',
@@ -1274,19 +1274,19 @@ const orders = {
     progress: 60,
     progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'Est. Jul 1 — Jul 5, 2026',
-    signNote: 'EVER FUTURE departed Jun 12. AIS position 37\u00b044.733\'N 131\u00b001.729\'W (North Pacific), ETA Los Angeles Jun 28 10:00. UPS label created; carrier has not yet received the package. 3-5 business days after arrival for customs and UPS delivery.',
+    signDate: 'Est. 2026-07-12 — +5 business days',
+    signNote: 'EVER FUTURE departed Jun 12. ETA Los Angeles 2026-07-12. UPS tracking: UPS 1Z035B4X0310559946. 3-5 business days after arrival for customs and UPS delivery.',
     steps: [
       {
         label: 'Departed\n06-12',
         cls: 'done'
       },
       {
-        label: 'En Route\nETA 06-28',
+        label: 'En Route\nETA 2026-07-12',
         cls: 'current'
       },
       {
-        label: 'Arrive\nLos Angeles\n06-28',
+        label: 'Arrive\nLos Angeles\n2026-07-12',
         cls: 'future'
       },
       {
@@ -1300,7 +1300,7 @@ const orders = {
     ],
     alert: {
       title: 'Previous Delay',
-      text: 'Carrier rolled cargo. Original ETD was Jun 5, pushed to Jun 12. Vessel now en route — ETA Jun 28.'
+      text: 'Carrier rolled cargo. Original ETD was Jun 5, pushed to Jun 12. Vessel now en route.'
     },
     orderId: 'EK20260506',
     boxes: [
@@ -1447,8 +1447,8 @@ const orders = {
     tracking: '',
     etd: '2026-06-12',
     etaOrig: '2026-07-12',
-    etaReal: '',
-    highlight: 'Currently under customs inspection — shipment will be delayed awaiting clearance.',
+    etaReal: '2026-07-12',
+    highlight: 'Currently under customs inspection — shipment will be delayed awaiting clearance. ETA 2026-07-12.',
     products: 'N35 5x1 / 8x5 / 10x5x2 / 12x4 / 15x2 / 15x5 / 40x5',
     pkgSize: '7 boxes',
     payment: 'paid',
@@ -1465,8 +1465,8 @@ const orders = {
     progress: 25,
     progressColor: 'orange',
     signLabel: 'warn',
-    signDate: 'Delayed — Customs Inspection',
-    signNote: 'Shipment is under customs inspection and will be delayed. Awaiting clearance before vessel departure. ETA cannot be confirmed until inspection is completed.',
+    signDate: 'Delayed — ETA 2026-07-12',
+    signNote: 'Shipment is under customs inspection and will be delayed. Awaiting clearance. ETA 2026-07-12 cannot be confirmed until inspection is completed.',
     steps: [
       {
         label: 'Cargo\nLoaded',
@@ -1798,54 +1798,50 @@ const orders = {
   },
   B4: {
     id: 'B4',
-    status: 'pending',
-    badge: 'ETD Jul 2',
-    badgeClass: 'pending',
+    status: 'enroute',
+    badge: 'En Route — ETA 2026-08-09',
+    badgeClass: 'enroute',
     title: 'N35 Series Magnets',
     sub: '10 boxes | 180.80 KG | 45,000 pcs',
-    ship: '',
-    voyage: '',
-    tracking: 'Not assigned',
+    ship: 'ZIM FALCON',
+    voyage: '19E',
+    tracking: 'UPS 1Z0JH5420321126984',
     etd: '2026-07-09',
     etaOrig: '2026-08-09',
-    etaReal: '',
-    highlight: 'N35 25x3 (5,000 pcs) + 20x10x2 (40,000 pcs). ETD Jul 2. All paid. Vessel TBD.',
+    etaReal: '2026-08-09',
+    highlight: 'Departed 2026-07-09 via ZIM FALCON. ETA Los Angeles 2026-08-09. UPS tracking: UPS 1Z0JH5420321126984.',
     products: 'N35 25x3 / 20x10x2',
     pkgSize: '10 boxes',
     payment: 'paid',
-    destination: 'TBD',
+    destination: 'LOS ANGELES, CA',
     list: [
       'N35 25x3 5000',
       'N35 20x10x2 40000'
     ],
-    progress: 10,
-    progressColor: 'orange',
+    progress: 20,
+    progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'Est. Aug 2 — Aug 6, 2026',
-    signNote: 'ETD Jul 2. Vessel TBD. 3-5 business days customs + last-mile after arrival.',
+    signDate: 'Est. 2026-08-09 — +5 business days',
+    signNote: 'Departed 2026-07-09 via ZIM FALCON. UPS tracking: UPS 1Z0JH5420321126984. ETA Los Angeles 2026-08-09. 3-5 business days customs + last-mile after arrival.',
     steps: [
       {
         label: 'Production\nComplete',
         cls: 'done'
       },
       {
-        label: 'ETD\nJul 2',
+        label: 'Departed\n2026-07-09',
+        cls: 'done'
+      },
+      {
+        label: 'En Route\nETA 2026-08-09',
         cls: 'current'
       },
       {
-        label: 'Vessel\nDeparture',
+        label: 'Arrive\nLos Angeles\n2026-08-09',
         cls: 'future'
       },
       {
-        label: 'En Route',
-        cls: 'future'
-      },
-      {
-        label: 'Arrive\nLos Angeles',
-        cls: 'future'
-      },
-      {
-        label: 'Last-mile\nDelivery',
+        label: 'Last-mile\nUPS\nDelivery',
         cls: 'future'
       },
       {
@@ -1976,7 +1972,7 @@ const orders = {
   B5: {
     id: 'B5',
     status: 'pending',
-    badge: 'ETD Jul 9',
+    badge: 'ETD 2026-07-09',
     badgeClass: 'pending',
     title: 'N35 Series Magnets',
     sub: '8 boxes | 104.00 KG | 20,224 pcs',
@@ -1985,8 +1981,8 @@ const orders = {
     tracking: 'Not assigned',
     etd: '2026-07-09',
     etaOrig: '2026-08-09',
-    etaReal: '',
-    highlight: 'N35 25x3-5 (8,000 pcs) + 6x4 (10,000 pcs) + 20x3-5 (2,224 pcs). ETD Jul 9. All paid. Vessel TBD.',
+    etaReal: '2026-08-09',
+    highlight: 'N35 25x3-5 / 6x4 / 20x3-5. ETD 2026-07-09. All paid. Vessel TBD.',
     products: 'N35 25x3-5 / 6x4 / 20x3-5',
     pkgSize: '8 boxes',
     payment: 'paid',
@@ -1999,15 +1995,15 @@ const orders = {
     progress: 5,
     progressColor: 'orange',
     signLabel: 'info',
-    signDate: 'Est. Aug 9 — Aug 13, 2026',
-    signNote: 'ETD Jul 9. Vessel TBD. 3-5 business days customs + last-mile after arrival.',
+    signDate: 'Est. 2026-08-09 — +5 business days',
+    signNote: 'ETD 2026-07-09. Vessel TBD. 3-5 business days customs + last-mile after arrival.',
     steps: [
       {
         label: 'Production\nComplete',
         cls: 'done'
       },
       {
-        label: 'ETD\nJul 9',
+        label: 'ETD\n2026-07-09',
         cls: 'current'
       },
       {
@@ -2145,19 +2141,21 @@ const orders = {
     badge: 'Delivered — Jun 22',
     badgeClass: 'delivered',
     title: 'N35 Air Freight Order',
-    sub: '2 item | 0.50 KG | 410 pcs',
+    sub: '1 item | 3.60 KG | 1,800 pcs',
     ship: 'Air Freight',
     voyage: '',
-    tracking: 'SF6047689079740',
-    etd: '2026-07-07',
-    etaOrig: '2026-07-17',
+    tracking: 'JMX300890804576',
+    etd: '2026-06-11',
+    etaOrig: '2026-06-20',
     etaReal: '2026-06-22',
     highlight: 'Air freight delivered to Mexico on Jun 22. Customer received.',
     products: 'N35 25.4x6.35x1.5',
     pkgSize: '1 package',
     payment: 'unpaid',
     destination: 'MX',
-    list: [],
+    list: [
+      'N35 25.4x6.35x1.5 1800'
+    ],
     progress: 100,
     progressColor: 'green',
     signLabel: 'delivered',
@@ -2189,6 +2187,67 @@ const orders = {
     boxes: [
       {
         num: 1,
+        weight: 3.6,
+        items: [
+          {
+            grade: 'N35',
+            size: '25.4x6.35x1.5',
+            qty: 1800
+          }
+        ]
+      }
+    ]
+  },
+  C2: {
+    id: 'C2',
+    status: 'enroute',
+    badge: 'En Route — ETA 2026-07-17',
+    badgeClass: 'enroute',
+    title: 'N35 Air Freight Order',
+    sub: '2 items | 0.50 KG | 410 pcs',
+    ship: 'SF Express',
+    voyage: '',
+    tracking: 'SF6047689079740',
+    etd: '2026-07-07',
+    etaOrig: '2026-07-17',
+    etaReal: '2026-07-17',
+    highlight: 'Air freight shipped via SF Express on 2026-07-07. ETA 2026-07-17. Tracking: SF6047689079740.',
+    products: 'N35 10x3-4.5 / 10x3-5 ring',
+    pkgSize: '2 items',
+    payment: 'unpaid',
+    destination: 'MX',
+    list: [],
+    progress: 50,
+    progressColor: 'blue',
+    signLabel: 'info',
+    signDate: 'Est. 2026-07-17',
+    signNote: 'Air freight via SF Express. ETD 2026-07-07, ETA 2026-07-17. Tracking: SF6047689079740. Estimated air freight cost: USD 120.',
+    steps: [
+      {
+        label: 'Order\nPlaced',
+        cls: 'done'
+      },
+      {
+        label: 'Production\nComplete',
+        cls: 'done'
+      },
+      {
+        label: 'Air Freight\nShipped\n2026-07-07',
+        cls: 'current'
+      },
+      {
+        label: 'Customs\n& Delivery\nMexico',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    boxes: [
+      {
+        num: 1,
         weight: 0.5,
         items: [
           {
@@ -2211,33 +2270,32 @@ const orders = {
       }
     ]
   },
-  C2: {
-    id: 'C2',
+  C3: {
+    id: 'C3',
     status: 'producing',
     badge: 'In Production',
     badgeClass: 'pending',
-    title: 'N35 Ring Magnets',
-    sub: '4 item | ~11.20 KG | 3,210 pcs',
+    title: 'N35 Air Freight Order',
+    sub: '1 item | ~7.20 KG | 1,000 pcs',
     ship: 'Air Freight',
     voyage: '',
     tracking: 'Not assigned',
     etd: '',
     etaOrig: '',
     etaReal: '',
-    highlight: 'Air freight order in production. Products: N35 10x3-4.5 and 10x3-5 ring. Estimated air freight cost: USD 120.',
-    products: 'N35 10x3-4.5 / 10x3-5 ring',
+    highlight: 'Air freight order in production. Products: N35 D16. Estimated air freight cost: USD 572.',
+    products: 'N35 D16',
     pkgSize: '1 item',
     payment: 'unpaid',
     destination: 'MX',
     list: [
-      'N35 10x3-4.5 205',
-      'N35 10x3-5 ring 205'
+      'N35 D16 1000'
     ],
     progress: 25,
     progressColor: 'amber',
     signLabel: 'info',
     signDate: 'TBD — Pending Production',
-    signNote: 'Production in progress. Estimated air freight cost: USD 120. ETD/ETA TBD upon completion.',
+    signNote: 'Production in progress. Products: N35 D16. Estimated air freight cost: USD 572. ETD/ETA TBD upon completion.',
     steps: [
       {
         label: 'Order\nPlaced',
@@ -2264,39 +2322,6 @@ const orders = {
     boxes: [
       {
         num: 1,
-        weight: 3.6,
-        items: [
-          {
-            grade: 'N35',
-            size: '25.4x6.35x1.5',
-            qty: 1800
-          }
-        ]
-      },
-      {
-        num: 2,
-        weight: 0.2,
-        items: [
-          {
-            grade: 'N35',
-            size: '10x3-4.5',
-            qty: 205
-          }
-        ]
-      },
-      {
-        num: 3,
-        weight: 0.2,
-        items: [
-          {
-            grade: 'N35',
-            size: '10×3-5 ring',
-            qty: 205
-          }
-        ]
-      },
-      {
-        num: 4,
         weight: 7.2,
         items: [
           {
