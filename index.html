@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-02 10:58 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-09 11:34 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1444,7 +1444,7 @@ const orders = {
     sub: '7 boxes | 138.53 KG | 106,500 pcs',
     ship: '',
     voyage: '',
-    tracking: '1Z035B4X0315697985',
+    tracking: '',
     etd: '2026-06-12',
     etaOrig: '2026-07-12',
     etaReal: '',
@@ -1806,8 +1806,8 @@ const orders = {
     ship: '',
     voyage: '',
     tracking: 'Not assigned',
-    etd: '2026-07-02',
-    etaOrig: '2026-08-02',
+    etd: '2026-07-09',
+    etaOrig: '2026-08-09',
     etaReal: '',
     highlight: 'N35 25x3 (5,000 pcs) + 20x10x2 (40,000 pcs). ETD Jul 2. All paid. Vessel TBD.',
     products: 'N35 25x3 / 20x10x2',
@@ -2145,21 +2145,19 @@ const orders = {
     badge: 'Delivered — Jun 22',
     badgeClass: 'delivered',
     title: 'N35 Air Freight Order',
-    sub: '1 item | 3.60 KG | 1,800 pcs',
+    sub: '2 item | 0.50 KG | 410 pcs',
     ship: 'Air Freight',
     voyage: '',
-    tracking: 'JMX300890804576',
-    etd: '2026-06-11',
-    etaOrig: '2026-06-20',
+    tracking: 'SF6047689079740',
+    etd: '2026-07-07',
+    etaOrig: '2026-07-17',
     etaReal: '2026-06-22',
     highlight: 'Air freight delivered to Mexico on Jun 22. Customer received.',
     products: 'N35 25.4x6.35x1.5',
     pkgSize: '1 package',
     payment: 'unpaid',
     destination: 'MX',
-    list: [
-      'N35 25.4x6.35x1.5 1800'
-    ],
+    list: [],
     progress: 100,
     progressColor: 'green',
     signLabel: 'delivered',
@@ -2191,12 +2189,23 @@ const orders = {
     boxes: [
       {
         num: 1,
-        weight: 3.6,
+        weight: 0.5,
         items: [
           {
             grade: 'N35',
-            size: '25.4x6.35x1.5',
-            qty: 1800
+            size: '10x3- 4.5',
+            qty: 205
+          }
+        ]
+      },
+      {
+        num: 2,
+        weight: 0.0,
+        items: [
+          {
+            grade: 'N35',
+            size: '10×3-5 ring',
+            qty: 205
           }
         ]
       }
@@ -2208,7 +2217,7 @@ const orders = {
     badge: 'In Production',
     badgeClass: 'pending',
     title: 'N35 Ring Magnets',
-    sub: '3 item | ~4.00 KG | 2,210 pcs',
+    sub: '4 item | ~11.20 KG | 3,210 pcs',
     ship: 'Air Freight',
     voyage: '',
     tracking: 'Not assigned',
@@ -2283,6 +2292,17 @@ const orders = {
             grade: 'N35',
             size: '10×3-5 ring',
             qty: 205
+          }
+        ]
+      },
+      {
+        num: 4,
+        weight: 7.2,
+        items: [
+          {
+            grade: 'N35',
+            size: 'D16',
+            qty: 1000
           }
         ]
       }
