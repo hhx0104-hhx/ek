@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-14 12:58 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-14 13:25 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -598,7 +598,7 @@ const orders = {
     etd: '2026-05-04',
     etaOrig: '2026-06-04',
     etaReal: '2026-05-23',
-    highlight: 'Package delivered and signed for on June 4, 2026. Delivered to Brownsville, TX.',
+    highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     products: 'N35 35x3 / 12.7x12.7 / 10x5 / 5x8 / 10x10x6 / 30x2 / N52 22.2x12.7',
     pkgSize: '35 x 25 x 20 cm',
     payment: 'paid',
@@ -766,7 +766,7 @@ const orders = {
     etd: '2026-05-07',
     etaOrig: '2026-06-07',
     etaReal: '2026-05-23',
-    highlight: 'Package delivered and signed for on June 4, 2026. Delivered to Brownsville, TX.',
+    highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     products: 'N35 30x3 / 25x3-5(N-S) / 25x3-5(S-N) / 30x5 / 12x6 / N52 15x15',
     pkgSize: '35 x 25 x 20 cm',
     payment: 'paid',
@@ -934,7 +934,7 @@ const orders = {
     etd: '2026-05-14',
     etaOrig: '2026-06-14',
     etaReal: '2026-05-31',
-    highlight: 'Delivered Jun 11, 2026 in Brownsville, TX. UPS tracking confirmed.',
+    highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     products: 'N35 10x2 / 5x2 / 5x3 / 16x10',
     pkgSize: '35 x 25 x 20 cm',
     payment: 'paid',
@@ -1065,7 +1065,7 @@ const orders = {
   'A12-1': {
     id: 'A12-1',
     status: 'delivered',
-    badge: 'Delivered — Jun 24',
+    badge: 'Delivered',
     badgeClass: 'delivered',
     title: 'Sm2Co17N30 Series Magnets',
     sub: '1 box | 20.00 KG | 40,000 pcs',
@@ -1075,7 +1075,7 @@ const orders = {
     etd: '2026-05-28',
     etaOrig: '2026-06-28',
     etaReal: '2026-06-24',
-    highlight: 'UPS delivered Jun 24 — Brownsville, TX. Customer received.',
+    highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     products: 'Sm2Co17N30 5x3',
     pkgSize: '35 x 25 x 25 cm',
     payment: 'paid',
@@ -1128,7 +1128,7 @@ const orders = {
   'A12-2': {
     id: 'A12-2',
     status: 'delivered',
-    badge: 'Delivered — Jun 18',
+    badge: 'Delivered',
     badgeClass: 'delivered',
     title: 'N35 20x10x2 Series Magnets',
     sub: '6 boxes | 122.70 KG | 40,100 pcs',
@@ -1138,7 +1138,7 @@ const orders = {
     etd: '2026-05-28',
     etaOrig: '2026-06-28',
     etaReal: '2026-06-18',
-    highlight: 'UPS delivered Jun 18 — Brownsville, TX. Customer received.',
+    highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     products: 'N35 20x10x2',
     pkgSize: '35 x 25 x 25 cm',
     payment: 'paid',
@@ -1245,9 +1245,9 @@ const orders = {
   },
   B1: {
     id: 'B1',
-    status: 'arriving',
-    badge: 'Arriving Los Angeles — Customs',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered',
+    badgeClass: 'delivered',
     title: 'N35 Series Magnets',
     sub: '8 boxes | 154.65 KG | 124,700 pcs (incl. 700 pcs replenishment)',
     ship: 'EVER FUTURE',
@@ -1256,7 +1256,7 @@ const orders = {
     etd: '2026-06-12',
     etaOrig: '2026-07-12',
     etaReal: '2026-07-12',
-    highlight: 'EVER FUTURE arrived Los Angeles 2026-07-12. Customs clearance in progress. UPS tracking: UPS 1Z035B4X0310559946 (label created, awaiting package).',
+    highlight: 'Delivered and signed by customer. 17track confirmed: Delivered, DELIVERED — BROWNSVILLE, TX, US',
     products: 'N35 3x1.5 / 4x2 / 4x4 / 10x10 / 12x2 / 12x5 / 20x20x5 / 20x3-5',
     pkgSize: '8 boxes',
     payment: 'paid',
@@ -1271,11 +1271,11 @@ const orders = {
       'N35 10x10 8000',
       'N35 20x3-5 700 (Replenishment)'
     ],
-    progress: 75,
-    progressColor: 'blue',
-    signLabel: 'info',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
     signDate: 'Est. Jul 17-19 — +3-5 business days',
-    signNote: 'EVER FUTURE departed Jun 12, arrived Los Angeles 2026-07-12. Customs clearance in progress. UPS label created (UPS 1Z035B4X0310559946), awaiting package handoff. Estimated delivery Jul 17-19.',
+    signNote: 'EVER FUTURE departed Jun 12, arrived Los Angeles 2026-07-12. Customs clearance in progress. UPS label created (UPS 1Z035B4X0310559946), awaiting package handoff. Estimated delivery Jul 17-19. 17track confirmed delivered: Delivered, DELIVERED — BROWNSVILLE, TX, US',
     steps: [
       {
         label: 'Departed\n06-12',
@@ -1287,15 +1287,15 @@ const orders = {
       },
       {
         label: 'Customs\nClearance\nIn Progress',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Last-mile\nUPS\nDelivery',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Customer\nSigned',
-        cls: 'future'
+        cls: 'done'
       }
     ],
     alert: {
