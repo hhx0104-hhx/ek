@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-14 13:25 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-15 11:54 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1971,18 +1971,18 @@ const orders = {
   },
   B5: {
     id: 'B5',
-    status: 'departing',
-    badge: 'Departing 2026-07-14',
-    badgeClass: 'enroute',
+    status: 'pending',
+    badge: 'ETD 2026-07-16',
+    badgeClass: 'pending',
     title: 'N35 Series Magnets',
     sub: '8 boxes | 104.00 KG | 20,224 pcs',
     ship: 'TBD',
     voyage: '',
-    tracking: 'Not assigned',
-    etd: '2026-07-14',
+    tracking: '1Z035B4X0333590592',
+    etd: '2026-07-16',
     etaOrig: '2026-08-14',
     etaReal: '2026-08-14',
-    highlight: 'N35 25x3-5 / 6x4 / 20x3-5. ETD 2026-07-14 (today). All paid. Vessel TBD.',
+    highlight: 'N35 25x3-5 / 6x4 / 20x3-5. ETD 2026-07-16. All paid. UPS tracking: 1Z035B4X0333590592. Vessel TBD.',
     products: 'N35 25x3-5 / 6x4 / 20x3-5',
     pkgSize: '8 boxes',
     payment: 'paid',
@@ -1992,19 +1992,23 @@ const orders = {
       'N35 6x4 10000',
       'N35 20x3-5 2224'
     ],
-    progress: 15,
-    progressColor: 'blue',
+    progress: 10,
+    progressColor: 'orange',
     signLabel: 'info',
     signDate: 'Est. 2026-08-14 — +5 business days',
-    signNote: 'ETD 2026-07-14. Vessel TBD. 3-5 business days customs + last-mile after arrival. ETA Los Angeles 2026-08-14.',
+    signNote: 'ETD 2026-07-16. UPS tracking: 1Z035B4X0333590592. Vessel TBD. 3-5 business days customs + last-mile after arrival. ETA Los Angeles 2026-08-14.',
     steps: [
       {
         label: 'Production\nComplete',
         cls: 'done'
       },
       {
-        label: 'Departing\n2026-07-14',
+        label: 'ETD\n2026-07-16',
         cls: 'current'
+      },
+      {
+        label: 'Vessel\nDeparture',
+        cls: 'future'
       },
       {
         label: 'En Route',
@@ -2015,7 +2019,7 @@ const orders = {
         cls: 'future'
       },
       {
-        label: 'Last-mile\nDelivery',
+        label: 'Last-mile\nUPS\nDelivery',
         cls: 'future'
       },
       {
