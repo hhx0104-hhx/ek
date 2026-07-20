@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-16 12:07 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-20 15:07 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1635,7 +1635,7 @@ const orders = {
     etd: '2026-06-24',
     etaOrig: '2026-07-24',
     etaReal: '2026-07-24',
-    highlight: 'Departed Jun 24 via SM NINGBO/2605E. UPS label assigned; tracking not yet active in carrier system. ETA Los Angeles Jul 24.',
+    highlight: 'Departed Jun 24 via SM NINGBO/2605E. UPS label assigned; tracking not yet active in carrier system. ETA Los Angeles Jul 24. 17track live: On the Way, Departed from Facility — Los Angeles, CA, United States',
     products: 'N35 20x3-5 / 20x5-5 / 20x5x2 / 40x20x10',
     pkgSize: '9 boxes',
     payment: 'paid',
@@ -1650,7 +1650,7 @@ const orders = {
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. Jul 24 — Jul 28, 2026',
-    signNote: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking label assigned; not yet active in carrier system. ETA Los Angeles Jul 24.',
+    signNote: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking label assigned; not yet active in carrier system. ETA Los Angeles Jul 24. 17track live: On the Way, Departed from Facility — Los Angeles, CA, United States',
     steps: [
       {
         label: 'Cargo\nReady',
@@ -2200,9 +2200,9 @@ const orders = {
   },
   C2: {
     id: 'C2',
-    status: 'enroute',
-    badge: 'In Transit — ETA 2026-07-17',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered',
+    badgeClass: 'delivered',
     title: 'N35 Air Freight Order',
     sub: '2 items | 0.50 KG | 410 pcs',
     ship: 'SF Express',
@@ -2211,17 +2211,17 @@ const orders = {
     etd: '2026-07-07',
     etaOrig: '2026-07-17',
     etaReal: '2026-07-17',
-    highlight: 'SF Express air freight shipped 2026-07-07. ETA 2026-07-17 (3 days). Tracking: SF6047689079740. 17track live: In Transit — La Alameda',
+    highlight: 'Delivered and signed by customer. 17track confirmed: Miramar, Your express has been delivered',
     products: 'N35 10x3-4.5 / 10x3-5 ring',
     pkgSize: '2 items',
     payment: 'unpaid',
     destination: 'MX',
     list: [],
-    progress: 70,
-    progressColor: 'blue',
-    signLabel: 'info',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
     signDate: 'Est. 2026-07-17',
-    signNote: 'SF Express air freight. ETD 2026-07-07, ETA 2026-07-17. Tracking: SF6047689079740. In transit to Mexico. Estimated air freight cost: USD 120. 17track live: In Transit — La Alameda',
+    signNote: 'SF Express air freight. ETD 2026-07-07, ETA 2026-07-17. Tracking: SF6047689079740. In transit to Mexico. Estimated air freight cost: USD 120. 17track confirmed delivered: Miramar, Your express has been delivered',
     steps: [
       {
         label: 'Order\nPlaced',
@@ -2237,15 +2237,15 @@ const orders = {
       },
       {
         label: 'In Transit\nETA 2026-07-17',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Customs\n& Delivery\nMexico',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Customer\nSigned',
-        cls: 'future'
+        cls: 'done'
       }
     ],
     alert: null,
@@ -2287,7 +2287,7 @@ const orders = {
     etd: '2026-07-14',
     etaOrig: '2026-07-30',
     etaReal: '2026-07-30',
-    highlight: 'SF Express air freight shipped 2026-07-14. ETA 2026-07-30. Products: N35 D16. Tracking: SF6047707611295. 17track live: Operation center Weighing — Dongguan International bag operation center',
+    highlight: 'SF Express air freight shipped 2026-07-14. ETA 2026-07-30. Products: N35 D16. Tracking: SF6047707611295. 17track live: Shipment has arrived at the station and unloading. — Hong Kong Tsing Yi Chung transition,Kwai Tsing District,Hong Kong,852',
     products: 'N35 D16',
     pkgSize: '1 item',
     payment: 'unpaid',
@@ -2299,7 +2299,7 @@ const orders = {
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. 2026-07-30',
-    signNote: 'SF Express air freight. ETD 2026-07-14, ETA 2026-07-30. Tracking: SF6047707611295. Products: N35 D16. Estimated air freight cost: USD 572. 17track live: Operation center Weighing — Dongguan International bag operation center',
+    signNote: 'SF Express air freight. ETD 2026-07-14, ETA 2026-07-30. Tracking: SF6047707611295. Products: N35 D16. Estimated air freight cost: USD 572. 17track live: Shipment has arrived at the station and unloading. — Hong Kong Tsing Yi Chung transition,Kwai Tsing District,Hong Kong,852',
     steps: [
       {
         label: 'Order\nPlaced',
