@@ -3070,35 +3070,39 @@ function showAll() {
   const airOrders = Object.values(orders).filter(o => o.ship === 'Air Freight' || o.id === 'C1' || o.id === 'C2');
   const airOverviewHtml = renderAirOverview(airOrders);
 
-  // Build latest updates list
+  // Build latest updates list — dynamically sorted by status priority
   const today = new Date();
   const fmt = (d) => d.toISOString().slice(0,10);
   const timeFmt = (d) => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
 
   let updates = [];
-  // A12-1 UPS in transit — most urgent
-  const a121 = orders['A12-1'];
-  if (a121) updates.push(`<li class="hot">${a121.id}: ${a121.highlight}</li>`);
-  // B1 en route
-  const b1 = orders['B1'];
-  if (b1) updates.push(`<li>${b1.id}: ${b1.highlight}</li>`);
-  // B2 customs inspection
+  // Priority order: enroute/hot > delayed/warn > delivered/good
+  // B2 customs delay — most critical
   const b2 = orders['B2'];
   if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
-  // B3 departed Jun 24
+  // B3 arrived Los Angeles, UPS in transit
   const b3 = orders['B3'];
   if (b3) updates.push(`<li class="hot">${b3.id}: ${b3.highlight}</li>`);
-  // C2 air freight in production
+  // B4 en route
+  const b4 = orders['B4'];
+  if (b4) updates.push(`<li class="hot">${b4.id}: ${b4.highlight}</li>`);
+  // B5 just shipped
+  const b5 = orders['B5'];
+  if (b5) updates.push(`<li class="hot">${b5.id}: ${b5.highlight}</li>`);
+  // C3 SF Express in transit (Hong Kong)
+  const c3 = orders['C3'];
+  if (c3) updates.push(`<li class="hot">${c3.id}: ${c3.highlight}</li>`);
+  // C2 just delivered via SF Express
   const c2 = orders['C2'];
-  if (c2) updates.push(`<li class="warn">${c2.id}: ${c2.highlight}</li>`);
-  // C1 air freight delivered (payment pending)
+  if (c2) updates.push(`<li class="good">${c2.id}: ${c2.highlight}</li>`);
+  // C1 air freight delivered
   const c1 = orders['C1'];
-  if (c1) updates.push(`<li class="warn">${c1.id}: ${c1.highlight}</li>`);
-  // A12-2 delivered
-  const a122 = orders['A12-2'];
-  if (a122) updates.push(`<li class="good">${a122.id}: ${a122.highlight}</li>`);
-  // A4/A9/A10/A11 delivered
-  ['A4','A9','A10','A11'].forEach(id => {
+  if (c1) updates.push(`<li class="good">${c1.id}: ${c1.highlight}</li>`);
+  // B1 delivered
+  const b1 = orders['B1'];
+  if (b1) updates.push(`<li class="good">${b1.id}: ${b1.highlight}</li>`);
+  // A-batch all delivered
+  ['A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
     const o = orders[id];
     if (o) updates.push(`<li class="good">${o.id}: ${o.highlight}</li>`);
   });
