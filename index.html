@@ -452,7 +452,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-21 13:02 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-21 13:08 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1635,7 +1635,7 @@ const orders = {
     etd: '2026-06-24',
     etaOrig: '2026-07-24',
     etaReal: '2026-07-24',
-    highlight: 'Departed Jun 24 via SM NINGBO/2605E. UPS label assigned; tracking not yet active in carrier system. ETA Los Angeles Jul 24. 17track live: On the Way, Departed from Facility — San Antonio, TX, United States',
+    highlight: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking active — in transit to Mexico via San Antonio, TX. ETA Jul 24. 17track live: On the Way, Departed from Facility — San Antonio, TX, United States',
     products: 'N35 20x3-5 / 20x5-5 / 20x5x2 / 40x20x10',
     pkgSize: '9 boxes',
     payment: 'paid',
@@ -1646,11 +1646,11 @@ const orders = {
       'N35 40x20x10 100',
       'N35 20x5x2 6000'
     ],
-    progress: 20,
+    progress: 60,
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. Jul 24 — Jul 28, 2026',
-    signNote: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking label assigned; not yet active in carrier system. ETA Los Angeles Jul 24. 17track live: On the Way, Departed from Facility — San Antonio, TX, United States',
+    signNote: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking active — last-mile delivery in progress. ETA Jul 24. 17track live: On the Way, Departed from Facility — San Antonio, TX, United States',
     steps: [
       {
         label: 'Cargo\nReady',
@@ -1661,15 +1661,15 @@ const orders = {
         cls: 'done'
       },
       {
-        label: 'En Route\nETA 07-24',
+        label: 'Arrived\nPort',
+        cls: 'done'
+      },
+      {
+        label: 'UPS\nLast-mile',
         cls: 'current'
       },
       {
-        label: 'Arrive\nLos Angeles\n~07-24',
-        cls: 'future'
-      },
-      {
-        label: 'Last-mile\nDelivery',
+        label: 'Delivery',
         cls: 'future'
       },
       {
@@ -3080,16 +3080,16 @@ function showAll() {
   // B2 customs delay — most critical
   const b2 = orders['B2'];
   if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
-  // B3 arrived Los Angeles, UPS in transit
+  // B3 UPS last-mile in progress (San Antonio, TX → Mexico)
   const b3 = orders['B3'];
   if (b3) updates.push(`<li class="hot">${b3.id}: ${b3.highlight}</li>`);
-  // B4 en route
+  // B4 en route (sea freight)
   const b4 = orders['B4'];
   if (b4) updates.push(`<li class="hot">${b4.id}: ${b4.highlight}</li>`);
-  // B5 just shipped
+  // B5 en route (sea freight)
   const b5 = orders['B5'];
   if (b5) updates.push(`<li class="hot">${b5.id}: ${b5.highlight}</li>`);
-  // C3 SF Express in transit (Hong Kong)
+  // C3 SF Express air transit (Hong Kong → Mexico)
   const c3 = orders['C3'];
   if (c3) updates.push(`<li class="hot">${c3.id}: ${c3.highlight}</li>`);
   // C2 just delivered via SF Express
