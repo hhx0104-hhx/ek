@@ -54,9 +54,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .search-btn:active{transform:scale(.97);}
 
 /* Quick tags */
-.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;}
+.tags{display:flex;flex-wrap:wrap;gap:6px 8px;justify-content:center;margin-top:16px;align-items:center;}
 .tag{padding:6px 14px;border-radius:20px;background:var(--card);border:1px solid var(--border);color:var(--text2);font-size:12px;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace;}
 .tag:hover{border-color:var(--border-active);color:var(--accent);background:var(--accent-dim);}
+.tag-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:0 2px;}
+.tag-sep{color:var(--border);font-size:14px;user-select:none;}
 
 /* Error */
 .error-msg{display:none;text-align:center;padding:40px 20px;}
@@ -370,6 +372,20 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   .order-table .col-grade{font-size:12px;font-weight:500;white-space:nowrap;}
 }
 
+/* Order panel collapsible */
+.order-panel{position:relative;}
+.order-panel.completed{border-color:var(--border);opacity:.92;}
+.order-panel.completed:hover{opacity:1;}
+.order-collapse-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:0;cursor:pointer;transition:all .2s;user-select:none;font-size:13px;color:var(--text2);}
+.order-collapse-bar:hover{border-color:var(--border-active);color:var(--accent);}
+.order-collapse-bar.open .order-collapse-label svg{transform:rotate(180deg);}
+.order-collapse-label{display:flex;align-items:center;gap:8px;font-weight:500;}
+.order-collapse-label svg{width:16px;height:16px;fill:var(--text3);transition:transform .3s;flex-shrink:0;}
+.order-collapse-badge{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--green-dim);color:var(--green);padding:2px 8px;border-radius:10px;}
+.order-collapse-body{max-height:0;overflow:hidden;transition:max-height .6s ease;}
+.order-collapse-body.open{max-height:5000px;}
+.order-collapse-body .order-panel-content{padding:20px 0 0 0;}
+
 /* Archive system */
 .archive-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:16px;cursor:pointer;transition:all .2s;user-select:none;font-size:13px;color:var(--text2);}
 .archive-bar:hover{border-color:var(--border-active);color:var(--accent);}
@@ -422,22 +438,30 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       Clear
     </button>
     <div class="tags">
+      <span class="tag-label">Order A:</span>
       <span class="tag" onclick="quickSearch('A4')">A4</span>
       <span class="tag" onclick="quickSearch('A9')">A9</span>
       <span class="tag" onclick="quickSearch('A10')">A10</span>
       <span class="tag" onclick="quickSearch('A11')">A11</span>
       <span class="tag" onclick="quickSearch('A12-1')">A12-1</span>
       <span class="tag" onclick="quickSearch('A12-2')">A12-2</span>
+      <span class="tag-sep">|</span>
+      <span class="tag-label">Order B:</span>
       <span class="tag" onclick="quickSearch('B1')">B1</span>
       <span class="tag" onclick="quickSearch('B2')">B2</span>
       <span class="tag" onclick="quickSearch('B3')">B3</span>
       <span class="tag" onclick="quickSearch('B4')">B4</span>
       <span class="tag" onclick="quickSearch('B5')">B5</span>
+      <span class="tag-sep">|</span>
+      <span class="tag-label">Order C:</span>
       <span class="tag" onclick="quickSearch('C1')">C1 ✈</span>
       <span class="tag" onclick="quickSearch('C2')">C2 ✈</span>
       <span class="tag" onclick="quickSearch('C3')">C3 ✈</span>
+      <span class="tag-sep">|</span>
+      <span class="tag-label">Master:</span>
       <span class="tag" onclick="quickSearch('EK20260506')">EK20260506</span>
       <span class="tag" onclick="quickSearch('EK20260721')">EK20260721</span>
+      <span class="tag-sep">|</span>
       <span class="tag" onclick="showAll()">View All</span>
     </div>
   </div>
@@ -455,7 +479,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-22 12:15 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-22 12:27 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2626,7 +2650,18 @@ function renderOrderOverview(ord) {
   }).join('');
 
   return `
-  <div class="order-panel">
+  <div class="order-panel${parseFloat(overallPct)>=100?' completed':''}">
+    ${parseFloat(overallPct)>=100 ? `
+    <div class="order-collapse-bar open" onclick="toggleOrderPanel('ordpanel_${ord.id}')">
+      <div class="order-collapse-label">
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        Order Overview — ${ord.id} (Completed)
+      </div>
+      <span class="order-collapse-badge">100% Shipped</span>
+    </div>
+    <div class="order-collapse-body open" id="ordpanel_${ord.id}">
+    <div class="order-panel-content">
+    ` : ''}
     <div class="order-panel-title">
       Order Overview
       <span class="order-panel-badge">${ord.id}</span>
@@ -2684,6 +2719,7 @@ function renderOrderOverview(ord) {
       <strong>Related Shipments:</strong>
       <div style="margin-top:6px;">${shipmentLinks}</div>
     </div>
+    ${parseFloat(overallPct)>=100 ? '</div>\n    </div>' : ''}
   </div>`;
 }
 
@@ -3218,6 +3254,13 @@ function toggleArchive() {
   const panel = document.getElementById('archivePanel');
   bar.classList.toggle('open');
   panel.classList.toggle('open');
+}
+
+function toggleOrderPanel(id) {
+  const bar = document.querySelector('.order-collapse-bar[onclick*="' + id + '"]');
+  const panel = document.getElementById(id);
+  if (bar) bar.classList.toggle('open');
+  if (panel) panel.classList.toggle('open');
 }
 
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
