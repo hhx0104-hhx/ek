@@ -3181,7 +3181,7 @@ function showAll() {
   }).join('');
 
   // Air freight orders — render as overview panel
-  const airOrders = Object.values(orders).filter(o => o.ship === 'Air Freight' || o.id === 'C1' || o.id === 'C2');
+  const airOrders = Object.values(orders).filter(o => o.ship === 'Air Freight' || o.ship === 'SF Express' || /^C\d+/.test(o.id));
   const airOverviewHtml = renderAirOverview(airOrders);
 
   // Build latest updates list — dynamically sorted by status priority
