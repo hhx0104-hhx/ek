@@ -435,6 +435,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('B5')">B5</span>
       <span class="tag" onclick="quickSearch('C1')">C1 ✈</span>
       <span class="tag" onclick="quickSearch('C2')">C2 ✈</span>
+      <span class="tag" onclick="quickSearch('C3')">C3 ✈</span>
       <span class="tag" onclick="showAll()">View All</span>
     </div>
   </div>
@@ -445,14 +446,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
     </div>
     <div class="error-title">Order not found</div>
-    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, B5, C1, C2, EK20260506</div>
+    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, B5, C1, C2, C3, EK20260506</div>
   </div>
 
   <!-- Result -->
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-21 13:08 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-22 12:02 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1624,9 +1625,9 @@ const orders = {
   },
   B3: {
     id: 'B3',
-    status: 'enroute',
-    badge: 'En Route — ETA Jul 24',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered',
+    badgeClass: 'delivered',
     title: 'N35 Series Magnets',
     sub: '9 boxes | 146.95 KG | 25,377 pcs',
     ship: 'SM NINGBO',
@@ -1635,7 +1636,7 @@ const orders = {
     etd: '2026-06-24',
     etaOrig: '2026-07-24',
     etaReal: '2026-07-24',
-    highlight: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking active — in transit to Mexico via San Antonio, TX. ETA Jul 24. 17track live: On the Way, Departed from Facility — San Antonio, TX, United States',
+    highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     products: 'N35 20x3-5 / 20x5-5 / 20x5x2 / 40x20x10',
     pkgSize: '9 boxes',
     payment: 'paid',
@@ -1646,11 +1647,11 @@ const orders = {
       'N35 40x20x10 100',
       'N35 20x5x2 6000'
     ],
-    progress: 60,
-    progressColor: 'blue',
-    signLabel: 'info',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
     signDate: 'Est. Jul 24 — Jul 28, 2026',
-    signNote: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking active — last-mile delivery in progress. ETA Jul 24. 17track live: On the Way, Departed from Facility — San Antonio, TX, United States',
+    signNote: 'Departed Jun 24 via SM NINGBO/2605E. UPS tracking active — last-mile delivery in progress. ETA Jul 24. 17track confirmed delivered: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     steps: [
       {
         label: 'Cargo\nReady',
@@ -1666,15 +1667,15 @@ const orders = {
       },
       {
         label: 'UPS\nLast-mile',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Delivery',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Customer\nSigned',
-        cls: 'future'
+        cls: 'done'
       }
     ],
     alert: null,
@@ -1971,9 +1972,9 @@ const orders = {
   },
   B5: {
     id: 'B5',
-    status: 'pending',
-    badge: 'ETD 2026-07-16',
-    badgeClass: 'pending',
+    status: 'enroute',
+    badge: 'En Route — ETA 2026-08-14',
+    badgeClass: 'enroute',
     title: 'N35 Series Magnets',
     sub: '8 boxes | 104.00 KG | 20,224 pcs',
     ship: 'ZIM EAGLE',
@@ -1982,7 +1983,7 @@ const orders = {
     etd: '2026-07-16',
     etaOrig: '2026-08-14',
     etaReal: '2026-08-14',
-    highlight: 'N35 25x3-5 / 6x4 / 20x3-5. ETD 2026-07-16. All paid. UPS tracking: UPS 1Z035B4X0333590592. Vessel TBD.',
+    highlight: 'N35 25x3-5 / 6x4 / 20x3-5. Departed 2026-07-16 via ZIM EAGLE/21E. All paid. UPS tracking: UPS 1Z035B4X0333590592. ETA 2026-08-14.',
     products: 'N35 25x3-5 / 6x4 / 20x3-5',
     pkgSize: '8 boxes',
     payment: 'paid',
@@ -1992,27 +1993,23 @@ const orders = {
       'N35 6x4 10000',
       'N35 20x3-5 2224'
     ],
-    progress: 10,
-    progressColor: 'orange',
+    progress: 20,
+    progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. 2026-08-14 — +5 business days',
-    signNote: 'ETD 2026-07-16. UPS tracking: UPS 1Z035B4X0333590592. Vessel TBD. 3-5 business days customs + last-mile after arrival. ETA Los Angeles 2026-08-14.',
+    signNote: 'Departed 2026-07-16 via ZIM EAGLE/21E. UPS tracking: UPS 1Z035B4X0333590592. 3-5 business days customs + last-mile after arrival. ETA 2026-08-14.',
     steps: [
       {
         label: 'Production\nComplete',
         cls: 'done'
       },
       {
-        label: 'ETD\n2026-07-16',
+        label: 'Departed\n2026-07-16',
+        cls: 'done'
+      },
+      {
+        label: 'En Route\nETA 2026-08-14',
         cls: 'current'
-      },
-      {
-        label: 'Vessel\nDeparture',
-        cls: 'future'
-      },
-      {
-        label: 'En Route',
-        cls: 'future'
       },
       {
         label: 'Arrive\nLos Angeles\n~2026-08-14',
@@ -2287,7 +2284,7 @@ const orders = {
     etd: '2026-07-14',
     etaOrig: '2026-07-30',
     etaReal: '2026-07-30',
-    highlight: 'SF Express air freight shipped 2026-07-14. ETA 2026-07-30. Products: N35 D16. Tracking: SF6047707611295. 17track live: Shipment loaded, prepare to send to next station. — Hong Kong Chek Lap Kok air station,Lantau District,Hong Kong,852',
+    highlight: 'SF Express air freight shipped 2026-07-14. ETA 2026-07-30. Products: N35 D16. Tracking: SF6047707611295. 17track live: Flight departure scan — Hong Kong Chek Lap Kok air station,Lantau District,Hong Kong,852',
     products: 'N35 D16',
     pkgSize: '1 item',
     payment: 'unpaid',
@@ -2299,7 +2296,7 @@ const orders = {
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. 2026-07-30',
-    signNote: 'SF Express air freight. ETD 2026-07-14, ETA 2026-07-30. Tracking: SF6047707611295. Products: N35 D16. Estimated air freight cost: USD 572. 17track live: Shipment loaded, prepare to send to next station. — Hong Kong Chek Lap Kok air station,Lantau District,Hong Kong,852',
+    signNote: 'SF Express air freight. ETD 2026-07-14, ETA 2026-07-30. Tracking: SF6047707611295. Products: N35 D16. Estimated air freight cost: USD 572. 17track live: Flight departure scan — Hong Kong Chek Lap Kok air station,Lantau District,Hong Kong,852',
     steps: [
       {
         label: 'Order\nPlaced',
@@ -3080,9 +3077,6 @@ function showAll() {
   // B2 customs delay — most critical
   const b2 = orders['B2'];
   if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
-  // B3 UPS last-mile in progress (San Antonio, TX → Mexico)
-  const b3 = orders['B3'];
-  if (b3) updates.push(`<li class="hot">${b3.id}: ${b3.highlight}</li>`);
   // B4 en route (sea freight)
   const b4 = orders['B4'];
   if (b4) updates.push(`<li class="hot">${b4.id}: ${b4.highlight}</li>`);
@@ -3092,6 +3086,9 @@ function showAll() {
   // C3 SF Express air transit (Hong Kong → Mexico)
   const c3 = orders['C3'];
   if (c3) updates.push(`<li class="hot">${c3.id}: ${c3.highlight}</li>`);
+  // B3 delivered via UPS (Brownsville, TX)
+  const b3 = orders['B3'];
+  if (b3) updates.push(`<li class="good">${b3.id}: ${b3.highlight}</li>`);
   // C2 just delivered via SF Express
   const c2 = orders['C2'];
   if (c2) updates.push(`<li class="good">${c2.id}: ${c2.highlight}</li>`);
