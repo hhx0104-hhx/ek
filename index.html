@@ -436,6 +436,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('C1')">C1 ✈</span>
       <span class="tag" onclick="quickSearch('C2')">C2 ✈</span>
       <span class="tag" onclick="quickSearch('C3')">C3 ✈</span>
+      <span class="tag" onclick="quickSearch('EK20260506')">EK20260506</span>
+      <span class="tag" onclick="quickSearch('EK20260721')">EK20260721</span>
       <span class="tag" onclick="showAll()">View All</span>
     </div>
   </div>
@@ -446,14 +448,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
     </div>
     <div class="error-title">Order not found</div>
-    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, B5, C1, C2, C3, EK20260506</div>
+    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, B5, C1, C2, C3, EK20260506, EK20260721</div>
   </div>
 
   <!-- Result -->
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-22 12:02 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-22 12:15 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2495,6 +2497,83 @@ const orderEK20260506 = {
   producing: []
 };
 
+// ========== EK20260721 Order Master Data (Order D) ==========
+const orderEK20260721 = {
+  id: 'EK20260721',
+  totalProducts: 10,
+  totalQty: 321450,
+  totalAmount: 0,
+  paidAmount: 0,
+  pendingAmount: 0,
+  items: [
+    {
+      grade: 'N35',
+      size: '2x1',
+      ordered: 50000
+    },
+    {
+      grade: 'N35',
+      size: '3X3',
+      ordered: 10000
+    },
+    {
+      grade: 'N35',
+      size: '6X2',
+      ordered: 100000
+    },
+    {
+      grade: 'N35',
+      size: '6x3',
+      ordered: 20000
+    },
+    {
+      grade: 'N35',
+      size: '18x2',
+      ordered: 53000
+    },
+    {
+      grade: 'N35',
+      size: '25x5',
+      ordered: 3000
+    },
+    {
+      grade: 'N35',
+      size: '25x2',
+      ordered: 6250
+    },
+    {
+      grade: 'N35',
+      size: '25x3',
+      ordered: 5600
+    },
+    {
+      grade: 'N35',
+      size: '25x3-5',
+      ordered: 3600
+    },
+    {
+      grade: 'N35',
+      size: '20x10x2',
+      ordered: 70000
+    }
+  ],
+  shipped: {},
+  shipments: [],
+  produced: [],
+  producing: [
+    'N35 2x1',
+    'N35 3X3',
+    'N35 6X2',
+    'N35 6x3',
+    'N35 18x2',
+    'N35 25x5',
+    'N35 25x2',
+    'N35 25x3',
+    'N35 25x3-5',
+    'N35 20x10x2'
+  ]
+};
+
 function renderOrderOverview(ord) {
   const producedSet = new Set(ord.produced || []);
   let totalShipped = 0, totalRemaining = 0, doneCount = 0, partialCount = 0, pendingCount = 0, producingCount = 0, readyCount = 0;
@@ -3098,6 +3177,10 @@ function showAll() {
   // B1 delivered
   const b1 = orders['B1'];
   if (b1) updates.push(`<li class="good">${b1.id}: ${b1.highlight}</li>`);
+  // Order D: new master order in production
+  if (typeof orderEK20260721 !== 'undefined') {
+    updates.push(`<li class="warn">EK20260721: New order received — ${orderEK20260721.totalProducts} product lines, ${orderEK20260721.totalQty.toLocaleString()} pcs. All items in production.</li>`);
+  }
   // A-batch all delivered
   ['A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
     const o = orders[id];
@@ -3119,6 +3202,7 @@ function showAll() {
   document.getElementById('result').innerHTML = `
     ${updateBannerHtml}
     ${renderOrderOverview(orderEK20260506)}
+    ${renderOrderOverview(orderEK20260721)}
     ${airOverviewHtml}
     <div class="all-section">
       <div class="all-title">All Shipments Overview</div>
