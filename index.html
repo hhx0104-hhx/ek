@@ -479,7 +479,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-23 12:01 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-07-27 12:13 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2299,9 +2299,9 @@ const orders = {
   },
   C3: {
     id: 'C3',
-    status: 'enroute',
-    badge: 'In Transit — ETA 2026-07-30',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered',
+    badgeClass: 'delivered',
     title: 'N35 Air Freight Order',
     sub: '1 item | 6.50 KG | 1,000 pcs',
     ship: 'SF Express',
@@ -2310,7 +2310,7 @@ const orders = {
     etd: '2026-07-14',
     etaOrig: '2026-07-30',
     etaReal: '2026-07-30',
-    highlight: 'SF Express air freight shipped 2026-07-14. ETA 2026-07-30. Products: N35 D16. Tracking: SF6047707611295. 17track live: Flight departure scan — Hong Kong Chek Lap Kok air station,Lantau District,Hong Kong,852',
+    highlight: 'Delivered and signed by customer. 17track confirmed: Miramar, Your express has been delivered',
     products: 'N35 D16',
     pkgSize: '1 item',
     payment: 'paid',
@@ -2318,11 +2318,11 @@ const orders = {
     list: [
       'N35 D16 1000'
     ],
-    progress: 40,
-    progressColor: 'blue',
-    signLabel: 'info',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
     signDate: 'Est. 2026-07-30',
-    signNote: 'SF Express air freight. ETD 2026-07-14, ETA 2026-07-30. Tracking: SF6047707611295. Products: N35 D16. Estimated air freight cost: USD 572. 17track live: Flight departure scan — Hong Kong Chek Lap Kok air station,Lantau District,Hong Kong,852',
+    signNote: 'SF Express air freight. ETD 2026-07-14, ETA 2026-07-30. Tracking: SF6047707611295. Products: N35 D16. Estimated air freight cost: USD 572. 17track confirmed delivered: Miramar, Your express has been delivered',
     steps: [
       {
         label: 'Order\nPlaced',
@@ -2338,15 +2338,15 @@ const orders = {
       },
       {
         label: 'In Transit\nETA 2026-07-30',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Customs\n& Delivery\nMexico',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Customer\nSigned',
-        cls: 'future'
+        cls: 'done'
       }
     ],
     alert: null,
