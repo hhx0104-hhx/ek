@@ -479,7 +479,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-07-31 12:43 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-08-10 13:27 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1998,9 +1998,9 @@ const orders = {
   },
   B5: {
     id: 'B5',
-    status: 'enroute',
-    badge: 'En Route — ETA 2026-08-14',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered',
+    badgeClass: 'delivered',
     title: 'N35 Series Magnets',
     sub: '8 boxes | 104.00 KG | 20,224 pcs',
     ship: 'ZIM EAGLE',
@@ -2009,7 +2009,7 @@ const orders = {
     etd: '2026-07-16',
     etaOrig: '2026-08-14',
     etaReal: '2026-08-14',
-    highlight: 'N35 25x3-5 / 6x4 / 20x3-5. Departed 2026-07-16 via ZIM EAGLE/21E. All paid. UPS tracking: UPS 1Z035B4X0333590592. ETA 2026-08-14.',
+    highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     products: 'N35 25x3-5 / 6x4 / 20x3-5',
     pkgSize: '8 boxes',
     payment: 'paid',
@@ -2019,11 +2019,11 @@ const orders = {
       'N35 6x4 10000',
       'N35 20x3-5 2224'
     ],
-    progress: 20,
-    progressColor: 'blue',
-    signLabel: 'info',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
     signDate: 'Est. 2026-08-14 — +5 business days',
-    signNote: 'Departed 2026-07-16 via ZIM EAGLE/21E. UPS tracking: UPS 1Z035B4X0333590592. 3-5 business days customs + last-mile after arrival. ETA 2026-08-14.',
+    signNote: 'Departed 2026-07-16 via ZIM EAGLE/21E. UPS tracking: UPS 1Z035B4X0333590592. 3-5 business days customs + last-mile after arrival. ETA 2026-08-14. 17track confirmed delivered: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     steps: [
       {
         label: 'Production\nComplete',
@@ -2035,19 +2035,19 @@ const orders = {
       },
       {
         label: 'En Route\nETA 2026-08-14',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Arrive\nLos Angeles\n~2026-08-14',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Last-mile\nUPS\nDelivery',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Customer\nSigned',
-        cls: 'future'
+        cls: 'done'
       }
     ],
     alert: null,
