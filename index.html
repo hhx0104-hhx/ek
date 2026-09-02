@@ -440,6 +440,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="tags">
       <span class="tag-label">Order A:</span>
       <span class="tag" onclick="quickSearch('A4')">A4</span>
+      <span class="tag" onclick="quickSearch('A5')">A5</span>
       <span class="tag" onclick="quickSearch('A9')">A9</span>
       <span class="tag" onclick="quickSearch('A10')">A10</span>
       <span class="tag" onclick="quickSearch('A11')">A11</span>
@@ -458,6 +459,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('C2')">C2 ✈</span>
       <span class="tag" onclick="quickSearch('C3')">C3 ✈</span>
       <span class="tag-sep">|</span>
+      <span class="tag-label">Order D:</span>
+      <span class="tag" onclick="quickSearch('D1')">D1</span>
+      <span class="tag" onclick="quickSearch('D2')">D2</span>
+      <span class="tag-sep">|</span>
       <span class="tag-label">Master:</span>
       <span class="tag" onclick="quickSearch('EK20260506')">EK20260506</span>
       <span class="tag" onclick="quickSearch('EK20260721')">EK20260721</span>
@@ -472,14 +477,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
     </div>
     <div class="error-title">Order not found</div>
-    <div class="error-text">Please check the order code and try again. Available codes: A4, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, B5, C1, C2, C3, EK20260506, EK20260721</div>
+    <div class="error-text">Please check the order code and try again. Available codes: A4, A5, A9, A10, A11, A12-1, A12-2, B1, B2, B3, B4, B5, C1, C2, C3, D1, D2, EK20260506, EK20260721</div>
   </div>
 
   <!-- Result -->
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-08-10 13:27 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-09-02 13:19 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1265,6 +1270,176 @@ const orders = {
             grade: 'N35',
             size: '20x10x2',
             qty: 6500
+          }
+        ]
+      }
+    ]
+  },
+  A5: {
+    id: 'A5',
+    status: 'pending',
+    badge: 'Cargo Ready — ETD Sep 5',
+    badgeClass: 'pending',
+    title: 'N35 Door Magnet Order',
+    sub: '8 boxes | 196.20 KG | 11,950 pcs',
+    ship: '',
+    voyage: '',
+    tracking: 'Not assigned',
+    etd: '2026-09-05',
+    etaOrig: '2026-10-15',
+    etaReal: '2026-10-15',
+    highlight: 'Door magnet order (doormagnet L46, badge magnets, mounting screws) packed and ready for shipment. ETD 2026-09-05, ETA 2026-10-15. Destination: US.',
+    products: 'N35 doormagnet L46 / badges magnet / screw',
+    pkgSize: '8 boxes',
+    payment: '',
+    destination: 'US',
+    list: [
+      'N35 doormagnet L46 4950',
+      'badges magnet 2000',
+      'screw 5000'
+    ],
+    progress: 30,
+    progressColor: 'amber',
+    signLabel: 'info',
+    signDate: 'Est. Oct 15 — Oct 22, 2026',
+    signNote: 'Production complete, cargo packed (8 boxes, 11,950 pcs). Awaiting departure 2026-09-05. ETA 2026-10-15 (US). Last-mile delivery estimated 3-7 business days after arrival.',
+    steps: [
+      {
+        label: 'Production\nComplete',
+        cls: 'done'
+      },
+      {
+        label: 'Cargo\nPacked',
+        cls: 'done'
+      },
+      {
+        label: 'Depart\n09-05',
+        cls: 'current'
+      },
+      {
+        label: 'En Route\nETA 10-15',
+        cls: 'future'
+      },
+      {
+        label: 'Arrive\nUS Port',
+        cls: 'future'
+      },
+      {
+        label: 'Last-mile\nDelivery',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    boxes: [
+      {
+        num: 1,
+        weight: 27.75,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 884
+          }
+        ]
+      },
+      {
+        num: 2,
+        weight: 27.75,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 884
+          }
+        ]
+      },
+      {
+        num: 3,
+        weight: 27.75,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 884
+          }
+        ]
+      },
+      {
+        num: 4,
+        weight: 27.75,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 884
+          }
+        ]
+      },
+      {
+        num: 5,
+        weight: 28.0,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 544
+          },
+          {
+            grade: '',
+            size: 'badges magnet',
+            qty: 1000
+          }
+        ]
+      },
+      {
+        num: 6,
+        weight: 28.0,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 544
+          },
+          {
+            grade: '',
+            size: 'badges magnet',
+            qty: 1000
+          }
+        ]
+      },
+      {
+        num: 7,
+        weight: 19.2,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 292
+          },
+          {
+            grade: '',
+            size: 'screw',
+            qty: 2500
+          }
+        ]
+      },
+      {
+        num: 8,
+        weight: 10.0,
+        items: [
+          {
+            grade: 'N35',
+            size: 'doormagnet L46',
+            qty: 34
+          },
+          {
+            grade: '',
+            size: 'screw',
+            qty: 2500
           }
         ]
       }
@@ -2363,6 +2538,319 @@ const orders = {
         ]
       }
     ]
+  },
+  D1: {
+    id: 'D1',
+    status: 'pending',
+    badge: 'Cargo Ready — ETD Sep 5',
+    badgeClass: 'pending',
+    title: 'N35 Series Magnets (Order D)',
+    sub: '4 boxes | 66.00 KG | 208,050 pcs',
+    ship: '',
+    voyage: '',
+    tracking: 'UPS 1ZK6B4420325075331',
+    etd: '2026-09-05',
+    etaOrig: '2026-10-05',
+    etaReal: '2026-10-05',
+    highlight: 'First Order D shipment ready for departure. UPS label created. ETD 2026-09-05, ETA 2026-10-05. Products: N35 6x2 / 6x3 / 5x1.5 / 3x3 / 2x1.',
+    products: 'N35 6x2 / 6x3 / 5x1.5 / 3x3 / 2x1',
+    pkgSize: '4 boxes',
+    payment: '',
+    destination: 'TBD',
+    list: [
+      'N35 6x2 100000',
+      'N35 2x1 50000',
+      'N35 6x3 20000',
+      'N35 5x1.5 28050',
+      'N35 3x3 10000'
+    ],
+    progress: 40,
+    progressColor: 'amber',
+    signLabel: 'info',
+    signDate: 'Est. Oct 5 — Oct 12, 2026',
+    signNote: 'Cargo ready (4 boxes, 208,050 pcs). UPS label created (1ZK6B4420325075331). Awaiting departure 2026-09-05. ETA 2026-10-05.',
+    steps: [
+      {
+        label: 'Production\nComplete',
+        cls: 'done'
+      },
+      {
+        label: 'Cargo\nReady',
+        cls: 'done'
+      },
+      {
+        label: 'Depart\n09-05',
+        cls: 'current'
+      },
+      {
+        label: 'En Route\nETA 10-05',
+        cls: 'future'
+      },
+      {
+        label: 'Arrive\nPort',
+        cls: 'future'
+      },
+      {
+        label: 'Last-mile\nUPS\nDelivery',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    orderId: 'EK20260721',
+    boxes: [
+      {
+        num: 1,
+        weight: 20.9,
+        items: [
+          {
+            grade: 'N35',
+            size: '6x2',
+            qty: 48520
+          }
+        ]
+      },
+      {
+        num: 2,
+        weight: 20.7,
+        items: [
+          {
+            grade: 'N35',
+            size: '6x2',
+            qty: 45045
+          },
+          {
+            grade: 'N35',
+            size: '2x1',
+            qty: 50000
+          }
+        ]
+      },
+      {
+        num: 3,
+        weight: 13.4,
+        items: [
+          {
+            grade: 'N35',
+            size: '6x3',
+            qty: 20000
+          }
+        ]
+      },
+      {
+        num: 4,
+        weight: 11.0,
+        items: [
+          {
+            grade: 'N35',
+            size: '5x1.5',
+            qty: 28050
+          },
+          {
+            grade: 'N35',
+            size: '6x2',
+            qty: 6435
+          },
+          {
+            grade: 'N35',
+            size: '3x3',
+            qty: 10000
+          }
+        ]
+      }
+    ]
+  },
+  D2: {
+    id: 'D2',
+    status: 'producing',
+    badge: 'Packing — ETD Sep 18',
+    badgeClass: 'pending',
+    title: 'N35 Series Magnets (Order D)',
+    sub: '11 boxes | 221.10 KG | 57,126 pcs',
+    ship: '',
+    voyage: '',
+    tracking: 'Not assigned',
+    etd: '2026-09-18',
+    etaOrig: '2026-10-18',
+    etaReal: '2026-10-18',
+    highlight: 'Second Order D shipment in packing. ETD 2026-09-18, ETA 2026-10-18. Products: N35 20x10x2 / 25x15x5-5 / 40x20x4. Tracking to be assigned at departure.',
+    products: 'N35 20x10x2 / 25x15x5-5 / 40x20x4',
+    pkgSize: '11 boxes',
+    payment: '',
+    destination: 'TBD',
+    list: [
+      'N35 20x10x2 53360',
+      'N35 25x15x5-5 3010',
+      'N35 40x20x4 756'
+    ],
+    progress: 50,
+    progressColor: 'amber',
+    signLabel: 'info',
+    signDate: 'Est. Oct 18 — Oct 25, 2026',
+    signNote: 'Shipment being packed (11 boxes, 57,126 pcs). ETD 2026-09-18, ETA 2026-10-18. Tracking number to be assigned at departure.',
+    steps: [
+      {
+        label: 'Production /\nPacking',
+        cls: 'current'
+      },
+      {
+        label: 'Cargo\nReady',
+        cls: 'future'
+      },
+      {
+        label: 'Depart\n09-18',
+        cls: 'future'
+      },
+      {
+        label: 'En Route\nETA 10-18',
+        cls: 'future'
+      },
+      {
+        label: 'Arrive\nPort',
+        cls: 'future'
+      },
+      {
+        label: 'Last-mile\nDelivery',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    orderId: 'EK20260721',
+    boxes: [
+      {
+        num: 1,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 2,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 3,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 4,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 5,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 6,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 7,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 8,
+        weight: 20.1,
+        items: [
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 6600
+          }
+        ]
+      },
+      {
+        num: 9,
+        weight: 19.65,
+        items: [
+          {
+            grade: 'N35',
+            size: '25x15x5-5(S-N)',
+            qty: 1490
+          }
+        ]
+      },
+      {
+        num: 10,
+        weight: 20.05,
+        items: [
+          {
+            grade: 'N35',
+            size: '25x15x5-5(N-S)',
+            qty: 1520
+          }
+        ]
+      },
+      {
+        num: 11,
+        weight: 20.6,
+        items: [
+          {
+            grade: 'N35',
+            size: '40x20x4',
+            qty: 756
+          },
+          {
+            grade: 'N35',
+            size: '20x10x2',
+            qty: 560
+          }
+        ]
+      }
+    ]
   }
 };
 
@@ -2521,13 +3009,14 @@ const orderEK20260506 = {
   produced: [],
   producing: []
 };
+window.orderEK20260506 = orderEK20260506;
 
 // ========== EK20260721 Order Master Data (Order D) ==========
 const orderEK20260721 = {
   id: 'EK20260721',
   orderLabel: 'D',
-  totalProducts: 13,
-  totalQty: 330200,
+  totalProducts: 16,
+  totalQty: 459200,
   totalAmount: 0,
   paidAmount: 0,
   pendingAmount: 0,
@@ -2596,27 +3085,50 @@ const orderEK20260721 = {
       grade: 'N35',
       size: '30x10x2',
       ordered: 5000
+    },
+    {
+      grade: 'N35',
+      size: '25x5-5',
+      ordered: 1000
+    },
+    {
+      grade: 'N35',
+      size: '5x1.5',
+      ordered: 28000
+    },
+    {
+      grade: 'N35',
+      size: '3x1',
+      ordered: 100000
     }
   ],
-  shipped: {},
-  shipments: [],
+  shipped: {
+    'N35 2x1': 50000,
+    'N35 3X3': 10000,
+    'N35 6X2': 100000,
+    'N35 6x3': 20000,
+    'N35 40x20x4': 750,
+    'N35 25x15x5-5': 3000,
+    'N35 5x1.5': 28000
+  },
+  shipments: [
+    'D1',
+    'D2'
+  ],
   produced: [],
   producing: [
-    'N35 2x1',
-    'N35 3X3',
-    'N35 6X2',
-    'N35 6x3',
     'N35 18x2',
     'N35 25x5',
     'N35 25x2',
     'N35 25x3',
     'N35 25x3-5',
     'N35 20x10x2',
-    'N35 40x20x4',
-    'N35 25x15x5-5',
-    'N35 30x10x2'
+    'N35 30x10x2',
+    'N35 25x5-5',
+    'N35 3x1'
   ]
 };
+window.orderEK20260721 = orderEK20260721;
 
 function renderOrderOverview(ord) {
   const producedSet = new Set(ord.produced || []);
@@ -3212,15 +3724,30 @@ function showAll() {
   // B2 customs delay — most critical
   const b2 = orders['B2'];
   if (b2) updates.push(`<li class="warn">${b2.id}: ${b2.highlight}</li>`);
-  // B4 en route (sea freight)
+  // D1 first Order D shipment — cargo ready, UPS label created
+  const d1 = orders['D1'];
+  if (d1) updates.push(`<li class="hot">${d1.id}: ${d1.highlight}</li>`);
+  // D2 second Order D shipment — in packing
+  const d2 = orders['D2'];
+  if (d2) updates.push(`<li class="hot">${d2.id}: ${d2.highlight}</li>`);
+  // A5 door magnet order — cargo ready
+  const a5 = orders['A5'];
+  if (a5) updates.push(`<li class="hot">${a5.id}: ${a5.highlight}</li>`);
+  // Order D: master order — first shipments dispatched
+  if (typeof orderEK20260721 !== 'undefined') {
+    const dShipped = Object.values(orderEK20260721.shipped || {}).reduce((a, b) => a + b, 0);
+    const dProducing = (orderEK20260721.producing || []).length;
+    updates.push(`<li class="hot">Order D (EK20260721): ${orderEK20260721.totalProducts} product lines, ${orderEK20260721.totalQty.toLocaleString()} pcs — ${dShipped.toLocaleString()} pcs dispatched, ${dProducing} lines still in production.</li>`);
+  }
+  // B4 delivered via UPS
   const b4 = orders['B4'];
-  if (b4) updates.push(`<li class="hot">${b4.id}: ${b4.highlight}</li>`);
-  // B5 en route (sea freight)
+  if (b4) updates.push(`<li class="good">${b4.id}: ${b4.highlight}</li>`);
+  // B5 delivered via UPS
   const b5 = orders['B5'];
-  if (b5) updates.push(`<li class="hot">${b5.id}: ${b5.highlight}</li>`);
-  // C3 SF Express air transit (Hong Kong → Mexico)
+  if (b5) updates.push(`<li class="good">${b5.id}: ${b5.highlight}</li>`);
+  // C3 delivered via SF Express
   const c3 = orders['C3'];
-  if (c3) updates.push(`<li class="hot">${c3.id}: ${c3.highlight}</li>`);
+  if (c3) updates.push(`<li class="good">${c3.id}: ${c3.highlight}</li>`);
   // B3 delivered via UPS (Brownsville, TX)
   const b3 = orders['B3'];
   if (b3) updates.push(`<li class="good">${b3.id}: ${b3.highlight}</li>`);
@@ -3233,10 +3760,6 @@ function showAll() {
   // B1 delivered
   const b1 = orders['B1'];
   if (b1) updates.push(`<li class="good">${b1.id}: ${b1.highlight}</li>`);
-  // Order D: new master order in production
-  if (typeof orderEK20260721 !== 'undefined') {
-    updates.push(`<li class="warn">Order D (EK20260721): New order received — ${orderEK20260721.totalProducts} product lines, ${orderEK20260721.totalQty.toLocaleString()} pcs. All items in production.</li>`);
-  }
   // A-batch all delivered
   ['A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
     const o = orders[id];
