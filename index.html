@@ -484,7 +484,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-09-08 13:20 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-09-08 13:35 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2416,7 +2416,57 @@ const orders = {
     pkgSize: '4 boxes',
     payment: '',
     destination: 'US',
-    list: ['N35 6x2 93565', 'N35 2x1 50000', 'N35 5x1.5 28050', 'N35 6x3 20000', 'N35 3x3 10000', 'N35 6x2 6435'],
+
+    progress: 50,
+    progressColor: 'blue',
+    signLabel: 'info',
+    signDate: 'Est. Oct 6 — Oct 13, 2026',
+    signNote: 'Vessel SM KWANGYANG 2606E departed Sep 6, 2026. ETA 2026-10-06. UPS last-mile tracking 1ZK6B4420325075331 active. Arrival at port expected late September; last-mile delivery 3-7 business days after customs.',
+    steps: [
+      {
+        label: 'Production\nComplete',
+        cls: 'done'
+      },
+      {
+        label: 'Departed\n09-06',
+        cls: 'done'
+      },
+      {
+        label: 'En Route\nPacific',
+        cls: 'current'
+      },
+      {
+        label: 'Arrived\nPort',
+        cls: 'future'
+      },
+      {
+        label: 'Last-mile\nDelivery',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    boxes: [
+    { num: 1, weight: 20.9, items: [
+      { grade: 'N35', size: '6x2', qty: 48520 }
+    ] },
+    { num: 2, weight: 20.7, items: [
+      { grade: 'N35', size: '6x2', qty: 45045 },
+      { grade: 'N35', size: '2x1', qty: 50000 }
+    ] },
+    { num: 3, weight: 13.4, items: [
+      { grade: 'N35', size: '6x3', qty: 20000 }
+    ] },
+    { num: 4, weight: 11, items: [
+      { grade: 'N35', size: '5x1.5', qty: 28050 },
+      { grade: 'N35', size: '6x2', qty: 6435 },
+      { grade: 'N35', size: '3x3', qty: 10000 }
+    ] }
+    ],
+    list: ['N35 6x2 100000', 'N35 2x1 50000', 'N35 5x1.5 28050', 'N35 6x3 20000', 'N35 3x3 10000'],
     progress: 50,
     progressColor: 'blue',
     signLabel: 'info',
@@ -2896,7 +2946,7 @@ const orderEK20260721 = {
   shipped: {
     'N35 2x1': 50000,
     'N35 3X3': 10000,
-    'N35 6X2': 93565,
+    'N35 6X2': 100000,
     'N35 6x3': 20000,
     'N35 40x20x4': 750,
     'N35 25x15x5-5': 3010,
