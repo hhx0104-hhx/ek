@@ -463,6 +463,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('D1')">D1</span>
       <span class="tag" onclick="quickSearch('D2')">D2</span>
       <span class="tag" onclick="quickSearch('D3')">D3</span>
+      <span class="tag" onclick="quickSearch('D4')">D4</span>
+      <span class="tag" onclick="quickSearch('D5')">D5</span>
       <span class="tag-sep">|</span>
       <span class="tag-label">Master:</span>
       <span class="tag" onclick="quickSearch('EK20260506')">EK20260506</span>
@@ -485,7 +487,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: 2026-10-12 12:40 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: 2026-10-16 10:50 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -1583,9 +1585,9 @@ const orders = {
 
   B2: {
     id: 'B2',
-    status: 'enroute',
-    badge: 'En Route — ETA Oct 11',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered — Oct 15',
+    badgeClass: 'delivered',
     title: 'N35 Series Magnets',
     sub: '7 boxes | 137.48 KG | 106,297 pcs',
     ship: 'OOCL IRIS',
@@ -1594,17 +1596,17 @@ const orders = {
     etd: '2026-09-18',
     etaOrig: '2026-10-11',
     etaReal: '2026-10-11',
-    highlight: 'Departed Sep 18, 2026 via OOCL IRIS after customs clearance. ETA 2026-10-11 — arriving at destination port. UPS last-mile tracking: 1ZK6B4420337374129.',
+    highlight: 'Delivered on Oct 15, 2026 at Brownsville, TX via UPS 1ZK6B4420337374129 (picked up Oct 13, 3-day last-mile transit). Vessel OOCL IRIS departed Sep 18, 2026 after customs clearance. Products: N35 5x1 / 15x2 / 8x5 / 10x5x2 / 12x4 / 15x5 / 40x5 (106,297 pcs).',
     products: 'N35 5x1 / 15x2 / 8x5 / 10x5x2 / 12x4 / 15x5 / 40x5',
     pkgSize: '7 boxes',
     payment: 'paid',
     destination: 'TBD',
     list: ['N35 5x1 60000', 'N35 15x2 24917', 'N35 10x5x2 10000', 'N35 8x5 8000', 'N35 12x4 2000', 'N35 15x5 880', 'N35 40x5 500'],
-    progress: 70,
-    progressColor: 'blue',
-    signLabel: 'info',
-    signDate: 'Est. Oct 11 — Oct 25, 2026',
-    signNote: 'Vessel OOCL IRIS departed Sep 18, 2026 after customs clearance. ETA 2026-10-11. UPS last-mile tracking 1ZK6B4420337374129 — label created, will activate when cargo reaches the destination port. Last-mile delivery 3-7 business days after customs.',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
+    signDate: 'Delivered Oct 15, 2026',
+    signNote: 'Delivered Oct 15, 2026 at Brownsville, TX (UPS 1ZK6B4420337374129; picked up Oct 13, 2026, 3-day last-mile transit). Vessel OOCL IRIS departed Sep 18, 2026 after customs clearance.',
     steps: [
       {
         label: 'Customs\nCleared',
@@ -1615,16 +1617,16 @@ const orders = {
         cls: 'done'
       },
       {
-        label: 'Arriving\nPort',
-        cls: 'current'
+        label: 'Arrived\nPort',
+        cls: 'done'
       },
       {
         label: 'Last-mile\nDelivery',
-        cls: 'future'
+        cls: 'done'
       },
       {
-        label: 'Customer\nSigned',
-        cls: 'future'
+        label: 'Delivered\n10-15',
+        cls: 'done'
       }
     ],
     alert: null,
@@ -2488,7 +2490,7 @@ const orders = {
   D2: {
     id: 'D2',
     status: 'enroute',
-    badge: 'En Route — ETD Sep 19',
+    badge: 'In Transit — UPS Last Mile',
     badgeClass: 'enroute',
     title: 'N35 Series Magnets (Order D)',
     sub: '15 boxes | 285.13 KG | 64,870 pcs',
@@ -2498,17 +2500,17 @@ const orders = {
     etd: '2026-09-19',
     etaOrig: '2026-10-24',
     etaReal: '2026-10-24',
-    highlight: 'Second Order D shipment departed on Sep 19, 2026 via CSCL SUMMER. ETA 2026-10-24. UPS last-mile tracking 1ZG2C1210300042226. Products: N35 20x10x2 / 25x15x5-5 / 40x20x4 / 25x3 / 30x10x2 (64,870 pcs).',
+    highlight: 'Second Order D shipment departed on Sep 19, 2026 via CSCL SUMMER. Cargo has reached the US and UPS last-mile tracking 1ZG2C1210300042226 is active — departed the Ontario, CA facility on Oct 14, 2026. Products: N35 20x10x2 / 25x15x5-5 / 40x20x4 / 25x3 / 30x10x2 (64,870 pcs).',
     products: 'N35 20x10x2 / 25x15x5-5 (S-N) / 25x15x5-5 (N-S) / 40x20x4 / 25x3 / 30x10x2',
     pkgSize: '15 boxes',
     payment: '',
     destination: 'US',
     list: ['N35 20x10x2 53360', 'N35 25x15x5-5 3010', 'N35 30x10x2 4000', 'N35 25x3 3744', 'N35 40x20x4 756'],
-    progress: 55,
+    progress: 85,
     progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'Est. Oct 24 — Oct 31, 2026',
-    signNote: 'Vessel CSCL SUMMER departed Sep 19, 2026. ETA 2026-10-24. UPS last-mile tracking 1ZG2C1210300042226 assigned. Arrival at port expected mid-late October; last-mile delivery 3-7 business days after customs.',
+    signDate: 'Est. Oct 17 — Oct 21, 2026',
+    signNote: 'Vessel CSCL SUMMER departed Sep 19, 2026. Cargo cleared and UPS last-mile tracking 1ZG2C1210300042226 is active — departed the Ontario, CA facility on Oct 14, 2026. Final delivery typically 3-5 business days from there.',
     steps: [
       {
         label: 'Production /\nPacking',
@@ -2520,15 +2522,15 @@ const orders = {
       },
       {
         label: 'En Route\nPacific',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Arrived\nPort',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Last-mile\nDelivery',
-        cls: 'future'
+        cls: 'current'
       },
       {
         label: 'Customer\nSigned',
@@ -2839,6 +2841,276 @@ const orders = {
             ]
           }
         ]
+  },
+
+  D4: {
+    id: 'D4',
+    status: 'pending',
+    badge: 'In Production — ETD 2026-10-23',
+    badgeClass: 'pending',
+    title: 'N35 Series Magnets (Order D)',
+    sub: '7 boxes | 127.00 KG | 52,993 pcs',
+    ship: '',
+    voyage: '',
+    tracking: '',
+    etd: '2026-10-23',
+    etaOrig: '2026-11-23',
+    etaReal: '2026-11-23',
+    highlight: 'Fourth Order D shipment scheduled to depart Oct 23, 2026, ETA 2026-11-23. Products: N35 12x1.5 / 12x2 / D25 / 30x10x2 (52,993 pcs). Vessel and UPS tracking not yet assigned in the source data.',
+    products: 'N35 D25 / 12x2 / 12x1.5 / 30x10x2',
+    pkgSize: '7 boxes',
+    payment: '',
+    destination: 'US',
+    list: ['N35 D25 2000', 'N35 12x2 15000', 'N35 12x1.5 35000', 'N35 30x10x2 993'],
+    progress: 25,
+    progressColor: 'amber',
+    signLabel: 'info',
+    signDate: 'Est. Nov 23 — Nov 30, 2026',
+    signNote: 'Fourth Order D shipment is packed and awaiting vessel assignment. Scheduled ETD 2026-10-23 with ETA 2026-11-23. Vessel name and UPS tracking will be published once assigned. Last-mile delivery 3-7 business days after customs.',
+    steps: [
+      {
+        label: 'Production /\nPacking',
+        cls: 'done'
+      },
+      {
+        label: 'Awaiting\nVessel',
+        cls: 'current'
+      },
+      {
+        label: 'ETD\n10-23',
+        cls: 'future'
+      },
+      {
+        label: 'En Route\nPacific',
+        cls: 'future'
+      },
+      {
+        label: 'Last-mile\nDelivery',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+        boxes: [
+          {
+            num: 1,
+            weight: 17.8,
+            items: [
+              {grade: 'N35', size: 'D25', qty: 700}
+            ]
+          },
+          {
+            num: 2,
+            weight: 17.8,
+            items: [
+              {grade: 'N35', size: 'D25', qty: 700}
+            ]
+          },
+          {
+            num: 3,
+            weight: 14.9,
+            items: [
+              {grade: 'N35', size: 'D25', qty: 600}
+            ]
+          },
+          {
+            num: 4,
+            weight: 21.45,
+            items: [
+              {grade: 'N35', size: '12x2', qty: 12544}
+            ]
+          },
+          {
+            num: 5,
+            weight: 21.35,
+            items: [
+              {grade: 'N35', size: '12x1.5', qty: 16352}
+            ]
+          },
+          {
+            num: 6,
+            weight: 21.35,
+            items: [
+              {grade: 'N35', size: '12x1.5', qty: 16352}
+            ]
+          },
+          {
+            num: 7,
+            weight: 12.35,
+            items: [
+              {grade: 'N35', size: '12x1.5', qty: 2296},
+              {grade: 'N35', size: '12x2', qty: 2456},
+              {grade: 'N35', size: '30x10x2', qty: 993}
+            ]
+          }
+        ]
+  },
+
+  D5: {
+    id: 'D5',
+    status: 'pending',
+    badge: 'In Production — ETD 2026-10-29',
+    badgeClass: 'pending',
+    title: 'N35 Series Magnets (Order D)',
+    sub: '15 boxes | 230.90 KG | 37,540 pcs',
+    ship: '',
+    voyage: '',
+    tracking: '',
+    etd: '2026-10-29',
+    etaOrig: '2026-11-29',
+    etaReal: '2026-11-29',
+    highlight: 'Fifth Order D shipment scheduled to depart Oct 29, 2026, ETA 2026-11-29. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,540 pcs). Vessel and UPS tracking not yet assigned in the source data.',
+    products: 'N35 20x3-5 (N-S) / 20x3-5 (S-N) / 18x2 / 25x2 / 25x3-5 / 25x3',
+    pkgSize: '15 boxes',
+    payment: '',
+    destination: 'US',
+    list: ['N35 20x3-5(N-S) 10368', 'N35 20x3-5(S-N) 10368', 'N35 18x2 12432', 'N35 25x2 2448', 'N35 25x3-5(N-S) 650', 'N35 25x3-5(S-N) 650', 'N35 25x3 624'],
+    progress: 20,
+    progressColor: 'amber',
+    signLabel: 'info',
+    signDate: 'Est. Nov 29 — Dec 06, 2026',
+    signNote: 'Fifth Order D shipment is packed and awaiting vessel assignment. Scheduled ETD 2026-10-29 with ETA 2026-11-29. Vessel name and UPS tracking will be published once assigned. Last-mile delivery 3-7 business days after customs.',
+    steps: [
+      {
+        label: 'Production /\nPacking',
+        cls: 'done'
+      },
+      {
+        label: 'Awaiting\nVessel',
+        cls: 'current'
+      },
+      {
+        label: 'ETD\n10-29',
+        cls: 'future'
+      },
+      {
+        label: 'En Route\nPacific',
+        cls: 'future'
+      },
+      {
+        label: 'Last-mile\nDelivery',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+        boxes: [
+          {
+            num: 1,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 2592}
+            ]
+          },
+          {
+            num: 2,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 2592}
+            ]
+          },
+          {
+            num: 3,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 2592}
+            ]
+          },
+          {
+            num: 4,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 2592}
+            ]
+          },
+          {
+            num: 5,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 2592}
+            ]
+          },
+          {
+            num: 6,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 2592}
+            ]
+          },
+          {
+            num: 7,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 2592}
+            ]
+          },
+          {
+            num: 8,
+            weight: 17.05,
+            items: [
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 2592}
+            ]
+          },
+          {
+            num: 9,
+            weight: 14.25,
+            items: [
+              {grade: 'N35', size: '18x2', qty: 3552}
+            ]
+          },
+          {
+            num: 10,
+            weight: 14.25,
+            items: [
+              {grade: 'N35', size: '18x2', qty: 3552}
+            ]
+          },
+          {
+            num: 11,
+            weight: 14.25,
+            items: [
+              {grade: 'N35', size: '18x2', qty: 3552}
+            ]
+          },
+          {
+            num: 12,
+            weight: 13.6,
+            items: [
+              {grade: 'N35', size: '18x2', qty: 1776},
+              {grade: 'N35', size: '25x2', qty: 816}
+            ]
+          },
+          {
+            num: 13,
+            weight: 13.0,
+            items: [
+              {grade: 'N35', size: '25x2', qty: 1632}
+            ]
+          },
+          {
+            num: 14,
+            weight: 12.85,
+            items: [
+              {grade: 'N35', size: '25x3-5(N-S)', qty: 600},
+              {grade: 'N35', size: '25x3-5(S-N)', qty: 600}
+            ]
+          },
+          {
+            num: 15,
+            weight: 12.3,
+            items: [
+              {grade: 'N35', size: '25x3-5(N-S)', qty: 50},
+              {grade: 'N35', size: '25x3-5(S-N)', qty: 50},
+              {grade: 'N35', size: '25x3', qty: 624}
+            ]
+          }
+        ]
   }
 };
 
@@ -3117,11 +3389,15 @@ const orderEK20260721 = {
       'N35 6x3': 20000,
       'N35 40x20x4': 750,
       'N35 25x15x5-5': 3000,
+      'N35 30x10x2': 5000,
       'N35 25x5-5': 1000,
       'N35 5x1.5': 28000,
-      'N35 3x1': 100000
+      'N35 3x1': 100000,
+      'N35 12x1.5': 35000,
+      'N35 12x2': 15000,
+      'N35 D25': 2000
     },
-  shipments: ['D1', 'D2', 'D3'],
+  shipments: ['D1', 'D2', 'D3', 'D4', 'D5'],
   produced: [],
   producing: [
       'N35 18x2',
@@ -3130,11 +3406,7 @@ const orderEK20260721 = {
       'N35 25x3',
       'N35 25x3-5',
       'N35 20x10x2',
-      'N35 30x10x2',
-      'N35 20x3-5',
-      'N35 12x1.5',
-      'N35 12x2',
-      'N35 D25'
+      'N35 20x3-5'
     ]
 };
 window.orderEK20260721 = orderEK20260721;
@@ -3732,7 +4004,7 @@ function showAll() {
   // Priority order: enroute/hot > delayed/warn > delivered/good
   // B2 customs cleared, rescheduled to depart Sep 18 — important update
   const b2 = orders['B2'];
-  if (b2) updates.push(`<li class="hot">${b2.id}: ${b2.highlight}</li>`);
+  if (b2) updates.push(`<li class="good">${b2.id}: ${b2.highlight}</li>`);
   // D1 first Order D shipment — delivered Oct 9 (Brownsville, TX)
   const d1 = orders['D1'];
   if (d1) updates.push(`<li class="good">${d1.id}: ${d1.highlight}</li>`);
@@ -3742,6 +4014,11 @@ function showAll() {
   // D3 third Order D shipment — departed Sep 24 via CSCL EAST CHINA SEA
   const d3 = orders['D3'];
   if (d3) updates.push(`<li class="hot">${d3.id}: ${d3.highlight}</li>`);
+  // D4 / D5 — new Order D shipments scheduled for Oct 23 / Oct 29
+  const d4 = orders['D4'];
+  if (d4) updates.push(`<li class="warn">${d4.id}: ${d4.highlight}</li>`);
+  const d5 = orders['D5'];
+  if (d5) updates.push(`<li class="warn">${d5.id}: ${d5.highlight}</li>`);
   // A5 door magnet order — awaiting vessel (source data has no vessel yet; dest MX)
   const a5 = orders['A5'];
   if (a5) updates.push(`<li class="hot">${a5.id}: ${a5.highlight}</li>`);
