@@ -412,6 +412,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .archive-panel.open{max-height:3000px;}
 .archive-panel .order-card{opacity:.75;transition:opacity .3s;}
 .archive-panel .order-card:hover{opacity:1;}
+.update-archive-bar{margin-top:14px;}
+.update-archive-body ul{padding-top:10px;}
 
 /* Search active state */
 .search-box.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim);}
@@ -502,7 +504,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Oct 16, 2026 14:00 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: Oct 16, 2026 14:30 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -3424,6 +3426,20 @@ const orderEK20260721 = {
 };
 window.orderEK20260721 = orderEK20260721;
 
+// ---- Auto-collapsing panels ------------------------------------------------
+// Completed overviews (100% shipped) start COLLAPSED, so the customer never has
+// to close them manually. A manual open/close is remembered for the visit, and
+// the moment an order is no longer 100% complete the bar disappears and the full
+// panel is shown again automatically.
+function ordStartOpen(id) {
+  try {
+    const v = sessionStorage.getItem('ek_panel_' + id);
+    if (v === '1') return true;
+    if (v === '0') return false;
+  } catch (e) {}
+  return false; // default = collapsed
+}
+
 function renderOrderOverview(ord) {
   const producedSet = new Set(ord.produced || []);
   let totalShipped = 0, totalRemaining = 0, doneCount = 0, partialCount = 0, pendingCount = 0, producingCount = 0, readyCount = 0;
@@ -3506,14 +3522,14 @@ function renderOrderOverview(ord) {
   return `
   <div class="order-panel${parseFloat(overallPct)>=100?' completed':''}">
     ${parseFloat(overallPct)>=100 ? `
-    <div class="order-collapse-bar open" onclick="toggleOrderPanel('ordpanel_${ord.id}')">
+    <div class="order-collapse-bar${ordStartOpen(ord.id)?' open':''}" onclick="toggleOrderPanel('ordpanel_${ord.id}')">
       <div class="order-collapse-label">
         <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
         ${ord.orderLabel ? 'Order ' + ord.orderLabel + ' — ' : ''}${ord.id} (Completed)
       </div>
       <span class="order-collapse-badge">100% Shipped</span>
     </div>
-    <div class="order-collapse-body open" id="ordpanel_${ord.id}">
+    <div class="order-collapse-body${ordStartOpen(ord.id)?' open':''}" id="ordpanel_${ord.id}">
     <div class="order-panel-content">
     ` : ''}
     <div class="order-panel-title">
@@ -3661,8 +3677,21 @@ function renderAirOverview(airOrders) {
 
   const overallPct = totalQty > 0 ? Math.round((totalShipped / totalQty) * 100) : 0;
 
+  const airComplete = airOrders.length > 0 && airOrders.every(o => o.status === 'delivered');
+  const airOpenCls = (airComplete && ordStartOpen('ordpanel_air')) ? ' open' : '';
+
   return `
   <div class="air-panel">
+    ${airComplete ? `
+    <div class="order-collapse-bar${airOpenCls}" onclick="toggleOrderPanel('ordpanel_air')">
+      <div class="order-collapse-label">
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        Air Freight Orders (Completed)
+      </div>
+      <span class="order-collapse-badge">100% Delivered</span>
+    </div>
+    <div class="order-collapse-body${airOpenCls}" id="ordpanel_air">
+    <div class="order-panel-content">` : ''}
     <div class="air-panel-title">
       <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
       Air Freight Orders
@@ -3709,6 +3738,7 @@ function renderAirOverview(airOrders) {
         </tr></tfoot>
       </table>
     </div>
+    ${airComplete ? '</div>\n    </div>' : ''}
   </div>`;
 }
 
@@ -4043,60 +4073,89 @@ function showAll() {
   const fmt = (d) => d.toISOString().slice(0,10);
   const timeFmt = (d) => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
 
-  let updates = [];
+  const UPDATE_ARCHIVE_DAYS = 30;
+  const recentUpdates = [];
+  const archivedUpdates = [];
+
+  // Days elapsed since a shipment was signed for. Returns null when unknown
+  // (still active, or no date on file) - in that case the item stays visible.
+  function daysSinceSigned(o) {
+    if (!o || o.status !== 'delivered') return null;
+    const s = String(o.signDate || '');
+    let m = s.match(/[Dd]elivered\s+([A-Za-z]{3,9})\.?\s+(\d{1,2})\s*,\s*(\d{4})/);
+    if (m) {
+      const d = new Date(m[2] + ' ' + m[1] + ' ' + m[3]);
+      if (!isNaN(d.getTime())) return (today - d) / 86400000;
+    }
+    m = s.match(/[Dd]elivered\s+(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (m) {
+      const d = new Date(m[1] + '-' + String(m[2]).padStart(2, '0') + '-' + String(m[3]).padStart(2, '0'));
+      if (!isNaN(d.getTime())) return (today - d) / 86400000;
+    }
+    // No signed date recorded - fall back to actual arrival as the best proxy
+    if (o.etaReal) {
+      const d = new Date(o.etaReal);
+      if (!isNaN(d.getTime())) return (today - d) / 86400000;
+    }
+    return null;
+  }
+
+  // Delivered more than UPDATE_ARCHIVE_DAYS ago -> folded into Earlier Updates
+  function pushUpdate(cls, text, orderId) {
+    const li = '<li class="' + cls + '">' + text + '</li>';
+    const age = orderId ? daysSinceSigned(orders[orderId]) : null;
+    if (age !== null && age > UPDATE_ARCHIVE_DAYS) archivedUpdates.push(li);
+    else recentUpdates.push(li);
+  }
+
   // Priority order: enroute/hot > delayed/warn > delivered/good
-  // B2 customs cleared, rescheduled to depart Sep 18 — important update
+  // B2 customs cleared, rescheduled to depart Sep 18 (delivered Oct 15)
   const b2 = orders['B2'];
-  if (b2) updates.push(`<li class="good">${b2.id}: ${b2.highlight}</li>`);
-  // D1 first Order D shipment — delivered Oct 9 (Brownsville, TX)
+  if (b2) pushUpdate('good', b2.id + ': ' + b2.highlight, b2.id);
+  // D1 first Order D shipment - delivered Oct 9 (Brownsville, TX)
   const d1 = orders['D1'];
-  if (d1) updates.push(`<li class="good">${d1.id}: ${d1.highlight}</li>`);
-  // D2 second Order D shipment — en route (departed Sep 17 via CSCL SUMMER)
+  if (d1) pushUpdate('good', d1.id + ': ' + d1.highlight, d1.id);
+  // D2 second Order D shipment - departed Sep 17 via CSCL SUMMER
   const d2 = orders['D2'];
-  if (d2) updates.push(`<li class="hot">${d2.id}: ${d2.highlight}</li>`);
-  // D3 third Order D shipment — departed Sep 24 via CSCL EAST CHINA SEA
+  if (d2) pushUpdate('hot', d2.id + ': ' + d2.highlight, d2.id);
+  // D3 third Order D shipment - departed Sep 24 via CSCL EAST CHINA SEA
   const d3 = orders['D3'];
-  if (d3) updates.push(`<li class="hot">${d3.id}: ${d3.highlight}</li>`);
-  // D4 / D5 — new Order D shipments scheduled for Oct 23 / Oct 29
+  if (d3) pushUpdate('hot', d3.id + ': ' + d3.highlight, d3.id);
+  // D4 / D5 - Order D shipments scheduled for Oct 23 / Oct 29
   const d4 = orders['D4'];
-  if (d4) updates.push(`<li class="warn">${d4.id}: ${d4.highlight}</li>`);
+  if (d4) pushUpdate('warn', d4.id + ': ' + d4.highlight, d4.id);
   const d5 = orders['D5'];
-  if (d5) updates.push(`<li class="warn">${d5.id}: ${d5.highlight}</li>`);
-  // A5 door magnet order — awaiting vessel (source data has no vessel yet; dest MX)
+  if (d5) pushUpdate('warn', d5.id + ': ' + d5.highlight, d5.id);
+  // A5 door magnet order - awaiting vessel (dest MX)
   const a5 = orders['A5'];
-  if (a5) updates.push(`<li class="hot">${a5.id}: ${a5.highlight}</li>`);
-  // Order D: master order — first shipments dispatched
+  if (a5) pushUpdate('hot', a5.id + ': ' + a5.highlight, a5.id);
+  // Order D: master order - shipments still being dispatched
   if (typeof orderEK20260721 !== 'undefined') {
     const dShipped = Object.values(orderEK20260721.shipped || {}).reduce((a, b) => a + b, 0);
     const dProducing = (orderEK20260721.producing || []).length;
-    updates.push(`<li class="hot">Order D (EK20260721): ${orderEK20260721.totalProducts} product lines, ${orderEK20260721.totalQty.toLocaleString()} pcs — ${dShipped.toLocaleString()} pcs dispatched, ${dProducing} lines still in production.</li>`);
+    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched, ' + dProducing + ' lines still in production.</li>');
   }
-  // B4 delivered via UPS
-  const b4 = orders['B4'];
-  if (b4) updates.push(`<li class="good">${b4.id}: ${b4.highlight}</li>`);
-  // B5 delivered via UPS
-  const b5 = orders['B5'];
-  if (b5) updates.push(`<li class="good">${b5.id}: ${b5.highlight}</li>`);
-  // C3 delivered via SF Express
-  const c3 = orders['C3'];
-  if (c3) updates.push(`<li class="good">${c3.id}: ${c3.highlight}</li>`);
-  // B3 delivered via UPS (Brownsville, TX)
-  const b3 = orders['B3'];
-  if (b3) updates.push(`<li class="good">${b3.id}: ${b3.highlight}</li>`);
-  // C2 just delivered via SF Express
-  const c2 = orders['C2'];
-  if (c2) updates.push(`<li class="good">${c2.id}: ${c2.highlight}</li>`);
-  // C1 air freight delivered
-  const c1 = orders['C1'];
-  if (c1) updates.push(`<li class="good">${c1.id}: ${c1.highlight}</li>`);
-  // B1 delivered
-  const b1 = orders['B1'];
-  if (b1) updates.push(`<li class="good">${b1.id}: ${b1.highlight}</li>`);
-  // A-batch all delivered
-  ['A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
+  // Remaining delivered shipments - auto-folded once older than 30 days
+  ['B4','B5','C3','B3','C2','C1','B1','A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
     const o = orders[id];
-    if (o) updates.push(`<li class="good">${o.id}: ${o.highlight}</li>`);
+    if (o) pushUpdate('good', o.id + ': ' + o.highlight, o.id);
   });
+
+  // Updates older than 30 days are collapsed into one bar to keep the banner short
+  let updArchOpen = false;
+  try { updArchOpen = sessionStorage.getItem('ek_updates_archived') === '1'; } catch (e) {}
+
+  const updateArchiveHtml = archivedUpdates.length > 0 ? `
+    <div class="archive-bar update-archive-bar${updArchOpen?' open':''}" id="updateArchiveBar" onclick="toggleUpdateArchive()">
+      <div class="archive-bar-label">
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        Earlier Updates (${archivedUpdates.length} delivered over ${UPDATE_ARCHIVE_DAYS} days ago)
+      </div>
+      <span class="archive-count">Archived</span>
+    </div>
+    <div class="archive-panel update-archive-body${updArchOpen?' open':''}" id="updateArchivePanel">
+      <ul class="update-banner-content">${archivedUpdates.join('')}</ul>
+    </div>` : '';
 
   const updateBannerHtml = `
   <div class="update-banner">
@@ -4106,8 +4165,9 @@ function showAll() {
       <span style="margin-left:auto;" class="update-banner-time">${timeFmt(today)} (GMT+8)</span>
     </div>
     <ul class="update-banner-content">
-      ${updates.join('')}
+      ${recentUpdates.join('')}
     </ul>
+    ${updateArchiveHtml}
   </div>`;
 
   document.getElementById('result').innerHTML = `
@@ -4134,8 +4194,20 @@ function toggleArchive() {
 function toggleOrderPanel(id) {
   const bar = document.querySelector('.order-collapse-bar[onclick*="' + id + '"]');
   const panel = document.getElementById(id);
-  if (bar) bar.classList.toggle('open');
-  if (panel) panel.classList.toggle('open');
+  const open = panel ? !panel.classList.contains('open') : true;
+  if (bar) bar.classList.toggle('open', open);
+  if (panel) panel.classList.toggle('open', open);
+  try { sessionStorage.setItem('ek_panel_' + id, open ? '1' : '0'); } catch (e) {}
+}
+
+function toggleUpdateArchive() {
+  const bar = document.getElementById('updateArchiveBar');
+  const panel = document.getElementById('updateArchivePanel');
+  if (!bar || !panel) return;
+  const open = !panel.classList.contains('open');
+  bar.classList.toggle('open', open);
+  panel.classList.toggle('open', open);
+  try { sessionStorage.setItem('ek_updates_archived', open ? '1' : '0'); } catch (e) {}
 }
 
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
