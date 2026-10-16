@@ -502,7 +502,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Oct 16, 2026 11:10 (GMT+8)-10-16 10:50 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: Oct 16, 2026 14:00 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -524,13 +524,12 @@ const orders = {
     etaOrig: '2026-05-23',
     etaReal: '2026-05-12',
     highlight: 'Package delivered and signed by customer.',
-    products: 'N35 20x3-5(N-S) / 20x3-5(S-N) / 15x2 / 10x1',
+    products: 'N35 20x3-5 / 15x2 / 10x1',
     pkgSize: '35 x 25 x 20 cm',
     payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: [
-      'N35 20x3-5(N-S) 3648',
-      'N35 20x3-5(S-N) 3675',
+      'N35 20x3-5 7323',
       'N35 15x2 4000',
       'N35 10x1 50000'
     ],
@@ -817,14 +816,13 @@ const orders = {
     etaOrig: '2026-06-07',
     etaReal: '2026-05-23',
     highlight: 'Delivered and signed by customer. 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
-    products: 'N35 30x3 / 25x3-5(N-S) / 25x3-5(S-N) / 30x5 / 12x6 / N52 15x15',
+    products: 'N35 30x3 / 25x3-5 / 30x5 / 12x6 / N52 15x15',
     pkgSize: '35 x 25 x 20 cm',
     payment: 'paid',
     destination: 'LONG BEACH, CA',
     list: [
       'N35 30x3 3866',
-      'N35 25x3-5(N-S) 1005',
-      'N35 25x3-5(S-N) 1005',
+      'N35 25x3-5 2010',
       'N35 30x5 200',
       'N35 12x6 2000',
       'N52 15x15 520'
@@ -2516,7 +2514,7 @@ const orders = {
     etaOrig: '2026-10-24',
     etaReal: '2026-10-24',
     highlight: 'Second Order D shipment departed on Sep 19, 2026 via CSCL SUMMER. Cargo has reached the US and UPS last-mile tracking 1ZG2C1210300042226 is active — departed the Ontario, CA facility on Oct 14, 2026. Products: N35 20x10x2 / 25x15x5-5 / 40x20x4 / 25x3 / 30x10x2 (64,870 pcs).',
-    products: 'N35 20x10x2 / 25x15x5-5 (S-N) / 25x15x5-5 (N-S) / 40x20x4 / 25x3 / 30x10x2',
+    products: 'N35 20x10x2 / 25x15x5-5 / 40x20x4 / 25x3 / 30x10x2',
     pkgSize: '15 boxes',
     payment: '',
     destination: 'US',
@@ -2978,11 +2976,11 @@ const orders = {
     etaOrig: '2026-11-29',
     etaReal: '2026-11-29',
     highlight: 'Fifth Order D shipment scheduled to depart Oct 29, 2026, ETA 2026-11-29. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,540 pcs). Vessel and UPS tracking not yet assigned in the source data.',
-    products: 'N35 20x3-5 (N-S) / 20x3-5 (S-N) / 18x2 / 25x2 / 25x3-5 / 25x3',
+    products: 'N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3',
     pkgSize: '15 boxes',
     payment: '',
     destination: 'US',
-    list: ['N35 20x3-5(N-S) 10368', 'N35 20x3-5(S-N) 10368', 'N35 18x2 12432', 'N35 25x2 2448', 'N35 25x3-5(N-S) 650', 'N35 25x3-5(S-N) 650', 'N35 25x3 624'],
+    list: ['N35 20x3-5 20736', 'N35 18x2 12432', 'N35 25x2 2448', 'N35 25x3-5 1300', 'N35 25x3 624'],
     progress: 20,
     progressColor: 'amber',
     signLabel: 'info',
@@ -3402,17 +3400,17 @@ const orderEK20260721 = {
       'N35 3X3': 10000,
       'N35 6X2': 100000,
       'N35 6x3': 20000,
-      'N35 40x20x4': 750,
-      'N35 25x15x5-5': 3000,
-      'N35 30x10x2': 5000,
-      'N35 25x5-5': 1000,
-      'N35 5x1.5': 28000,
+      'N35 40x20x4': 756,
+      'N35 25x15x5-5': 3010,
+      'N35 30x10x2': 4993,
+      'N35 25x5-5': 1008,
+      'N35 5x1.5': 28050,
       'N35 3x1': 100000,
       'N35 12x1.5': 35000,
       'N35 12x2': 15000,
       'N35 D25': 2000,
       'N35 18x2': 37296,
-      'N35 25x5': 3000,
+      'N35 25x5': 3008,
       'N35 25x2': 3168,
       'N35 25x3': 4366,
       'N35 25x3-5': 1081,
