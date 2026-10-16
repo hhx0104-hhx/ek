@@ -319,6 +319,21 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .order-stat-val.orange{color:var(--orange);}
 .order-stat-label{font-size:11px;color:var(--text3);margin-top:4px;}
 
+/* Overall fulfillment progress bar */
+.ov-progress{margin:0 0 20px;}
+.ov-progress-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px;}
+.ov-progress-title{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;}
+.ov-progress-pct{font-size:24px;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;}
+.ov-progress-pct.green{color:var(--green);}
+.ov-progress-pct.orange{color:var(--orange);}
+.ov-progress-track{height:10px;background:var(--bg);border-radius:5px;overflow:hidden;display:flex;}
+.ov-progress-track .ov-fill{height:100%;transition:width .6s ease;}
+.ov-progress-track .ov-fill.shipped{background:var(--green);}
+.ov-progress-track .ov-fill.partial{background:var(--orange);}
+.ov-progress-foot{display:flex;justify-content:space-between;align-items:center;margin-top:7px;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;flex-wrap:wrap;gap:6px 14px;}
+.ov-progress-foot b{color:var(--text2);font-weight:600;}
+.ov-progress-foot .sep{color:var(--border);}
+
     .payment-progress-label{font-size:11px;color:var(--text3);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
 
 .order-table-wrap{max-height:400px;overflow-y:auto;border-radius:var(--radius-sm);border:1px solid var(--border);}
@@ -3453,7 +3468,35 @@ function renderOrderOverview(ord) {
     </tr>`;
   }).join('');
 
-  const overallPct = (totalShipped / ord.totalQty * 100).toFixed(1);
+  // ---- Accurate fulfillment percentage ----
+  // Denominator = the real sum of all ordered line quantities (never trust the
+  // declared totalQty alone; fall back to it only if items are missing).
+  const sumOrdered = ord.items.reduce((a, i) => a + (Number(i.ordered) || 0), 0);
+  const denomQty = sumOrdered > 0 ? sumOrdered : (Number(ord.totalQty) || 0);
+  const pctNum = denomQty > 0 ? (totalShipped / denomQty) * 100 : 0;
+  const overallPct = Math.min(pctNum, 100).toFixed(1);
+  const linePctNum = ord.items.length > 0 ? (doneCount / ord.items.length) * 100 : 0;
+  const linePct = linePctNum.toFixed(1);
+  const pctCls = pctNum >= 100 ? 'green' : (pctNum > 50 ? 'green' : 'orange');
+  const fillCls = pctNum > 50 ? 'shipped' : 'partial';
+  const barWidth = Math.min(pctNum, 100).toFixed(2);
+
+  // ---- Overall progress bar ----
+  const progressBar = `
+    <div class="ov-progress">
+      <div class="ov-progress-head">
+        <span class="ov-progress-title">Fulfillment Progress</span>
+        <span class="ov-progress-pct ${pctCls}">${overallPct}%</span>
+      </div>
+      <div class="ov-progress-track">
+        <span class="ov-fill ${fillCls}" style="width:${barWidth}%" title="${totalShipped.toLocaleString()} / ${denomQty.toLocaleString()} pcs"></span>
+      </div>
+      <div class="ov-progress-foot">
+        <span><b>${totalShipped.toLocaleString()}</b> / ${denomQty.toLocaleString()} pcs shipped</span>
+        <span class="sep">|</span>
+        <span><b>${doneCount}</b> / ${ord.items.length} lines complete (${linePct}%)</span>
+      </div>
+    </div>`;
 
   // Shipment references
   const shipmentLinks = ord.shipments.map(sid => {
@@ -3479,11 +3522,11 @@ function renderOrderOverview(ord) {
       ${ord.orderLabel ? 'Order ' + ord.orderLabel + ' Overview' : 'Order Overview'}
       <span class="order-panel-badge">${ord.id}</span>
     </div>
-    <div class="order-panel-sub">${ord.totalProducts} product lines | ${ord.totalQty.toLocaleString()} pcs total | ${ord.shipments.length} shipment(s)</div>
+    <div class="order-panel-sub">${ord.items.length} product lines | ${denomQty.toLocaleString()} pcs total | ${ord.shipments.length} shipment(s)</div>
 
     <div class="order-stats">
       <div class="order-stat">
-        <div class="order-stat-val accent">${ord.totalQty.toLocaleString()}</div>
+        <div class="order-stat-val accent">${denomQty.toLocaleString()}</div>
         <div class="order-stat-label">Total Ordered</div>
       </div>
       <div class="order-stat">
@@ -3495,10 +3538,12 @@ function renderOrderOverview(ord) {
         <div class="order-stat-label">Remaining</div>
       </div>
       <div class="order-stat">
-        <div class="order-stat-val ${parseFloat(overallPct)>50?'green':'orange'}">${overallPct}%</div>
-        <div class="order-stat-label">Fulfillment</div>
+        <div class="order-stat-val ${pctCls}">${overallPct}%</div>
+        <div class="order-stat-label">Fulfillment (by qty)</div>
       </div>
     </div>
+
+    ${progressBar}
 
     <div class="order-section-title"><span class="dot g"></span>Shipped (${doneCount} completed${partialCount>0?', '+partialCount+' partial':''})</div>
     <div class="order-section-title"><span class="dot o"></span>Ready (${readyCount} produced, awaiting shipment)</div>
@@ -3519,10 +3564,10 @@ function renderOrderOverview(ord) {
         <tbody>${rows}</tbody>
         <tfoot><tr style="font-weight:600;background:var(--bg2);">
           <td colspan="2" style="color:var(--text2);font-size:12px;">TOTAL</td>
-          <td class="mono" style="text-align:right">${ord.totalQty.toLocaleString()}</td>
+          <td class="mono" style="text-align:right">${denomQty.toLocaleString()}</td>
           <td class="mono" style="text-align:right;color:var(--green)">${totalShipped.toLocaleString()}</td>
           <td class="mono" style="text-align:right;color:var(--amber)">${totalRemaining.toLocaleString()}</td>
-          <td><div class="progress-cell"><span class="progress-bar-mini"><span class="fill ${parseFloat(overallPct)>50?'done':'partial'}" style="width:${overallPct}%"></span></span><span class="${parseFloat(overallPct)>50?'status-done':'status-partial'}">${overallPct}%</span></div></td>
+          <td><div class="progress-cell"><span class="progress-bar-mini"><span class="fill ${pctNum >= 100 ? 'done' : (pctNum > 50 ? 'done' : 'zero')}" style="width:${barWidth}%"></span></span><span class="${pctNum >= 100 ? 'status-done' : 'status-partial'}">${overallPct}%</span></div></td>
           <td></td>
         </tr></tfoot>
       </table>
