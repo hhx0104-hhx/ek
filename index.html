@@ -333,6 +333,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .ov-progress-foot{display:flex;justify-content:space-between;align-items:center;margin-top:7px;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;flex-wrap:wrap;gap:6px 14px;}
 .ov-progress-foot b{color:var(--text2);font-weight:600;}
 .ov-progress-foot .sep{color:var(--border);}
+.ov-progress-note{margin-top:10px;padding:8px 11px;font-size:11px;line-height:1.55;color:var(--text3);background:var(--bg2);border-left:2px solid var(--border);border-radius:0 var(--radius-xs) var(--radius-xs) 0;}
+.ov-progress-note b{color:var(--text2);font-weight:600;}
 
     .payment-progress-label{font-size:11px;color:var(--text3);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
 
@@ -508,7 +510,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Oct 26, 2026 12:24 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: Oct 26, 2026 13:28 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2971,7 +2973,7 @@ const orders = {
   D5: {
     id: 'D5',
     status: 'pending',
-    badge: 'In Production — ETD 2026-10-29',
+    badge: 'Awaiting Vessel — ETD 2026-10-29',
     badgeClass: 'pending',
     title: 'N35 Series Magnets (Order D)',
     sub: '15 boxes | 230.90 KG | 37,852 pcs',
@@ -3135,7 +3137,7 @@ const orders = {
   D6: {
     id: 'D6',
     status: 'pending',
-    badge: 'In Production',
+    badge: 'Awaiting Vessel — ETD TBA',
     badgeClass: 'pending',
     title: 'N35 Series Magnets (Order D)',
     sub: '6 boxes | 41,325 pcs',
@@ -3674,6 +3676,11 @@ const orderEK20260721 = {
       ordered: 2000
     }
   ],
+  // SHIPPED = only quantities that actually carry a transport number.
+  // Order D batches with a carrier number: D1 (1ZK6B4420325075331), D2 (1ZG2C1210300042226),
+  // D3 (1ZG2C1210304724349), D4 (1ZG2C1210339503076) -> 472,096 pcs.
+  // D5 (37,852) and D6 (41,325) show NO transport number in the source data, so they are
+  // counted as READY (packed, awaiting vessel/tracking) and are NOT in this map.
   shipped: {
       'N35 2x1': 50000,
       'N35 3X3': 10000,
@@ -3688,16 +3695,22 @@ const orderEK20260721 = {
       'N35 12x1.5': 35000,
       'N35 12x2': 15000,
       'N35 D25': 2000,
-      'N35 18x2': 53000,
+      'N35 18x2': 37296,
       'N35 25x5': 3008,
-      'N35 25x2': 6254,
-      'N35 25x3': 5594,
-      'N35 25x3-5': 3600,
-      'N35 20x10x2': 70000,
-      'N35 20x3-5': 40000
+      'N35 25x2': 3168,
+      'N35 25x3': 4366,
+      'N35 25x3-5': 1081,
+      'N35 20x10x2': 53360
     },
+  // Packed and staged but not dispatched yet — surfaced as a note under the progress bar.
+  awaiting: {
+    qty: 79177,
+    detail: 'D5 37,852 + D6 41,325'
+  },
   shipments: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
-  produced: [],
+  // Lines that are physically packed (D5 + D6) but still waiting for a vessel / tracking
+  // number. Rendered as "Ready" instead of "Producing" so the table matches reality.
+  produced: ['N35 18x2', 'N35 25x2', 'N35 25x3', 'N35 25x3-5', 'N35 20x10x2', 'N35 20x3-5'],
   producing: []
 };
 window.orderEK20260721 = orderEK20260721;
@@ -3724,6 +3737,8 @@ function renderOrderOverview(ord) {
     const shippedQty = ord.shipped[key] || 0;
     const remaining = item.ordered - shippedQty;
     const pct = item.ordered > 0 ? Math.min((shippedQty / item.ordered) * 100, 100) : 0;
+    // Never round a short line up to 100% — 4,993 / 5,000 must read 99%, not 100%.
+    const dispPct = shippedQty >= item.ordered ? 100 : Math.floor(pct);
     totalShipped += shippedQty;
     totalRemaining += Math.max(remaining, 0);
     let status, statusCls, barCls;
@@ -3753,7 +3768,7 @@ function renderOrderOverview(ord) {
       <td class="mono" style="text-align:right">${item.ordered.toLocaleString()}</td>
       <td class="mono" style="text-align:right">${shippedQty.toLocaleString()}</td>
       <td class="mono ${statusCls}" style="text-align:right">${Math.max(remaining,0).toLocaleString()}</td>
-      <td><div class="progress-cell"><span class="progress-bar-mini"><span class="fill ${barCls}" style="width:${pct}%"></span></span><span class="${statusCls}">${Math.round(pct)}%</span></div></td>
+      <td><div class="progress-cell"><span class="progress-bar-mini"><span class="fill ${barCls}" style="width:${pct}%"></span></span><span class="${statusCls}">${dispPct}%</span></div></td>
       <td>${prodHtml}</td>
     </tr>`;
   }).join('');
@@ -3770,6 +3785,9 @@ function renderOrderOverview(ord) {
   const pctCls = pctNum >= 100 ? 'green' : (pctNum > 50 ? 'green' : 'orange');
   const fillCls = pctNum > 50 ? 'shipped' : 'partial';
   const barWidth = Math.min(pctNum, 100).toFixed(2);
+  // Produced-but-undispatched pcs (no transport number yet) — never counted as shipped,
+  // but the customer still needs to see where they are.
+  const awaitingQty = (ord.awaiting && Number(ord.awaiting.qty)) || 0;
   // A panel counts as Completed only when EVERY line is fully shipped. Total qty can
   // reach 100% through packing spares while one line is still a few pcs short.
   const isComplete = pctNum >= 100 && doneCount === ord.items.length;
@@ -3789,6 +3807,7 @@ function renderOrderOverview(ord) {
         <span class="sep">|</span>
         <span><b>${doneCount}</b> / ${ord.items.length} lines complete (${linePct}%)</span>
       </div>
+      ${awaitingQty > 0 ? `<div class="ov-progress-note">A further <b>${awaitingQty.toLocaleString()}</b> pcs are produced and packed (${ord.awaiting.detail}) but have no transport number yet, so they are <b>not counted as shipped</b>. They will move into the shipped total once a vessel and tracking number are assigned.</div>` : ''}
     </div>`;
 
   // Shipment references
@@ -3900,14 +3919,17 @@ function renderAirOverview(airOrders) {
     const wm = o.sub.match(/([\d.]+)\s*KG/);
     if (wm) totalWeight += parseFloat(wm[1]);
 
-    // Determine status
+    // Determine status. A parcel only counts as SHIPPED when a real transport number
+    // exists — an empty / "Not assigned" value means it has not left the warehouse yet,
+    // so it must not inflate Total Shipped or Fulfillment.
+    const hasTracking = !!o.tracking && String(o.tracking).trim() !== '' && o.tracking !== 'Not assigned';
     let itemStatus, itemStatusCls, progress, progressCls;
     if (o.status === 'delivered') {
       itemStatus = 'Delivered'; itemStatusCls = 'delivered'; progress = 100; progressCls = 'delivered';
       deliveredCount++; totalShipped += orderQty;
-    } else if (o.status === 'enroute' || o.tracking !== 'Not assigned') {
+    } else if (hasTracking) {
       itemStatus = 'Shipped'; itemStatusCls = 'shipped'; progress = 75; progressCls = 'shipped';
-      shippedCount++;
+      shippedCount++; totalShipped += orderQty;
     } else if (o.status === 'producing' || o.badge === 'In Production') {
       itemStatus = 'Producing'; itemStatusCls = 'producing'; progress = 25; progressCls = 'producing';
       producingCount++;
@@ -4420,8 +4442,9 @@ function showAll() {
   // Order D: master order - shipments still being dispatched
   if (typeof orderEK20260721 !== 'undefined') {
     const dShipped = Object.values(orderEK20260721.shipped || {}).reduce((a, b) => a + b, 0);
-    const dProducing = (orderEK20260721.producing || []).length;
-    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched' + (dProducing > 0 ? ', ' + dProducing + ' lines still in production.' : ' - all shipments D1 to D6 dispatched.') + '</li>');
+    const dAwaiting = (orderEK20260721.awaiting && orderEK20260721.awaiting.qty) || 0;
+    const dPct = orderEK20260721.totalQty > 0 ? ((dShipped / orderEK20260721.totalQty) * 100).toFixed(1) : '0.0';
+    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched (' + dPct + '%)' + (dAwaiting > 0 ? ', ' + dAwaiting.toLocaleString() + ' pcs packed and awaiting a vessel / tracking number (' + orderEK20260721.awaiting.detail + ').' : '.') + '</li>');
   }
   // Remaining delivered shipments - auto-folded once older than 30 days
   ['B4','B5','C3','B3','C2','C1','B1','A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
