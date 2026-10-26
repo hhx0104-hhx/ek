@@ -475,6 +475,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('C1')">C1 ✈</span>
       <span class="tag" onclick="quickSearch('C2')">C2 ✈</span>
       <span class="tag" onclick="quickSearch('C3')">C3 ✈</span>
+      <span class="tag" onclick="quickSearch('C4-1')">C4-1 ✈</span>
+      <span class="tag" onclick="quickSearch('C4-2')">C4-2 ✈</span>
+      <span class="tag" onclick="quickSearch('C4-3')">C4-3 ✈</span>
       <span class="tag-sep">|</span>
       <span class="tag-label">Order D:</span>
       <span class="tag" onclick="quickSearch('D1')">D1</span>
@@ -482,6 +485,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('D3')">D3</span>
       <span class="tag" onclick="quickSearch('D4')">D4</span>
       <span class="tag" onclick="quickSearch('D5')">D5</span>
+      <span class="tag" onclick="quickSearch('D6')">D6</span>
       <span class="tag-sep">|</span>
       <span class="tag-label">Master:</span>
       <span class="tag" onclick="quickSearch('EK20260506')">EK20260506</span>
@@ -504,7 +508,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Oct 20, 2026 11:52 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: Oct 26, 2026 12:24 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2860,43 +2864,43 @@ const orders = {
 
   D4: {
     id: 'D4',
-    status: 'pending',
-    badge: 'In Production — ETD 2026-10-23',
-    badgeClass: 'pending',
+    status: 'enroute',
+    badge: 'En Route — ETD Oct 26',
+    badgeClass: 'enroute',
     title: 'N35 Series Magnets (Order D)',
     sub: '7 boxes | 127.00 KG | 52,993 pcs',
-    ship: '',
-    voyage: '',
+    ship: 'EVER LOTUS',
+    voyage: '0026E',
     tracking: 'UPS 1ZG2C1210339503076',
-    etd: '2026-10-23',
-    etaOrig: '2026-11-23',
-    etaReal: '2026-11-23',
-    highlight: 'Fourth Order D shipment scheduled to depart Oct 23, 2026, ETA 2026-11-23. UPS label 1ZG2C1210339503076 created Oct 15, 2026 - awaiting vessel departure and the UPS receiving scan. Products: N35 12x1.5 / 12x2 / D25 / 30x10x2 (52,993 pcs).',
+    etd: '2026-10-26',
+    etaOrig: '2026-11-26',
+    etaReal: '2026-11-26',
+    highlight: 'Fourth Order D shipment departed Oct 26, 2026 on EVER LOTUS 0026E, ETA US port Nov 26, 2026. UPS label 1ZG2C1210339503076 was created Oct 15, 2026 and UPS has not received the parcel yet, which is normal while the container is at sea. Products: N35 12x1.5 / 12x2 / D25 / 30x10x2 (52,993 pcs).',
     products: 'N35 D25 / 12x2 / 12x1.5 / 30x10x2',
     pkgSize: '7 boxes',
     payment: '',
     destination: 'US',
     list: ['N35 D25 2000', 'N35 12x2 15000', 'N35 12x1.5 35000', 'N35 30x10x2 993'],
-    progress: 25,
-    progressColor: 'amber',
+    progress: 45,
+    progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'Est. Nov 23 — Nov 30, 2026',
-    signNote: 'Fourth Order D shipment is packed and awaiting vessel assignment. Scheduled ETD 2026-10-23 with ETA 2026-11-23. UPS label 1ZG2C1210339503076 created Oct 15, 2026 (currently Label Created, UPS has not received the package yet). Vessel name will be published once assigned. Last-mile delivery 3-7 business days after customs.',
+    signDate: 'Est. Nov 26 — Dec 03, 2026',
+    signNote: 'Vessel EVER LOTUS 0026E departed Oct 26, 2026, ETA US port Nov 26, 2026. UPS label 1ZG2C1210339503076 created Oct 15, 2026 - still showing Label Created / UPS has not received the package yet, which is normal while the cargo is at sea. Last-mile delivery typically follows 3-5 business days after the UPS receiving scan.',
     steps: [
       {
         label: 'Production /\nPacking',
         cls: 'done'
       },
       {
-        label: 'Awaiting\nVessel',
-        cls: 'current'
-      },
-      {
-        label: 'ETD\n10-23',
-        cls: 'future'
+        label: 'Departed\n10-26',
+        cls: 'done'
       },
       {
         label: 'En Route\nPacific',
+        cls: 'current'
+      },
+      {
+        label: 'Arrived\nPort',
         cls: 'future'
       },
       {
@@ -2970,19 +2974,19 @@ const orders = {
     badge: 'In Production — ETD 2026-10-29',
     badgeClass: 'pending',
     title: 'N35 Series Magnets (Order D)',
-    sub: '15 boxes | 230.90 KG | 37,540 pcs',
+    sub: '15 boxes | 230.90 KG | 37,852 pcs',
     ship: '',
     voyage: '',
     tracking: '',
     etd: '2026-10-29',
     etaOrig: '2026-11-29',
     etaReal: '2026-11-29',
-    highlight: 'Fifth Order D shipment scheduled to depart Oct 29, 2026, ETA 2026-11-29. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,540 pcs). Vessel and UPS tracking not yet assigned in the source data.',
+    highlight: 'Fifth Order D shipment scheduled to depart Oct 29, 2026, ETA 2026-11-29. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,852 pcs). Vessel and UPS tracking not yet assigned in the source data.',
     products: 'N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3',
     pkgSize: '15 boxes',
     payment: '',
     destination: 'US',
-    list: ['N35 20x3-5 20736', 'N35 18x2 12432', 'N35 25x2 2448', 'N35 25x3-5 1300', 'N35 25x3 624'],
+    list: ['N35 20x3-5 20736', 'N35 18x2 12432', 'N35 25x2 2448', 'N35 25x3-5 1300', 'N35 25x3 936'],
     progress: 20,
     progressColor: 'amber',
     signLabel: 'info',
@@ -3122,10 +3126,283 @@ const orders = {
             items: [
               {grade: 'N35', size: '25x3-5(N-S)', qty: 50},
               {grade: 'N35', size: '25x3-5(S-N)', qty: 50},
-              {grade: 'N35', size: '25x3', qty: 624}
+              {grade: 'N35', size: '25x3', qty: 936}
             ]
           }
         ]
+  },
+
+  D6: {
+    id: 'D6',
+    status: 'pending',
+    badge: 'In Production',
+    badgeClass: 'pending',
+    title: 'N35 Series Magnets (Order D)',
+    sub: '6 boxes | 41,325 pcs',
+    ship: '',
+    voyage: '',
+    tracking: '',
+    etd: '',
+    etaOrig: '',
+    etaReal: '',
+    highlight: 'Sixth Order D shipment is packed and staged. Vessel, ETD and ETA are not yet assigned in the source data, and box weights are still blank. Products: N35 20x3-5 / 20x10x2 / 18x2 / 25x3-5 / 25x3 / 25x2 (41,325 pcs across 6 boxes).',
+    products: 'N35 20x3-5 / 20x10x2 / 18x2 / 25x3-5 / 25x3 / 25x2',
+    pkgSize: '6 boxes',
+    payment: '',
+    destination: 'US',
+    list: ['N35 20x3-5 19264', 'N35 20x10x2 16640', 'N35 18x2 3272', 'N35 25x3-5 1219', 'N35 25x3 292', 'N35 25x2 638'],
+    progress: 10,
+    progressColor: 'amber',
+    signLabel: 'info',
+    signDate: 'ETD pending',
+    signNote: 'Sixth Order D shipment is packed and staged. Vessel, ETD and ETA have not been assigned in the source data yet, and the box weights column is still blank in the packing list. Products: N35 20x3-5 / 20x10x2 / 18x2 / 25x3-5 / 25x3 / 25x2 (41,325 pcs across 6 boxes).',
+    steps: [
+      {
+        label: 'Production /\nPacking',
+        cls: 'done'
+      },
+      {
+        label: 'Awaiting\nVessel',
+        cls: 'current'
+      },
+      {
+        label: 'ETD\nTBA',
+        cls: 'future'
+      },
+      {
+        label: 'En Route\nPacific',
+        cls: 'future'
+      },
+      {
+        label: 'Last-mile\nDelivery',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+        boxes: [
+          {
+            num: 1,
+            weight: null,
+            items: [
+              {grade: 'N35', size: '18x2', qty: 3272}
+            ]
+          },
+          {
+            num: 2,
+            weight: null,
+            items: [
+              {grade: 'N35', size: '25x2', qty: 638}
+            ]
+          },
+          {
+            num: 3,
+            weight: null,
+            items: [
+              {grade: 'N35', size: '25x3', qty: 292}
+            ]
+          },
+          {
+            num: 4,
+            weight: null,
+            items: [
+              {grade: 'N35', size: '25x3-5', qty: 1219}
+            ]
+          },
+          {
+            num: 5,
+            weight: null,
+            items: [
+              {grade: 'N35', size: '20x10x2', qty: 16640}
+            ]
+          },
+          {
+            num: 6,
+            weight: null,
+            items: [
+              {grade: 'N35', size: '20x3-5', qty: 19264}
+            ]
+          }
+        ]
+  },
+
+  'C4-1': {
+    id: 'C4-1',
+    status: 'enroute',
+    badge: 'In Transit — ETD Oct 23',
+    badgeClass: 'enroute',
+    title: 'N52 Air Freight Order',
+    sub: '1 item | 7.20 KG | 912 pcs',
+    ship: 'SF Express',
+    voyage: '',
+    tracking: 'SF6047964403474',
+    etd: '2026-10-23',
+    etaOrig: '2026-11-05',
+    etaReal: '2026-11-05',
+    highlight: 'Departed Oct 23, 2026 by SF Express air freight, ETA Nov 05, 2026 to Mexico. Products: N52 20x10x5 (912 pcs). Tracking: SF6047964403474.',
+    products: 'N52 20x10x5',
+    pkgSize: '1 item',
+    payment: '',
+    destination: 'MX',
+    list: ['N52 20x10x5 912'],
+    progress: 40,
+    progressColor: 'blue',
+    signLabel: 'info',
+    signDate: 'Est. Nov 05, 2026',
+    signNote: 'SF Express air freight to Mexico. ETD 2026-10-23, ETA 2026-11-05. Tracking: SF6047964403474. Products: N52 20x10x5 (912 pcs). Last-mile delivery and customs clearance follow arrival.',
+    steps: [
+      {
+        label: 'Production\nComplete',
+        cls: 'done'
+      },
+      {
+        label: 'Air Freight\nShipped\n2026-10-23',
+        cls: 'done'
+      },
+      {
+        label: 'In Transit\nETA 2026-11-05',
+        cls: 'current'
+      },
+      {
+        label: 'Customs\n& Delivery\nMexico',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    boxes: [
+      {
+        num: 1,
+        weight: 7.2,
+        items: [
+          {grade: 'N52', size: '20x10x5', qty: 912}
+        ]
+      }
+    ]
+  },
+
+  'C4-2': {
+    id: 'C4-2',
+    status: 'enroute',
+    badge: 'In Transit — ETD Oct 26',
+    badgeClass: 'enroute',
+    title: 'N52 Air Freight Order',
+    sub: '1 item | 7.20 KG | 912 pcs',
+    ship: 'SF Express',
+    voyage: '',
+    tracking: 'SF6047971955907',
+    etd: '2026-10-26',
+    etaOrig: '2026-11-08',
+    etaReal: '2026-11-08',
+    highlight: 'Departed Oct 26, 2026 by SF Express air freight, ETA Nov 08, 2026 to Mexico. Products: N52 20x10x5 (912 pcs). Tracking: SF6047971955907.',
+    products: 'N52 20x10x5',
+    pkgSize: '1 item',
+    payment: '',
+    destination: 'MX',
+    list: ['N52 20x10x5 912'],
+    progress: 30,
+    progressColor: 'blue',
+    signLabel: 'info',
+    signDate: 'Est. Nov 08, 2026',
+    signNote: 'SF Express air freight to Mexico. ETD 2026-10-26, ETA 2026-11-08. Tracking: SF6047971955907. Products: N52 20x10x5 (912 pcs). Last-mile delivery and customs clearance follow arrival.',
+    steps: [
+      {
+        label: 'Production\nComplete',
+        cls: 'done'
+      },
+      {
+        label: 'Air Freight\nShipped\n2026-10-26',
+        cls: 'done'
+      },
+      {
+        label: 'In Transit\nETA 2026-11-08',
+        cls: 'current'
+      },
+      {
+        label: 'Customs\n& Delivery\nMexico',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    boxes: [
+      {
+        num: 1,
+        weight: 7.2,
+        items: [
+          {grade: 'N52', size: '20x10x5', qty: 912}
+        ]
+      }
+    ]
+  },
+
+  'C4-3': {
+    id: 'C4-3',
+    status: 'pending',
+    badge: 'Awaiting Pickup',
+    badgeClass: 'pending',
+    title: 'Mixed Air Freight Order',
+    sub: '1 item | 3.00 KG | 501 pcs',
+    ship: 'SF Express',
+    voyage: '',
+    tracking: '',
+    etd: '',
+    etaOrig: '',
+    etaReal: '',
+    highlight: 'Packed and awaiting carrier pickup. No SF Express tracking number, ETD or ETA has been assigned in the source data yet. Products: N52 20x10x5 / N35 15x5 / N35 15x2 (501 pcs).',
+    products: 'N52 20x10x5 / N35 15x5 / N35 15x2',
+    pkgSize: '1 item',
+    payment: '',
+    destination: 'MX',
+    list: ['N52 20x10x5 218', 'N35 15x5 120', 'N35 15x2 163'],
+    progress: 15,
+    progressColor: 'amber',
+    signLabel: 'info',
+    signDate: 'ETD pending',
+    signNote: 'Third C4 parcel is packed and awaiting pickup. SF Express has not issued a tracking number yet, and ETD / ETA are blank in the source data. Products: N52 20x10x5 (218) / N35 15x5 (120) / N35 15x2 (163).',
+    steps: [
+      {
+        label: 'Production\nComplete',
+        cls: 'done'
+      },
+      {
+        label: 'Awaiting\nPickup',
+        cls: 'current'
+      },
+      {
+        label: 'Air Freight\nTBA',
+        cls: 'future'
+      },
+      {
+        label: 'Customs\n& Delivery\nMexico',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    boxes: [
+      {
+        num: 1,
+        weight: 3.0,
+        items: [
+          {grade: 'N52', size: '20x10x5', qty: 218},
+          {grade: 'N35', size: '15x5', qty: 120},
+          {grade: 'N35', size: '15x2', qty: 163}
+        ]
+      }
+    ]
   }
 };
 
@@ -3411,18 +3688,17 @@ const orderEK20260721 = {
       'N35 12x1.5': 35000,
       'N35 12x2': 15000,
       'N35 D25': 2000,
-      'N35 18x2': 37296,
+      'N35 18x2': 53000,
       'N35 25x5': 3008,
-      'N35 25x2': 3168,
-      'N35 25x3': 4366,
-      'N35 25x3-5': 1081,
-      'N35 20x10x2': 53360
+      'N35 25x2': 6254,
+      'N35 25x3': 5594,
+      'N35 25x3-5': 3600,
+      'N35 20x10x2': 70000,
+      'N35 20x3-5': 40000
     },
-  shipments: ['D1', 'D2', 'D3', 'D4', 'D5'],
+  shipments: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
   produced: [],
-  producing: [
-      'N35 20x3-5'
-    ]
+  producing: []
 };
 window.orderEK20260721 = orderEK20260721;
 
@@ -3494,6 +3770,9 @@ function renderOrderOverview(ord) {
   const pctCls = pctNum >= 100 ? 'green' : (pctNum > 50 ? 'green' : 'orange');
   const fillCls = pctNum > 50 ? 'shipped' : 'partial';
   const barWidth = Math.min(pctNum, 100).toFixed(2);
+  // A panel counts as Completed only when EVERY line is fully shipped. Total qty can
+  // reach 100% through packing spares while one line is still a few pcs short.
+  const isComplete = pctNum >= 100 && doneCount === ord.items.length;
 
   // ---- Overall progress bar ----
   const progressBar = `
@@ -3520,8 +3799,8 @@ function renderOrderOverview(ord) {
   }).join('');
 
   return `
-  <div class="order-panel${parseFloat(overallPct)>=100?' completed':''}">
-    ${parseFloat(overallPct)>=100 ? `
+  <div class="order-panel${isComplete?' completed':''}">
+    ${isComplete ? `
     <div class="order-collapse-bar${ordStartOpen(ord.id)?' open':''}" onclick="toggleOrderPanel('ordpanel_${ord.id}')">
       <div class="order-collapse-label">
         <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
@@ -3591,7 +3870,7 @@ function renderOrderOverview(ord) {
       <strong>Related Shipments:</strong>
       <div style="margin-top:6px;">${shipmentLinks}</div>
     </div>
-    ${parseFloat(overallPct)>=100 ? '</div>\n    </div>' : ''}
+    ${isComplete ? '</div>\n    </div>' : ''}
   </div>`;
 }
 
@@ -3744,8 +4023,9 @@ function renderAirOverview(airOrders) {
 
 function renderBoxTable(boxes, orderId) {
   const chevronSvg = '<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>';
-  let totalQty = 0, totalWt = 0;
-  boxes.forEach(b => { totalWt += b.weight; b.items.forEach(it => totalQty += it.qty); });
+  let totalQty = 0, totalWt = 0, hasWt = false;
+  const wtNum = w => (w === null || w === undefined || w === '' || isNaN(w)) ? null : Number(w);
+  boxes.forEach(b => { const w = wtNum(b.weight); if (w !== null) { totalWt += w; hasWt = true; } b.items.forEach(it => totalQty += it.qty); });
 
   const tbodyHtml = boxes.map((box, bi) => {
     let rows = '';
@@ -3756,10 +4036,10 @@ function renderBoxTable(boxes, orderId) {
         <td class="grade">${it.grade}</td>
         <td class="size">${it.size}</td>
         <td class="qty">${it.qty.toLocaleString()} pcs${it.repl ? ' <span class="repl-tag">Replenishment</span>' : ''}</td>
-        <td class="wt">${ii === 0 ? box.weight.toFixed(2) + ' kg' : ''}</td>
+        <td class="wt">${ii === 0 ? (wtNum(box.weight) !== null ? wtNum(box.weight).toFixed(2) + ' kg' : '&mdash;') : ''}</td>
       </tr>`;
     });
-    rows += `<tr class="box-total"><td colspan="3"></td><td class="qty">${boxTotalQty.toLocaleString()} pcs</td><td class="wt">${box.weight.toFixed(2)} kg</td></tr>`;
+    rows += `<tr class="box-total"><td colspan="3"></td><td class="qty">${boxTotalQty.toLocaleString()} pcs</td><td class="wt">${wtNum(box.weight) !== null ? wtNum(box.weight).toFixed(2) + ' kg' : '&mdash;'}</td></tr>`;
     return rows;
   }).join('');
 
@@ -3769,7 +4049,7 @@ function renderBoxTable(boxes, orderId) {
     <div class="box-toggle" id="${boxId}_toggle" onclick="toggleBox('${boxId}')">
       ${chevronSvg}
       Box Details
-      <span class="box-count">${boxes.length} boxes / ${totalQty.toLocaleString()} pcs / ${totalWt.toFixed(2)} kg</span>
+      <span class="box-count">${boxes.length} boxes / ${totalQty.toLocaleString()} pcs / ${hasWt ? totalWt.toFixed(2) + ' kg' : 'weight pending'}</span>
     </div>
     <div class="box-table-wrap" id="${boxId}_wrap">
       <table class="box-table">
@@ -3778,7 +4058,7 @@ function renderBoxTable(boxes, orderId) {
         <tfoot><tr class="box-total" style="font-size:12px;">
           <td colspan="3" style="text-align:right;color:var(--text3);font-weight:400;">Total</td>
           <td class="qty">${totalQty.toLocaleString()} pcs</td>
-          <td class="wt">${totalWt.toFixed(2)} kg</td>
+          <td class="wt">${hasWt ? totalWt.toFixed(2) + ' kg' : '&mdash;'}</td>
         </tr></tfoot>
       </table>
     </div>
@@ -4121,19 +4401,27 @@ function showAll() {
   // D3 third Order D shipment - ETA US port Oct 20; last-mile label not yet scanned
   const d3 = orders['D3'];
   if (d3) pushUpdate('hot', d3.id + ': ' + d3.highlight, d3.id);
-  // D4 / D5 - Order D shipments scheduled for Oct 23 / Oct 29
+  // D4 - departed Oct 26, 2026 on EVER LOTUS 0026E
   const d4 = orders['D4'];
-  if (d4) pushUpdate('warn', d4.id + ': ' + d4.highlight, d4.id);
+  if (d4) pushUpdate('hot', d4.id + ': ' + d4.highlight, d4.id);
+  // D5 / D6 - Order D shipments still awaiting a vessel (ETD Oct 29 / TBA)
   const d5 = orders['D5'];
   if (d5) pushUpdate('warn', d5.id + ': ' + d5.highlight, d5.id);
+  const d6 = orders['D6'];
+  if (d6) pushUpdate('warn', d6.id + ': ' + d6.highlight, d6.id);
   // A5 door magnet order - awaiting vessel (dest MX)
   const a5 = orders['A5'];
   if (a5) pushUpdate('hot', a5.id + ': ' + a5.highlight, a5.id);
+  // C4 air freight split - two parcels shipped, one awaiting pickup (dest MX)
+  ['C4-1', 'C4-2', 'C4-3'].forEach(id => {
+    const o = orders[id];
+    if (o) pushUpdate(o.status === 'delivered' ? 'good' : 'hot', o.id + ': ' + o.highlight, o.id);
+  });
   // Order D: master order - shipments still being dispatched
   if (typeof orderEK20260721 !== 'undefined') {
     const dShipped = Object.values(orderEK20260721.shipped || {}).reduce((a, b) => a + b, 0);
     const dProducing = (orderEK20260721.producing || []).length;
-    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched, ' + dProducing + ' lines still in production.</li>');
+    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched' + (dProducing > 0 ? ', ' + dProducing + ' lines still in production.' : ' - all shipments D1 to D6 dispatched.') + '</li>');
   }
   // Remaining delivered shipments - auto-folded once older than 30 days
   ['B4','B5','C3','B3','C2','C1','B1','A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
