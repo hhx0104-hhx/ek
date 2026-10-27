@@ -510,7 +510,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Oct 26, 2026 13:28 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: Oct 27, 2026 12:39 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2973,39 +2973,39 @@ const orders = {
   D5: {
     id: 'D5',
     status: 'pending',
-    badge: 'Awaiting Vessel — ETD 2026-10-29',
+    badge: 'Booked — ETD Oct 29',
     badgeClass: 'pending',
     title: 'N35 Series Magnets (Order D)',
     sub: '15 boxes | 230.90 KG | 37,852 pcs',
     ship: '',
     voyage: '',
-    tracking: '',
+    tracking: 'UPS 1ZG2C1210314375814',
     etd: '2026-10-29',
     etaOrig: '2026-11-29',
     etaReal: '2026-11-29',
-    highlight: 'Fifth Order D shipment scheduled to depart Oct 29, 2026, ETA 2026-11-29. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,852 pcs). Vessel and UPS tracking not yet assigned in the source data.',
+    highlight: 'Fifth Order D shipment is booked to depart Oct 29, 2026, ETA Nov 29, 2026. UPS label 1ZG2C1210314375814 is issued and still awaiting the UPS receiving scan, which is normal before departure. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,852 pcs).',
     products: 'N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3',
     pkgSize: '15 boxes',
     payment: '',
     destination: 'US',
     list: ['N35 20x3-5 20736', 'N35 18x2 12432', 'N35 25x2 2448', 'N35 25x3-5 1300', 'N35 25x3 936'],
-    progress: 20,
+    progress: 30,
     progressColor: 'amber',
     signLabel: 'info',
     signDate: 'Est. Nov 29 — Dec 06, 2026',
-    signNote: 'Fifth Order D shipment is packed and awaiting vessel assignment. Scheduled ETD 2026-10-29 with ETA 2026-11-29. Vessel name and UPS tracking will be published once assigned. Last-mile delivery 3-7 business days after customs.',
+    signNote: 'Fifth Order D shipment is packed and booked with UPS (1ZG2C1210314375814). Scheduled ETD 2026-10-29 with ETA 2026-11-29. The label is created but UPS has not received the parcel yet, which is normal before departure. Vessel name will be published once assigned. Last-mile delivery 3-7 business days after customs.',
     steps: [
       {
         label: 'Production /\nPacking',
         cls: 'done'
       },
       {
-        label: 'Awaiting\nVessel',
-        cls: 'current'
+        label: 'Booked\nUPS label',
+        cls: 'done'
       },
       {
         label: 'ETD\n10-29',
-        cls: 'future'
+        cls: 'current'
       },
       {
         label: 'En Route\nPacific',
@@ -3678,9 +3678,9 @@ const orderEK20260721 = {
   ],
   // SHIPPED = only quantities that actually carry a transport number.
   // Order D batches with a carrier number: D1 (1ZK6B4420325075331), D2 (1ZG2C1210300042226),
-  // D3 (1ZG2C1210304724349), D4 (1ZG2C1210339503076) -> 472,096 pcs.
-  // D5 (37,852) and D6 (41,325) show NO transport number in the source data, so they are
-  // counted as READY (packed, awaiting vessel/tracking) and are NOT in this map.
+  // D3 (1ZG2C1210304724349), D4 (1ZG2C1210339503076), D5 (1ZG2C1210314375814) -> 509,948 pcs.
+  // D6 (41,325) still shows NO transport number in the source data, so it is counted as READY
+  // (packed, awaiting vessel/tracking) and is NOT in this map.
   shipped: {
       'N35 2x1': 50000,
       'N35 3X3': 10000,
@@ -3695,21 +3695,22 @@ const orderEK20260721 = {
       'N35 12x1.5': 35000,
       'N35 12x2': 15000,
       'N35 D25': 2000,
-      'N35 18x2': 37296,
+      'N35 18x2': 49728,
       'N35 25x5': 3008,
-      'N35 25x2': 3168,
-      'N35 25x3': 4366,
-      'N35 25x3-5': 1081,
-      'N35 20x10x2': 53360
+      'N35 25x2': 5616,
+      'N35 25x3': 5302,
+      'N35 25x3-5': 2381,
+      'N35 20x10x2': 53360,
+      'N35 20x3-5': 20736
     },
   // Packed and staged but not dispatched yet — surfaced as a note under the progress bar.
   awaiting: {
-    qty: 79177,
-    detail: 'D5 37,852 + D6 41,325'
+    qty: 41325,
+    detail: 'D6 41,325'
   },
   shipments: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
-  // Lines that are physically packed (D5 + D6) but still waiting for a vessel / tracking
-  // number. Rendered as "Ready" instead of "Producing" so the table matches reality.
+  // Lines still physically packed (D6, 41,325 pcs) and waiting for a vessel / tracking
+  // number. Rendered as "Ready" when nothing at all has been dispatched for that line.
   produced: ['N35 18x2', 'N35 25x2', 'N35 25x3', 'N35 25x3-5', 'N35 20x10x2', 'N35 20x3-5'],
   producing: []
 };
@@ -3758,7 +3759,10 @@ function renderOrderOverview(ord) {
       prodStatusKey = 'ready';
       readyCount++;
     } else {
-      prodHtml = '<span class="prod-status"><span class="prod-dot p"></span>Producing</span>';
+      // Nothing has shipped and nothing is packed for this line. Only claim production
+      // when the line is really on the line, otherwise say it is short.
+      const inProd = (ord.producing || []).indexOf(key) !== -1;
+      prodHtml = '<span class="prod-status"><span class="prod-dot p"></span>' + (inProd ? 'Producing' : 'Short') + '</span>';
       prodStatusKey = 'producing';
       producingCount++;
     }
@@ -3859,13 +3863,13 @@ function renderOrderOverview(ord) {
 
     <div class="order-section-title"><span class="dot g"></span>Shipped (${doneCount} completed${partialCount>0?', '+partialCount+' partial':''})</div>
     <div class="order-section-title"><span class="dot o"></span>Ready (${readyCount} produced, awaiting shipment)</div>
-    <div class="order-section-title"><span class="dot y"></span>Producing (${producingCount} in production)</div>
+    <div class="order-section-title"><span class="dot y"></span>Pending (${producingCount} line${producingCount === 1 ? '' : 's'} not produced)</div>
 
     <div class="filter-bar" id="filterBar">
       <button class="filter-btn active" onclick="filterTable('all')">All<span class="filter-count">${ord.items.length}</span></button>
       <button class="filter-btn" onclick="filterTable('shipped')"><span class="prod-dot s" style="display:inline-block;vertical-align:middle;margin-right:3px;"></span>Shipped<span class="filter-count">${doneCount}</span></button>
       <button class="filter-btn" onclick="filterTable('ready')"><span class="prod-dot r" style="display:inline-block;vertical-align:middle;margin-right:3px;"></span>Ready<span class="filter-count">${readyCount}</span></button>
-      <button class="filter-btn" onclick="filterTable('producing')"><span class="prod-dot p" style="display:inline-block;vertical-align:middle;margin-right:3px;"></span>Producing<span class="filter-count">${producingCount}</span></button>
+      <button class="filter-btn" onclick="filterTable('producing')"><span class="prod-dot p" style="display:inline-block;vertical-align:middle;margin-right:3px;"></span>Pending<span class="filter-count">${producingCount}</span></button>
     </div>
 
     <div class="order-table-wrap">
@@ -4426,9 +4430,9 @@ function showAll() {
   // D4 - departed Oct 26, 2026 on EVER LOTUS 0026E
   const d4 = orders['D4'];
   if (d4) pushUpdate('hot', d4.id + ': ' + d4.highlight, d4.id);
-  // D5 / D6 - Order D shipments still awaiting a vessel (ETD Oct 29 / TBA)
+  // D5 - booked with UPS, departing Oct 29, 2026
   const d5 = orders['D5'];
-  if (d5) pushUpdate('warn', d5.id + ': ' + d5.highlight, d5.id);
+  if (d5) pushUpdate('hot', d5.id + ': ' + d5.highlight, d5.id);
   const d6 = orders['D6'];
   if (d6) pushUpdate('warn', d6.id + ': ' + d6.highlight, d6.id);
   // A5 door magnet order - awaiting vessel (dest MX)
