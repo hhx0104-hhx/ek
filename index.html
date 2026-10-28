@@ -510,7 +510,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Oct 27, 2026 12:39 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
+    Last updated: Oct 28, 2026 11:25 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS)
   </div>
 </div>
 
@@ -2671,10 +2671,10 @@ const orders = {
 
 
   D3: {
-        id: 'D3',
-    status: 'enroute',
-    badge: 'En Route — ETD Sep 24',
-    badgeClass: 'enroute',
+    id: 'D3',
+    status: 'delivered',
+    badge: 'Delivered — Oct 27',
+    badgeClass: 'delivered',
     title: 'N35 Series Magnets (Order D)',
     sub: '19 boxes | 275.45 KG | 146,183 pcs',
     ship: 'CSCL EAST CHINA SEA',
@@ -2683,17 +2683,17 @@ const orders = {
     etd: '2026-09-24',
     etaOrig: '2026-10-20',
     etaReal: '2026-10-20',
-    highlight: 'Third Order D shipment departed Sep 24, 2026 via CSCL EAST CHINA SEA 079E, due at the US port Oct 20, 2026. UPS label 1ZG2C1210304724349 was created Sep 19, 2026 but UPS has not received the parcel yet, so no pickup scan is expected until the container is discharged and tendered to UPS. Products: N35 18x2 / 25x5 / 25x2 / 25x3 / 25x3-5 / 25x5-5 / 3x1 / D25 (146,183 pcs).',
+    highlight: 'Third Order D shipment delivered on Oct 27, 2026 at Brownsville, TX via UPS 1ZG2C1210304724349 (picked up Oct 21, 2026 from Ontario, CA, 6-day last-mile transit). Vessel CSCL EAST CHINA SEA 079E departed Sep 24, 2026 and discharged at the US port around Oct 20. Products: N35 18x2 / 25x5 / 25x2 / 25x3 / 25x3-5 / 25x5-5 / 3x1 / D25 (146,183 pcs).',
     products: 'N35 18x2 / 25x5 / 25x2 / 25x3 / 25x3-5 / 25x5-5 / 3x1 / D25',
     pkgSize: '19 boxes',
     payment: '',
     destination: 'US',
     list: ['N35 3x1 100000', 'N35 18x2 37296', 'N35 25x2 3168', 'N35 25x5 3008', 'N35 25x3-5 1081', 'N35 25x5-5 1008', 'N35 25x3 622'],
-    progress: 45,
-    progressColor: 'blue',
-    signLabel: 'info',
-    signDate: 'Est. Oct 20 — Oct 27, 2026',
-    signNote: 'Vessel CSCL EAST CHINA SEA 079E departed Sep 24, 2026, ETA US port Oct 20, 2026. UPS label 1ZG2C1210304724349 created Sep 19, 2026 - still showing Label Created / UPS has not received the package yet, which is normal while the cargo is at sea. Last-mile delivery typically follows 3-5 business days after the UPS receiving scan.',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
+    signDate: 'Delivered Oct 27, 2026',
+    signNote: 'Delivered Oct 27, 2026 at Brownsville, TX (UPS 1ZG2C1210304724349; picked up Oct 21, 2026 from Ontario, CA, 6-day last-mile transit). 17track confirmed: BROWNSVILLE, TX, US, Delivered, DELIVERED',
     steps: [
       {
         label: 'Production\nComplete',
@@ -2705,19 +2705,19 @@ const orders = {
       },
       {
         label: 'En Route\nPacific',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Arrived\nPort',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Last-mile\nDelivery',
-        cls: 'future'
+        cls: 'done'
       },
       {
-        label: 'Customer\nSigned',
-        cls: 'future'
+        label: 'Delivered\n10-27',
+        cls: 'done'
       }
     ],
     alert: null,
@@ -4424,9 +4424,9 @@ function showAll() {
   // D2 second Order D shipment - delivered Oct 19 (Brownsville, TX)
   const d2 = orders['D2'];
   if (d2) pushUpdate('good', d2.id + ': ' + d2.highlight, d2.id);
-  // D3 third Order D shipment - ETA US port Oct 20; last-mile label not yet scanned
+  // D3 third Order D shipment - delivered Oct 27 (Brownsville, TX)
   const d3 = orders['D3'];
-  if (d3) pushUpdate('hot', d3.id + ': ' + d3.highlight, d3.id);
+  if (d3) pushUpdate('good', d3.id + ': ' + d3.highlight, d3.id);
   // D4 - departed Oct 26, 2026 on EVER LOTUS 0026E
   const d4 = orders['D4'];
   if (d4) pushUpdate('hot', d4.id + ': ' + d4.highlight, d4.id);
