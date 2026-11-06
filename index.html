@@ -510,7 +510,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 3, 2026 17:30 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF)
+    Last updated: Nov 6, 2026 14:45 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF)
   </div>
 </div>
 
@@ -3233,9 +3233,9 @@ const orders = {
 
   'C4-1': {
     id: 'C4-1',
-    status: 'enroute',
-    badge: 'Re-Delivery Scheduled — Zapopan, MX',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered — Nov 03',
+    badgeClass: 'delivered',
     title: 'N52 Air Freight Order',
     sub: '1 item | 7.20 KG | 912 pcs',
     ship: 'SF Express',
@@ -3244,17 +3244,17 @@ const orders = {
     etd: '2026-10-23',
     etaOrig: '2026-11-05',
     etaReal: '2026-11-05',
-    highlight: 'Out for delivery in Zapopan, Jalisco, Mexico since Nov 1, 2026 - four days ahead of the Nov 05 ETA. The first delivery attempt on Nov 2 was unsuccessful; SF Express has made a re-delivery appointment with the receiver. Products: N52 20x10x5 (912 pcs). Tracking: SF6047964403474.',
+    highlight: 'Delivered on Nov 3, 2026 at Miramar, Zapopan, Jalisco, Mexico - two days ahead of the Nov 05 ETA. The Nov 2 attempt was unsuccessful and SF Express re-delivered by appointment the next day. Products: N52 20x10x5 (912 pcs). Tracking: SF6047964403474.',
     products: 'N52 20x10x5',
     pkgSize: '1 item',
     payment: '',
     destination: 'MX',
     list: ['N52 20x10x5 912'],
-    progress: 90,
-    progressColor: 'blue',
-    signLabel: 'info',
-    signDate: 'Re-delivery appointment made Nov 2 — sign-off expected shortly',
-    signNote: 'SF Express air freight to Mexico. ETD 2026-10-23, ETA 2026-11-05. Tracking: SF6047964403474. Latest 17track scan: Nov 2 - Miramar - the first delivery attempt was unsuccessful and a second delivery has been scheduled with the receiver. No action needed; the parcel is at the local Zapopan station.',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
+    signDate: 'Delivered Nov 03, 2026',
+    signNote: 'Delivered Nov 3, 2026 at Miramar, Zapopan, Jalisco, Mexico (SF Express SF6047964403474, 12 days door to door). Picked up Oct 23, flew via the Ezhou hub, customs cleared and delivered two days ahead of the Nov 05 ETA. The Nov 2 first attempt was unsuccessful and was re-delivered by appointment.',
     steps: [
       {
         label: 'Production\nComplete',
@@ -3270,11 +3270,11 @@ const orders = {
       },
       {
         label: 'Customs\n& Delivery\nMexico',
-        cls: 'current'
+        cls: 'done'
       },
       {
-        label: 'Customer\nSigned',
-        cls: 'future'
+        label: 'Delivered\n11-03',
+        cls: 'done'
       }
     ],
     alert: null,
@@ -3291,9 +3291,9 @@ const orders = {
 
   'C4-2': {
     id: 'C4-2',
-    status: 'enroute',
-    badge: 'Customs Cleared — Mexico',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered — Nov 04',
+    badgeClass: 'delivered',
     title: 'N52 Air Freight Order',
     sub: '1 item | 7.20 KG | 912 pcs',
     ship: 'SF Express',
@@ -3302,17 +3302,17 @@ const orders = {
     etd: '2026-10-26',
     etaOrig: '2026-11-08',
     etaReal: '2026-11-08',
-    highlight: 'Customs clearance completed Nov 2, 2026 in the Mexico business area, ahead of the Nov 08 ETA. The parcel landed in Mexico City on Oct 31 and has been released for the final domestic delivery leg. Products: N52 20x10x5 (912 pcs). Tracking: SF6047971955907.',
+    highlight: 'Delivered on Nov 4, 2026 at Miramar, Zapopan, Jalisco, Mexico - four days ahead of the Nov 08 ETA. Customs cleared Nov 2 and the parcel completed the domestic leg in two days. Products: N52 20x10x5 (912 pcs). Tracking: SF6047971955907.',
     products: 'N52 20x10x5',
     pkgSize: '1 item',
     payment: '',
     destination: 'MX',
     list: ['N52 20x10x5 912'],
-    progress: 80,
-    progressColor: 'blue',
-    signLabel: 'info',
-    signDate: 'Est. Nov 08, 2026 (customs cleared Nov 2)',
-    signNote: 'SF Express air freight to Mexico. ETD 2026-10-26, ETA 2026-11-08. Tracking: SF6047971955907. Latest 17track scan: Nov 2 - Mexico business area - customs clearance completed. The parcel is released for the final domestic delivery leg.',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
+    signDate: 'Delivered Nov 04, 2026',
+    signNote: 'Delivered Nov 4, 2026 at Miramar, Zapopan, Jalisco, Mexico (SF Express SF6047971955907, 10 days door to door). Landed in Mexico City Oct 31, customs cleared Nov 2 and delivered four days ahead of the Nov 08 ETA.',
     steps: [
       {
         label: 'Production\nComplete',
@@ -3328,11 +3328,11 @@ const orders = {
       },
       {
         label: 'Customs\n& Delivery\nMexico',
-        cls: 'current'
+        cls: 'done'
       },
       {
-        label: 'Customer\nSigned',
-        cls: 'future'
+        label: 'Delivered\n11-04',
+        cls: 'done'
       }
     ],
     alert: null,
@@ -3350,7 +3350,7 @@ const orders = {
   'C4-3': {
     id: 'C4-3',
     status: 'enroute',
-    badge: 'Booked — ETD Nov 03',
+    badge: 'In Transit — Hong Kong Hub',
     badgeClass: 'enroute',
     title: 'Mixed Air Freight Order',
     sub: '1 item | 3.00 KG | 501 pcs',
@@ -3360,17 +3360,17 @@ const orders = {
     etd: '2026-11-03',
     etaOrig: '2026-11-08',
     etaReal: '2026-11-08',
-    highlight: 'Third C4 parcel is booked with SF Express, ETD Nov 3, 2026 and ETA Nov 8, 2026. Tracking number SF6047995766703 has been issued; the carrier has not published scans yet, which is normal on departure day. Products: N52 20x10x5 / N35 15x5 / N35 15x2 (501 pcs).',
+    highlight: 'Third C4 parcel departed Nov 3, 2026 and reached the Tsing Yi transfer hub in Hong Kong on Nov 6, where it is being unloaded for the onward flight to Mexico. ETA Nov 8, 2026. Products: N52 20x10x5 / N35 15x5 / N35 15x2 (501 pcs). Tracking: SF6047995766703.',
     products: 'N52 20x10x5 / N35 15x5 / N35 15x2',
     pkgSize: '1 item',
     payment: '',
     destination: 'MX',
     list: ['N52 20x10x5 218', 'N35 15x5 120', 'N35 15x2 163'],
-    progress: 40,
+    progress: 55,
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. Nov 08, 2026',
-    signNote: 'Third C4 parcel is booked with SF Express (tracking SF6047995766703). ETD 2026-11-03 with ETA 2026-11-08. The carrier has not published scans yet, which is normal on departure day. Products: N52 20x10x5 (218) / N35 15x5 (120) / N35 15x2 (163).',
+    signNote: 'Third C4 parcel is in transit with SF Express (SF6047995766703). ETD 2026-11-03, ETA 2026-11-08. Latest 17track scan: Nov 6 - Tsing Yi transfer hub, Hong Kong - arrived at the station and unloading, ahead of the onward flight to Mexico. Products: N52 20x10x5 (218) / N35 15x5 (120) / N35 15x2 (163).',
     steps: [
       {
         label: 'Production\nComplete',
