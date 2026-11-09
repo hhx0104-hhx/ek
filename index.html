@@ -510,7 +510,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 9, 2026 11:20 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF)
+    Last updated: Nov 9, 2026 11:20 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -1303,42 +1303,42 @@ const orders = {
   A5: {
     id: 'A5',
     status: 'enroute',
-    badge: 'Shipped — 8 Parcel Numbers',
+    badge: 'In Transit — FedEx MX',
     badgeClass: 'enroute',
     title: 'N35 Door Magnet Order',
     sub: '8 boxes | 196.20 KG | 11,950 pcs',
-    ship: '',
+    ship: 'FedEx (Mexico domestic)',
     voyage: '',
-    tracking: '879892737759 ... 879892737829 (8 parcels)',
-    etd: '2026-09-05',
+    tracking: 'FedEx 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829 (8 parcels)',
+    etd: '2026-11-07',
     etaOrig: '2026-10-15',
-    etaReal: '2026-10-15',
-    highlight: 'Parcel numbers for all 8 boxes were recorded on Nov 9, 2026: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829, one per box. ETD 2026-09-05, planned ETA 2026-10-15. The carrier does not publish scans to the tracking networks we use, so a delivery signature is still pending confirmation from the shipper. Destination Mexico. Products: doormagnet L46 / badges magnet / mounting screws.',
+    etaReal: '',
+    highlight: 'Handed to FedEx in Mexico on Nov 7, 2026 after the daily pickup cutoff, and scanned the same day at the FedEx origin facility in Mexico City. Eight parcels travel from MEXICO, DF to ZAPOPAN, JA. Seven numbers already show live FedEx scans; the eighth (7829) is still waiting for its first scan. Products: doormagnet L46 / badges magnet / mounting screws.',
     products: 'N35 doormagnet L46 / badges magnet / screw',
     pkgSize: '8 boxes',
     payment: '',
     destination: 'MX',
     list: ['N35 doormagnet L46 4950', 'badges magnet 2000', 'screw 5000'],
-    progress: 85,
+    progress: 65,
     progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'ETA Oct 15, 2026 passed — delivery confirmation pending',
-    signNote: 'A5 door magnet order, destination Mexico. ETD 2026-09-05 with a planned ETA of 2026-10-15. Eight parcel numbers (one per box) are on file: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829. The last-mile carrier does not publish scans to the tracking networks we use, so we can confirm dispatch but not the delivery signature — the forwarder is being asked for proof of delivery.',
+    signDate: 'In Transit — picked up Nov 7, 2026',
+    signNote: 'FedEx (Mexico domestic) collected all eight boxes in Mexico City on Nov 7, 2026 and scanned them at its origin facility the same evening. Destination: Zapopan, Jalisco. Parcel numbers: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829 — seven of the eight already show FedEx scans, and 7829 is still awaiting its first. The delivery signature will be posted here as soon as FedEx reports it.',
     steps: [
       {
-        label: 'Production\nComplete',
+        label: 'Packed\n8 Boxes',
         cls: 'done'
       },
       {
-        label: 'Cargo\nPacked',
+        label: 'FedEx\nPickup\n11-07',
         cls: 'done'
       },
       {
-        label: 'Depart\n09-05',
+        label: 'Mexico City\nOrigin Hub',
         cls: 'done'
       },
       {
-        label: 'Arrived\nPort',
+        label: 'Transit\nZapopan, JA',
         cls: 'current'
       },
       {
