@@ -510,7 +510,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 9, 2026 11:20 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 9, 2026 13:05 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -3137,27 +3137,27 @@ const orders = {
   D6: {
     id: 'D6',
     status: 'pending',
-    badge: 'Awaiting Vessel — ETD TBA',
+    badge: 'Packed — Awaiting Vessel',
     badgeClass: 'pending',
     title: 'N35 Series Magnets (Order D)',
-    sub: '6 boxes | 41,325 pcs',
+    sub: '10 boxes | 168.60 KG | 27,382 pcs',
     ship: '',
     voyage: '',
     tracking: '',
     etd: '',
     etaOrig: '',
     etaReal: '',
-    highlight: 'Sixth Order D shipment is packed and staged. Vessel, ETD and ETA are not yet assigned in the source data, and box weights are still blank. Products: N35 20x3-5 / 20x10x2 / 18x2 / 25x3-5 / 25x3 / 25x2 (41,325 pcs across 6 boxes).',
-    products: 'N35 20x3-5 / 20x10x2 / 18x2 / 25x3-5 / 25x3 / 25x2',
-    pkgSize: '6 boxes',
+    highlight: 'The packing list was re-issued on Nov 9, 2026 and now lists all ten boxes individually, each with its own weight and magnet polarity (N-S / S-N). Vessel, ETD and ETA are still not assigned. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2 (27,382 pcs across 10 boxes, 168.60 KG).',
+    products: 'N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2',
+    pkgSize: '10 boxes',
     payment: '',
     destination: 'US',
-    list: ['N35 20x3-5 19264', 'N35 20x10x2 16640', 'N35 18x2 3272', 'N35 25x3-5 1219', 'N35 25x3 292', 'N35 25x2 638'],
-    progress: 10,
+    list: ['N35 20x3-5 19280', 'N35 25x3-5 1232', 'N35 18x2 3293', 'N35 20x10x2 2640', 'N35 25x3 300', 'N35 25x2 637'],
+    progress: 20,
     progressColor: 'amber',
     signLabel: 'info',
     signDate: 'ETD pending',
-    signNote: 'Sixth Order D shipment is packed and staged. Vessel, ETD and ETA have not been assigned in the source data yet, and the box weights column is still blank in the packing list. Products: N35 20x3-5 / 20x10x2 / 18x2 / 25x3-5 / 25x3 / 25x2 (41,325 pcs across 6 boxes).',
+    signNote: 'The Nov 9, 2026 packing list breaks this shipment down into ten boxes with individual weights and polarity (N-S / S-N) per box, 27,382 pcs in total, 168.60 KG. Vessel, ETD and ETA have still not been assigned, so the cargo is packed and staged at the factory awaiting a booking. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
     steps: [
       {
         label: 'Production /\nPacking',
@@ -3188,44 +3188,78 @@ const orders = {
         boxes: [
           {
             num: 1,
-            weight: null,
+            weight: 17.20,
             items: [
-              {grade: 'N35', size: '18x2', qty: 3272}
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 2640}
             ]
           },
           {
             num: 2,
-            weight: null,
+            weight: 17.45,
             items: [
-              {grade: 'N35', size: '25x2', qty: 638}
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 2688}
             ]
           },
           {
             num: 3,
-            weight: null,
+            weight: 17.45,
             items: [
-              {grade: 'N35', size: '25x3', qty: 292}
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 2688}
             ]
           },
           {
             num: 4,
-            weight: null,
+            weight: 17.45,
             items: [
-              {grade: 'N35', size: '25x3-5', qty: 1219}
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 2688}
             ]
           },
           {
             num: 5,
-            weight: null,
+            weight: 17.45,
             items: [
-              {grade: 'N35', size: '20x10x2', qty: 16640}
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 2688}
             ]
           },
           {
             num: 6,
-            weight: null,
+            weight: 17.20,
             items: [
-              {grade: 'N35', size: '20x3-5', qty: 19264}
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 2640}
+            ]
+          },
+          {
+            num: 7,
+            weight: 17.45,
+            items: [
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 1344},
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 1344}
+            ]
+          },
+          {
+            num: 8,
+            weight: 13.65,
+            items: [
+              {grade: 'N35', size: '25x3-5(N-S)', qty: 616},
+              {grade: 'N35', size: '25x3-5(S-N)', qty: 616}
+            ]
+          },
+          {
+            num: 9,
+            weight: 16.65,
+            items: [
+              {grade: 'N35', size: '18x2', qty: 3293},
+              {grade: 'N35', size: '20x3-5(N-S)', qty: 280},
+              {grade: 'N35', size: '20x3-5(S-N)', qty: 280}
+            ]
+          },
+          {
+            num: 10,
+            weight: 16.65,
+            items: [
+              {grade: 'N35', size: '20x10x2', qty: 2640},
+              {grade: 'N35', size: '25x3', qty: 300},
+              {grade: 'N35', size: '25x2', qty: 637}
             ]
           }
         ]
@@ -3679,8 +3713,8 @@ const orderEK20260721 = {
   // SHIPPED = only quantities that actually carry a transport number.
   // Order D batches with a carrier number: D1 (1ZK6B4420325075331), D2 (1ZG2C1210300042226),
   // D3 (1ZG2C1210304724349), D4 (1ZG2C1210339503076), D5 (1ZG2C1210314375814) -> 509,948 pcs.
-  // D6 (41,325) still shows NO transport number in the source data, so it is counted as READY
-  // (packed, awaiting vessel/tracking) and is NOT in this map.
+  // D6 (27,382 pcs, 10 boxes as of 2026-11-09) still shows NO transport number in the source
+  // data, so it is counted as READY (packed, awaiting vessel/tracking) and is NOT in this map.
   shipped: {
       'N35 2x1': 50000,
       'N35 3X3': 10000,
@@ -3705,11 +3739,15 @@ const orderEK20260721 = {
     },
   // Packed and staged but not dispatched yet — surfaced as a note under the progress bar.
   awaiting: {
-    qty: 41325,
-    detail: 'D6 41,325'
+    qty: 27382,
+    detail: 'D6 27,382',
+    // Order totals 551,200 pcs. Shipped 509,948 + packed 27,382 = 537,330, so 13,870 pcs
+    // (essentially the rest of N35 20x10x2) are on no packing list yet. Surface it, do not hide it.
+    unlisted: 13870,
+    unlistedDetail: 'N35 20x10x2'
   },
   shipments: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
-  // Lines still physically packed (D6, 41,325 pcs) and waiting for a vessel / tracking
+  // Lines still physically packed (D6, 27,382 pcs) and waiting for a vessel / tracking
   // number. Rendered as "Ready" when nothing at all has been dispatched for that line.
   produced: ['N35 18x2', 'N35 25x2', 'N35 25x3', 'N35 25x3-5', 'N35 20x10x2', 'N35 20x3-5'],
   producing: []
@@ -3812,6 +3850,7 @@ function renderOrderOverview(ord) {
         <span><b>${doneCount}</b> / ${ord.items.length} lines complete (${linePct}%)</span>
       </div>
       ${awaitingQty > 0 ? `<div class="ov-progress-note">A further <b>${awaitingQty.toLocaleString()}</b> pcs are produced and packed (${ord.awaiting.detail}) but have no transport number yet, so they are <b>not counted as shipped</b>. They will move into the shipped total once a vessel and tracking number are assigned.</div>` : ''}
+      ${ord.awaiting && ord.awaiting.unlisted ? `<div class="ov-progress-note">The packing list received on Nov 9, 2026 accounts for <b>${ord.awaiting.qty.toLocaleString()}</b> pcs, so a further <b>${ord.awaiting.unlisted.toLocaleString()}</b> pcs of this order (${ord.awaiting.unlistedDetail}) are not yet on any packing list and appear as remaining on their line.</div>` : ''}
     </div>`;
 
   // Shipment references
