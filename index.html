@@ -518,7 +518,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 9, 2026 13:20 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 9, 2026 13:24 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -3144,43 +3144,43 @@ const orders = {
 
   D6: {
     id: 'D6',
-    status: 'pending',
-    badge: 'Packed — Awaiting Vessel',
-    badgeClass: 'pending',
+    status: 'enroute',
+    badge: 'Shipped — Vessel TBA',
+    badgeClass: 'enroute',
     title: 'N35 Series Magnets (Order D)',
     sub: '10 boxes | 168.60 KG | 27,382 pcs',
-    ship: '',
+    ship: 'TBA',
     voyage: '',
-    tracking: '',
-    etd: '',
-    etaOrig: '',
+    tracking: 'Not assigned',
+    etd: 'TBA',
+    etaOrig: 'TBA',
     etaReal: '',
-    highlight: 'The packing list was re-issued on Nov 9, 2026 and now lists all ten boxes individually, each with its own weight and magnet polarity (N-S / S-N). Vessel, ETD and ETA are still not assigned. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2 (27,382 pcs across 10 boxes, 168.60 KG).',
+    highlight: 'Counted as shipped on Nov 9, 2026 at your instruction: ten boxes, 27,382 pcs, 168.60 KG, each box weighed and tagged with its magnet polarity (N-S / S-N). The vessel, ETD, ETA and transport number have not been issued yet and will be published here the moment the carrier confirms them. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
     products: 'N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2',
     pkgSize: '10 boxes',
     payment: '',
     destination: 'US',
     list: ['N35 20x3-5 19280', 'N35 25x3-5 1232', 'N35 18x2 3293', 'N35 20x10x2 2640', 'N35 25x3 300', 'N35 25x2 637'],
-    progress: 20,
-    progressColor: 'amber',
+    progress: 45,
+    progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'ETD pending',
-    signNote: 'The Nov 9, 2026 packing list breaks this shipment down into ten boxes with individual weights and polarity (N-S / S-N) per box, 27,382 pcs in total, 168.60 KG. Vessel, ETD and ETA have still not been assigned, so the cargo is packed and staged at the factory awaiting a booking. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
+    signDate: 'Vessel schedule to be confirmed',
+    signNote: 'The Nov 9, 2026 packing list lists all ten boxes individually, each with its own weight and polarity (N-S / S-N): 27,382 pcs in total, 168.60 KG. This shipment is counted as shipped by your instruction even though no vessel, ETD, ETA or transport number exists yet — the booking is still being arranged, and the tracking number will be posted here as soon as it is issued.',
     steps: [
       {
         label: 'Production /\nPacking',
         cls: 'done'
       },
       {
-        label: 'Awaiting\nVessel',
+        label: 'Packed &\nWeighed 11-09',
+        cls: 'done'
+      },
+      {
+        label: 'Shipped\nVessel TBA',
         cls: 'current'
       },
       {
         label: 'ETD\nTBA',
-        cls: 'future'
-      },
-      {
-        label: 'En Route\nPacific',
         cls: 'future'
       },
       {
@@ -3718,11 +3718,12 @@ const orderEK20260721 = {
       ordered: 2000
     }
   ],
-  // SHIPPED = only quantities that actually carry a transport number.
-  // Order D batches with a carrier number: D1 (1ZK6B4420325075331), D2 (1ZG2C1210300042226),
-  // D3 (1ZG2C1210304724349), D4 (1ZG2C1210339503076), D5 (1ZG2C1210314375814) -> 509,948 pcs.
-  // D6 (27,382 pcs, 10 boxes as of 2026-11-09) still shows NO transport number in the source
-  // data, so it is counted as READY (packed, awaiting vessel/tracking) and is NOT in this map.
+  // DISPATCHED quantities for Order D, D1 through D6 -> 537,330 pcs.
+  // D1 (1ZK6B4420325075331), D2 (1ZG2C1210300042226), D3 (1ZG2C1210304724349),
+  // D4 (1ZG2C1210339503076), D5 (1ZG2C1210314375814) all carry a carrier number.
+  // D6 (27,382 pcs, 10 boxes, 168.60 KG) was folded into this map on 2026-11-09 at the
+  // customer's instruction. It has a signed packing list but still NO vessel, ETD, ETA or
+  // transport number - the shortfall against the order is tracked in `open`, not here.
   shipped: {
       'N35 2x1': 50000,
       'N35 3X3': 10000,
@@ -3737,39 +3738,29 @@ const orderEK20260721 = {
       'N35 12x1.5': 35000,
       'N35 12x2': 15000,
       'N35 D25': 2000,
-      'N35 18x2': 49728,
+      'N35 18x2': 53021,
       'N35 25x5': 3008,
-      'N35 25x2': 5616,
-      'N35 25x3': 5302,
-      'N35 25x3-5': 2381,
-      'N35 20x10x2': 53360,
-      'N35 20x3-5': 20736
+      'N35 25x2': 6253,
+      'N35 25x3': 5602,
+      'N35 25x3-5': 3613,
+      'N35 20x10x2': 56000,
+      'N35 20x3-5': 40016
     },
-  // Packed and staged but not dispatched yet — surfaced as a note under the progress bar.
-  awaiting: {
-    qty: 27382,
-    detail: 'D6 · 10 boxes · 168.60 KG'
-  },
-  // D6 packing list (2026-11-09), per product line. These pcs are packed and weighed but carry
-  // NO transport number, so `shipped` must stay untouched. Keeping them per line lets the overview
-  // report the real shortfall instead of netting a surplus on one size against a gap on another.
-  packed: {
-    'N35 20x3-5': 19280,
-    'N35 25x3-5': 1232,
-    'N35 18x2': 3293,
-    'N35 20x10x2': 2640,
-    'N35 25x3': 300,
-    'N35 25x2': 637
-  },
+  // Nothing is staged waiting to leave any more: D6 now sits inside `shipped`. `packed` stays as
+  // an empty map so the three-bucket accounting keeps working unchanged.
+  packed: {},
   shipments: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
-  // Lines still physically packed (D6, 27,382 pcs) and waiting for a vessel / tracking
-  // number. Rendered as "Ready" when nothing at all has been dispatched for that line.
-  produced: ['N35 18x2', 'N35 25x2', 'N35 25x3', 'N35 25x3-5', 'N35 20x10x2', 'N35 20x3-5'],
+  // No line is "produced but not dispatched" any more. The only pcs outstanding are the ones
+  // that never got a packing list (20x10x2 14,000 and 30x10x2 7 = 14,007 measured per line).
+  produced: [],
+  // Stated on the progress bar so the 100% green never hides the fact that D6 has no vessel yet.
+  shippedNote: 'D6 (10 boxes, 27,382 pcs, 168.60 KG) is counted as shipped at your instruction \u2014 the cargo is packed, weighed and handed over. No vessel, ETD, ETA or transport number has been issued yet; they will appear on the D6 card as soon as the carrier confirms them.',
   producing: []
 };
 // ---- Fulfilment accounting (single source of truth for the progress bar) ----
 // shipped / packed / open are deliberately kept apart:
-//   shipped = carries a transport number, i.e. really left the factory
+//   shipped = dispatched. Normally that means "carries a transport number", but D6 sits here
+//             since 2026-11-09 because the customer asked for it to be recorded as shipped
 //   packed  = on a packing list, still waiting for a vessel and a tracking number
 //   open    = ordered quantity that is on NO packing list at all
 // `open` is summed PER PRODUCT LINE so a surplus on one size can never mask a shortfall on another.
@@ -3886,8 +3877,9 @@ function renderOrderOverview(ord) {
 
   // ---- Overall progress bar ----
   // Split into what is actually true, so the bar never implies that everything past the
-  // green segment has disappeared: green = transport number, amber = packed awaiting vessel,
-  // empty track = ordered quantity with no packing list at all. The three add up to 100%.
+  // green segment has disappeared: green = dispatched (D6 is in here by customer instruction),
+  // amber = packed awaiting a vessel (empty since 2026-11-09), empty track = ordered quantity
+  // with no packing list at all. The three add up to 100%.
   const hasStaging = packedQty > 0 || openQty > 0;
   const legend = hasStaging ? `
       <div class="ov-legend">
@@ -3905,7 +3897,7 @@ function renderOrderOverview(ord) {
         <span class="ov-progress-pct ${pctCls}">${overallPct}%</span>
       </div>
       <div class="ov-progress-track">
-        <span class="ov-fill ${fillCls}" style="width:${barWidth}%" title="${totalShipped.toLocaleString()} pcs shipped (transport number issued)"></span>
+        <span class="ov-fill ${fillCls}" style="width:${barWidth}%" title="${totalShipped.toLocaleString()} pcs dispatched"></span>
         ${packedQty > 0 ? `<span class="ov-fill staged" style="width:${segPacked.toFixed(2)}%" title="${packedQty.toLocaleString()} pcs packed, awaiting a transport number"></span>` : ''}
       </div>
       <div class="ov-progress-foot">
@@ -3914,7 +3906,8 @@ function renderOrderOverview(ord) {
         <span><b>${doneCount}</b> / ${ord.items.length} lines complete (${linePct}%)</span>
       </div>
       ${legend}
-      ${packedQty > 0 ? `<div class="ov-progress-note">A further <b>${packedQty.toLocaleString()}</b> pcs are packed, weighed and staged (${ord.awaiting ? ord.awaiting.detail : 'on a packing list'}) but carry no transport number, so they are <b>not counted as shipped</b>. They move into the shipped total as soon as a vessel and tracking number are assigned.</div>` : ''}
+      ${ord.shippedNote ? `<div class="ov-progress-note">${ord.shippedNote}</div>` : ''}
+      ${packedQty > 0 ? `<div class="ov-progress-note">A further <b>${packedQty.toLocaleString()}</b> pcs are packed, weighed and staged (${ord.awaiting ? ord.awaiting.detail : 'on a packing list'}) but carry no transport number, so they are <b>not counted as shipped</b>.</div>` : ''}
       ${openQty > 0 ? `<div class="ov-progress-note"><b>${openQty.toLocaleString()}</b> pcs of this order appear on no packing list at all.${gapDetail}</div>` : ''}
     </div>`;
 
@@ -4550,9 +4543,9 @@ function showAll() {
   // Order D: master order - shipments still being dispatched
   if (typeof orderEK20260721 !== 'undefined') {
     const dShipped = Object.values(orderEK20260721.shipped || {}).reduce((a, b) => a + b, 0);
-    const dAwaiting = (orderEK20260721.awaiting && orderEK20260721.awaiting.qty) || 0;
+    const dCal = computeFulfillment(orderEK20260721);
     const dPct = orderEK20260721.totalQty > 0 ? ((dShipped / orderEK20260721.totalQty) * 100).toFixed(1) : '0.0';
-    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched (' + dPct + '%)' + (dAwaiting > 0 ? ', ' + dAwaiting.toLocaleString() + ' pcs packed and awaiting a vessel / tracking number (' + orderEK20260721.awaiting.detail + ').' : '.') + '</li>');
+    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched (' + dPct + '%), D6 included at your instruction (vessel and tracking still to be assigned). ' + dCal.open.toLocaleString() + ' pcs still appear on no packing list.</li>');
   }
   // Remaining delivered shipments - auto-folded once older than 30 days
   ['B4','B5','C3','B3','C2','C1','B1','A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
