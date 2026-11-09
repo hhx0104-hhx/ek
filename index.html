@@ -333,6 +333,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .ov-progress-foot{display:flex;justify-content:space-between;align-items:center;margin-top:7px;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;flex-wrap:wrap;gap:6px 14px;}
 .ov-progress-foot b{color:var(--text2);font-weight:600;}
 .ov-progress-foot .sep{color:var(--border);}
+.ov-progress-track .ov-fill.staged{background:var(--amber);}
+.ov-legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:9px;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;}
+.ov-legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+.ov-legend i{width:8px;height:8px;border-radius:2px;flex:none;}
+.ov-legend i.lg-ship{background:var(--green);}
+.ov-legend i.lg-stage{background:var(--amber);}
+.ov-legend i.lg-open{background:var(--border);}
+.ov-legend b{color:var(--text2);font-weight:600;}
 .ov-progress-note{margin-top:10px;padding:8px 11px;font-size:11px;line-height:1.55;color:var(--text3);background:var(--bg2);border-left:2px solid var(--border);border-radius:0 var(--radius-xs) var(--radius-xs) 0;}
 .ov-progress-note b{color:var(--text2);font-weight:600;}
 
@@ -510,7 +518,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 9, 2026 13:05 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 9, 2026 13:20 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -3740,11 +3748,18 @@ const orderEK20260721 = {
   // Packed and staged but not dispatched yet — surfaced as a note under the progress bar.
   awaiting: {
     qty: 27382,
-    detail: 'D6 27,382',
-    // Order totals 551,200 pcs. Shipped 509,948 + packed 27,382 = 537,330, so 13,870 pcs
-    // (essentially the rest of N35 20x10x2) are on no packing list yet. Surface it, do not hide it.
-    unlisted: 13870,
-    unlistedDetail: 'N35 20x10x2'
+    detail: 'D6 · 10 boxes · 168.60 KG'
+  },
+  // D6 packing list (2026-11-09), per product line. These pcs are packed and weighed but carry
+  // NO transport number, so `shipped` must stay untouched. Keeping them per line lets the overview
+  // report the real shortfall instead of netting a surplus on one size against a gap on another.
+  packed: {
+    'N35 20x3-5': 19280,
+    'N35 25x3-5': 1232,
+    'N35 18x2': 3293,
+    'N35 20x10x2': 2640,
+    'N35 25x3': 300,
+    'N35 25x2': 637
   },
   shipments: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
   // Lines still physically packed (D6, 27,382 pcs) and waiting for a vessel / tracking
@@ -3752,6 +3767,31 @@ const orderEK20260721 = {
   produced: ['N35 18x2', 'N35 25x2', 'N35 25x3', 'N35 25x3-5', 'N35 20x10x2', 'N35 20x3-5'],
   producing: []
 };
+// ---- Fulfilment accounting (single source of truth for the progress bar) ----
+// shipped / packed / open are deliberately kept apart:
+//   shipped = carries a transport number, i.e. really left the factory
+//   packed  = on a packing list, still waiting for a vessel and a tracking number
+//   open    = ordered quantity that is on NO packing list at all
+// `open` is summed PER PRODUCT LINE so a surplus on one size can never mask a shortfall on another.
+function computeFulfillment(ord) {
+  const packedMap = ord.packed || {};
+  let shipped = 0, packed = 0, open = 0;
+  const openLines = [];
+  ord.items.forEach(i => {
+    const key = i.grade + ' ' + i.size;
+    const s = ord.shipped[key] || 0;
+    const p = packedMap[key] || 0;
+    const ordered = Number(i.ordered) || 0;
+    shipped += s;
+    packed += p;
+    const gap = Math.max(ordered - s - p, 0);
+    if (gap > 0) { open += gap; openLines.push({ grade: i.grade, size: i.size, gap: gap }); }
+  });
+  const denom = ord.items.reduce((a, i) => a + (Number(i.ordered) || 0), 0) || (Number(ord.totalQty) || 0);
+  return { shipped: shipped, packed: packed, open: open, openLines: openLines, denom: denom };
+}
+window.computeFulfillment = computeFulfillment;
+
 window.orderEK20260721 = orderEK20260721;
 
 // ---- Auto-collapsing panels ------------------------------------------------
@@ -3818,8 +3858,8 @@ function renderOrderOverview(ord) {
   // ---- Accurate fulfillment percentage ----
   // Denominator = the real sum of all ordered line quantities (never trust the
   // declared totalQty alone; fall back to it only if items are missing).
-  const sumOrdered = ord.items.reduce((a, i) => a + (Number(i.ordered) || 0), 0);
-  const denomQty = sumOrdered > 0 ? sumOrdered : (Number(ord.totalQty) || 0);
+  const cal = computeFulfillment(ord);
+  const denomQty = cal.denom;
   const pctNum = denomQty > 0 ? (totalShipped / denomQty) * 100 : 0;
   const overallPct = Math.min(pctNum, 100).toFixed(1);
   const linePctNum = ord.items.length > 0 ? (doneCount / ord.items.length) * 100 : 0;
@@ -3828,13 +3868,36 @@ function renderOrderOverview(ord) {
   const fillCls = pctNum > 50 ? 'shipped' : 'partial';
   const barWidth = Math.min(pctNum, 100).toFixed(2);
   // Produced-but-undispatched pcs (no transport number yet) — never counted as shipped,
-  // but the customer still needs to see where they are.
-  const awaitingQty = (ord.awaiting && Number(ord.awaiting.qty)) || 0;
+  // but the customer still needs to see where they are. All three buckets must foot to denomQty.
+  const packedQty = cal.packed;
+  // Order-level residual: what the two known buckets do not cover.
+  const openQty = Math.max(denomQty - totalShipped - packedQty, 0);
+  // Line-level truth: spares shipped/packed above the ordered qty on one line cannot fill the
+  // shortfall of another size, so this is usually a little larger than the residual.
+  const lineGap = cal.open;
+  const spareQty = Math.max(lineGap - openQty, 0);
+  const openLinesText = cal.openLines.map(l => l.grade + ' ' + l.size + ' ' + l.gap.toLocaleString()).join(', ');
+  const segShipped = denomQty > 0 ? (totalShipped / denomQty) * 100 : 0;
+  const segPacked = denomQty > 0 ? (packedQty / denomQty) * 100 : 0;
+  const segOpen = Math.max(100 - segShipped - segPacked, 0);
   // A panel counts as Completed only when EVERY line is fully shipped. Total qty can
   // reach 100% through packing spares while one line is still a few pcs short.
   const isComplete = pctNum >= 100 && doneCount === ord.items.length;
 
   // ---- Overall progress bar ----
+  // Split into what is actually true, so the bar never implies that everything past the
+  // green segment has disappeared: green = transport number, amber = packed awaiting vessel,
+  // empty track = ordered quantity with no packing list at all. The three add up to 100%.
+  const hasStaging = packedQty > 0 || openQty > 0;
+  const legend = hasStaging ? `
+      <div class="ov-legend">
+        <span><i class="lg-ship"></i>Shipped <b>${totalShipped.toLocaleString()}</b> (${segShipped.toFixed(1)}%)</span>
+        ${packedQty > 0 ? `<span><i class="lg-stage"></i>Packed, awaiting vessel <b>${packedQty.toLocaleString()}</b> (${segPacked.toFixed(1)}%)</span>` : ''}
+        ${openQty > 0 ? `<span><i class="lg-open"></i>Not yet packed <b>${openQty.toLocaleString()}</b> (${segOpen.toFixed(1)}%)</span>` : ''}
+      </div>` : '';
+  const gapDetail = (lineGap !== openQty && openLinesText)
+    ? ` Measured line by line the shortfall is <b>${lineGap.toLocaleString()}</b> pcs (${openLinesText})${spareQty > 0 ? `, because ${spareQty.toLocaleString()} pcs are spare pieces shipped or packed above the ordered quantity on other lines and cannot cover a different size` : ''}.`
+    : (openLinesText ? ` It is ${openLinesText}.` : '');
   const progressBar = `
     <div class="ov-progress">
       <div class="ov-progress-head">
@@ -3842,15 +3905,17 @@ function renderOrderOverview(ord) {
         <span class="ov-progress-pct ${pctCls}">${overallPct}%</span>
       </div>
       <div class="ov-progress-track">
-        <span class="ov-fill ${fillCls}" style="width:${barWidth}%" title="${totalShipped.toLocaleString()} / ${denomQty.toLocaleString()} pcs"></span>
+        <span class="ov-fill ${fillCls}" style="width:${barWidth}%" title="${totalShipped.toLocaleString()} pcs shipped (transport number issued)"></span>
+        ${packedQty > 0 ? `<span class="ov-fill staged" style="width:${segPacked.toFixed(2)}%" title="${packedQty.toLocaleString()} pcs packed, awaiting a transport number"></span>` : ''}
       </div>
       <div class="ov-progress-foot">
         <span><b>${totalShipped.toLocaleString()}</b> / ${denomQty.toLocaleString()} pcs shipped</span>
         <span class="sep">|</span>
         <span><b>${doneCount}</b> / ${ord.items.length} lines complete (${linePct}%)</span>
       </div>
-      ${awaitingQty > 0 ? `<div class="ov-progress-note">A further <b>${awaitingQty.toLocaleString()}</b> pcs are produced and packed (${ord.awaiting.detail}) but have no transport number yet, so they are <b>not counted as shipped</b>. They will move into the shipped total once a vessel and tracking number are assigned.</div>` : ''}
-      ${ord.awaiting && ord.awaiting.unlisted ? `<div class="ov-progress-note">The packing list received on Nov 9, 2026 accounts for <b>${ord.awaiting.qty.toLocaleString()}</b> pcs, so a further <b>${ord.awaiting.unlisted.toLocaleString()}</b> pcs of this order (${ord.awaiting.unlistedDetail}) are not yet on any packing list and appear as remaining on their line.</div>` : ''}
+      ${legend}
+      ${packedQty > 0 ? `<div class="ov-progress-note">A further <b>${packedQty.toLocaleString()}</b> pcs are packed, weighed and staged (${ord.awaiting ? ord.awaiting.detail : 'on a packing list'}) but carry no transport number, so they are <b>not counted as shipped</b>. They move into the shipped total as soon as a vessel and tracking number are assigned.</div>` : ''}
+      ${openQty > 0 ? `<div class="ov-progress-note"><b>${openQty.toLocaleString()}</b> pcs of this order appear on no packing list at all.${gapDetail}</div>` : ''}
     </div>`;
 
   // Shipment references
@@ -3890,7 +3955,7 @@ function renderOrderOverview(ord) {
       </div>
       <div class="order-stat">
         <div class="order-stat-val amber">${totalRemaining.toLocaleString()}</div>
-        <div class="order-stat-label">Remaining</div>
+        <div class="order-stat-label">Remaining to Ship</div>
       </div>
       <div class="order-stat">
         <div class="order-stat-val ${pctCls}">${overallPct}%</div>
@@ -3914,7 +3979,7 @@ function renderOrderOverview(ord) {
     <div class="order-table-wrap">
       <table class="order-table">
         <thead><tr>
-          <th class="col-grade">Grade</th><th class="mono hide-mobile">Size (mm)</th><th class="right">Ordered</th><th class="right">Shipped</th><th class="right">Remaining</th><th>Fulfillment</th><th>Status</th>
+          <th class="col-grade">Grade</th><th class="mono hide-mobile">Size (mm)</th><th class="right">Ordered</th><th class="right">Shipped</th><th class="right">Remaining to Ship</th><th>Fulfillment</th><th>Status</th>
         </tr></thead>
         <tbody>${rows}</tbody>
         <tfoot><tr style="font-weight:600;background:var(--bg2);">
