@@ -510,7 +510,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 6, 2026 14:45 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF)
+    Last updated: Nov 9, 2026 11:20 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF)
   </div>
 </div>
 
@@ -1302,44 +1302,44 @@ const orders = {
 
   A5: {
     id: 'A5',
-    status: 'pending',
-    badge: 'In Production — ETD Sep 5',
-    badgeClass: 'pending',
+    status: 'enroute',
+    badge: 'Shipped — 8 Parcel Numbers',
+    badgeClass: 'enroute',
     title: 'N35 Door Magnet Order',
     sub: '8 boxes | 196.20 KG | 11,950 pcs',
     ship: '',
     voyage: '',
-    tracking: '',
+    tracking: '879892737759 ... 879892737829 (8 parcels)',
     etd: '2026-09-05',
     etaOrig: '2026-10-15',
     etaReal: '2026-10-15',
-    highlight: 'Door magnet order (A5) — production complete, vessel and UPS tracking not yet assigned in the source data. Estimated ETD 2026-09-05, ETA 2026-10-15. Destination Mexico. Products: doormagnet L46 / badges magnet / mounting screws.',
+    highlight: 'Parcel numbers for all 8 boxes were recorded on Nov 9, 2026: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829, one per box. ETD 2026-09-05, planned ETA 2026-10-15. The carrier does not publish scans to the tracking networks we use, so a delivery signature is still pending confirmation from the shipper. Destination Mexico. Products: doormagnet L46 / badges magnet / mounting screws.',
     products: 'N35 doormagnet L46 / badges magnet / screw',
     pkgSize: '8 boxes',
     payment: '',
     destination: 'MX',
     list: ['N35 doormagnet L46 4950', 'badges magnet 2000', 'screw 5000'],
-    progress: 20,
-    progressColor: 'amber',
+    progress: 85,
+    progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'Est. Oct 15 — Oct 22, 2026',
-    signNote: 'A5 order is in production/packing. Estimated ETD 2026-09-05, ETA 2026-10-15, destination Mexico. Vessel name and UPS tracking number not yet assigned in the source data.',
+    signDate: 'ETA Oct 15, 2026 passed — delivery confirmation pending',
+    signNote: 'A5 door magnet order, destination Mexico. ETD 2026-09-05 with a planned ETA of 2026-10-15. Eight parcel numbers (one per box) are on file: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829. The last-mile carrier does not publish scans to the tracking networks we use, so we can confirm dispatch but not the delivery signature — the forwarder is being asked for proof of delivery.',
     steps: [
       {
-        label: 'Production\nOngoing',
-        cls: 'current'
+        label: 'Production\nComplete',
+        cls: 'done'
       },
       {
         label: 'Cargo\nPacked',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Depart\n09-05',
-        cls: 'future'
+        cls: 'done'
       },
       {
         label: 'Arrived\nPort',
-        cls: 'future'
+        cls: 'current'
       },
       {
         label: 'Customer\nSigned',
@@ -3350,7 +3350,7 @@ const orders = {
   'C4-3': {
     id: 'C4-3',
     status: 'enroute',
-    badge: 'In Transit — Hong Kong Hub',
+    badge: 'In Transit — Mexico City Area',
     badgeClass: 'enroute',
     title: 'Mixed Air Freight Order',
     sub: '1 item | 3.00 KG | 501 pcs',
@@ -3360,17 +3360,17 @@ const orders = {
     etd: '2026-11-03',
     etaOrig: '2026-11-08',
     etaReal: '2026-11-08',
-    highlight: 'Third C4 parcel departed Nov 3, 2026 and reached the Tsing Yi transfer hub in Hong Kong on Nov 6, where it is being unloaded for the onward flight to Mexico. ETA Nov 8, 2026. Products: N52 20x10x5 / N35 15x5 / N35 15x2 (501 pcs). Tracking: SF6047995766703.',
+    highlight: 'Third C4 parcel has landed in Mexico and is moving through the Mexico City area (Cuautitlan, State of Mexico) as of Nov 8, 2026. It departed Nov 3 and transited the Hong Kong hub on Nov 6. Final delivery is expected within 1-3 days. Products: N52 20x10x5 / N35 15x5 / N35 15x2 (501 pcs). Tracking: SF6047995766703.',
     products: 'N52 20x10x5 / N35 15x5 / N35 15x2',
     pkgSize: '1 item',
     payment: '',
     destination: 'MX',
     list: ['N52 20x10x5 218', 'N35 15x5 120', 'N35 15x2 163'],
-    progress: 55,
+    progress: 75,
     progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'Est. Nov 08, 2026',
-    signNote: 'Third C4 parcel is in transit with SF Express (SF6047995766703). ETD 2026-11-03, ETA 2026-11-08. Latest 17track scan: Nov 6 - Tsing Yi transfer hub, Hong Kong - arrived at the station and unloading, ahead of the onward flight to Mexico. Products: N52 20x10x5 (218) / N35 15x5 (120) / N35 15x2 (163).',
+    signDate: 'Est. Nov 09 — Nov 11, 2026',
+    signNote: 'Third C4 parcel is in transit with SF Express (SF6047995766703). ETD 2026-11-03. Latest 17track scan: Nov 8 - Hacienda de Cuautitlan, State of Mexico - in transit, already cleared and on the final delivery leg. Products: N52 20x10x5 (218) / N35 15x5 (120) / N35 15x2 (163).',
     steps: [
       {
         label: 'Production\nComplete',
@@ -4437,7 +4437,7 @@ function showAll() {
   if (d6) pushUpdate('warn', d6.id + ': ' + d6.highlight, d6.id);
   // A5 door magnet order - awaiting vessel (dest MX)
   const a5 = orders['A5'];
-  if (a5) pushUpdate('hot', a5.id + ': ' + a5.highlight, a5.id);
+  if (a5) pushUpdate('warn', a5.id + ': ' + a5.highlight, a5.id);
   // C4 air freight split - two parcels shipped, one awaiting pickup (dest MX)
   ['C4-1', 'C4-2', 'C4-3'].forEach(id => {
     const o = orders[id];
