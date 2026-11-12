@@ -518,7 +518,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 9, 2026 13:24 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 12, 2026 15:47 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -1311,7 +1311,7 @@ const orders = {
   A5: {
     id: 'A5',
     status: 'enroute',
-    badge: 'In Transit — FedEx MX',
+    badge: 'Delivery Rescheduled — FedEx MX',
     badgeClass: 'enroute',
     title: 'N35 Door Magnet Order',
     sub: '8 boxes | 196.20 KG | 11,950 pcs',
@@ -1321,17 +1321,17 @@ const orders = {
     etd: '2026-11-07',
     etaOrig: '2026-10-15',
     etaReal: '',
-    highlight: 'Handed to FedEx in Mexico on Nov 7, 2026 after the daily pickup cutoff, and scanned the same day at the FedEx origin facility in Mexico City. Eight parcels travel from MEXICO, DF to ZAPOPAN, JA. Seven numbers already show live FedEx scans; the eighth (7829) is still waiting for its first scan. Products: doormagnet L46 / badges magnet / mounting screws.',
+    highlight: 'All eight FedEx Mexico domestic parcels now show live scans. They left the Cuautitlan Izcalli hub on Nov 10, 2026 and reached the local FedEx facility in Guadalajara, Jalisco on Nov 11. At 12:25 the same day FedEx recorded a request to change the delivery date, so the parcels are at the local facility awaiting a new delivery date. No parcel has a delivery event yet. Products: doormagnet L46 / badges magnet / mounting screws.',
     products: 'N35 doormagnet L46 / badges magnet / screw',
     pkgSize: '8 boxes',
     payment: '',
     destination: 'MX',
     list: ['N35 doormagnet L46 4950', 'badges magnet 2000', 'screw 5000'],
-    progress: 65,
+    progress: 85,
     progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'In Transit — picked up Nov 7, 2026',
-    signNote: 'FedEx (Mexico domestic) collected all eight boxes in Mexico City on Nov 7, 2026 and scanned them at its origin facility the same evening. Destination: Zapopan, Jalisco. Parcel numbers: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829 — seven of the eight already show FedEx scans, and 7829 is still awaiting its first. The delivery signature will be posted here as soon as FedEx reports it.',
+    signDate: 'Delivery date change requested Nov 11, 2026',
+    signNote: 'FedEx (Mexico domestic) collected all eight boxes in Mexico City on Nov 7, 2026 (MEXICO, DF to ZAPOPAN, JA). Parcel numbers: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829 — all eight now have scans. They departed the Cuautitlan Izcalli hub Nov 10, arrived at the local FedEx facility in Guadalajara Nov 11, and FedEx recorded "A request was made to change this delivery date" at 12:25 that day. This is a rescheduling request, not a lost parcel and not a delivery; the signature will be posted only after FedEx reports a delivery event.',
     steps: [
       {
         label: 'Packed\n8 Boxes',
@@ -1346,7 +1346,11 @@ const orders = {
         cls: 'done'
       },
       {
-        label: 'Transit\nZapopan, JA',
+        label: 'Cuautitlan\nHub 11-10',
+        cls: 'done'
+      },
+      {
+        label: 'Delivery\nRescheduled',
         cls: 'current'
       },
       {
@@ -3145,27 +3149,27 @@ const orders = {
   D6: {
     id: 'D6',
     status: 'enroute',
-    badge: 'Shipped — Vessel TBA',
+    badge: 'Shipped — UPS Number Issued',
     badgeClass: 'enroute',
     title: 'N35 Series Magnets (Order D)',
     sub: '10 boxes | 168.60 KG | 27,382 pcs',
     ship: 'TBA',
     voyage: '',
-    tracking: 'Not assigned',
-    etd: 'TBA',
-    etaOrig: 'TBA',
-    etaReal: '',
-    highlight: 'Counted as shipped on Nov 9, 2026 at your instruction: ten boxes, 27,382 pcs, 168.60 KG, each box weighed and tagged with its magnet polarity (N-S / S-N). The vessel, ETD, ETA and transport number have not been issued yet and will be published here the moment the carrier confirms them. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
+    tracking: 'UPS 1ZK6E8620307905073',
+    etd: '2026-11-19',
+    etaOrig: '2026-12-19',
+    etaReal: '2026-12-19',
+    highlight: 'UPS number 1ZK6E8620307905073 was assigned to D6 on Nov 12, 2026, with ETD Nov 19, 2026 and ETA Dec 19, 2026 (destination US). The ten boxes, 27,382 pcs and 168.60 KG are unchanged from the Nov 9 packing list and remain counted as shipped at your instruction. The vessel name has not been issued, and 17track shows no carrier scan for the new number yet. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
     products: 'N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2',
     pkgSize: '10 boxes',
     payment: '',
     destination: 'US',
     list: ['N35 20x3-5 19280', 'N35 25x3-5 1232', 'N35 18x2 3293', 'N35 20x10x2 2640', 'N35 25x3 300', 'N35 25x2 637'],
-    progress: 45,
+    progress: 50,
     progressColor: 'blue',
     signLabel: 'info',
-    signDate: 'Vessel schedule to be confirmed',
-    signNote: 'The Nov 9, 2026 packing list lists all ten boxes individually, each with its own weight and polarity (N-S / S-N): 27,382 pcs in total, 168.60 KG. This shipment is counted as shipped by your instruction even though no vessel, ETD, ETA or transport number exists yet — the booking is still being arranged, and the tracking number will be posted here as soon as it is issued.',
+    signDate: 'ETD Nov 19, 2026 — ETA Dec 19, 2026',
+    signNote: 'The Nov 9, 2026 packing list lists all ten boxes individually, each with its own weight and polarity (N-S / S-N): 27,382 pcs in total, 168.60 KG. UPS number 1ZK6E8620307905073 was assigned on Nov 12 with ETD Nov 19 and ETA Dec 19, 2026. The vessel name is still to be confirmed, and 17track has no scan events for this number yet. This shipment stays counted as shipped at your instruction; it will not be marked delivered until UPS reports an actual delivery.',
     steps: [
       {
         label: 'Production /\nPacking',
@@ -3176,12 +3180,12 @@ const orders = {
         cls: 'done'
       },
       {
-        label: 'Shipped\nVessel TBA',
-        cls: 'current'
+        label: 'UPS Number\nIssued 11-12',
+        cls: 'done'
       },
       {
-        label: 'ETD\nTBA',
-        cls: 'future'
+        label: 'ETD\n11-19',
+        cls: 'current'
       },
       {
         label: 'Last-mile\nDelivery',
@@ -3391,9 +3395,9 @@ const orders = {
 
   'C4-3': {
     id: 'C4-3',
-    status: 'enroute',
-    badge: 'In Transit — Mexico City Area',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered — Nov 09',
+    badgeClass: 'delivered',
     title: 'Mixed Air Freight Order',
     sub: '1 item | 3.00 KG | 501 pcs',
     ship: 'SF Express',
@@ -3402,37 +3406,37 @@ const orders = {
     etd: '2026-11-03',
     etaOrig: '2026-11-08',
     etaReal: '2026-11-08',
-    highlight: 'Third C4 parcel has landed in Mexico and is moving through the Mexico City area (Cuautitlan, State of Mexico) as of Nov 8, 2026. It departed Nov 3 and transited the Hong Kong hub on Nov 6. Final delivery is expected within 1-3 days. Products: N52 20x10x5 / N35 15x5 / N35 15x2 (501 pcs). Tracking: SF6047995766703.',
+    highlight: 'Delivered on Nov 9, 2026 at Miramar, Zapopan, Jalisco, Mexico, one day after the Nov 08 ETA. The parcel departed Nov 3, transited the Hong Kong hub Nov 6 and reached the Mexico City area on Nov 8; SF Express reported it out for delivery on the morning of Nov 9 and delivered at 14:26 local time. Products: N52 20x10x5 / N35 15x5 / N35 15x2 (501 pcs). Tracking: SF6047995766703.',
     products: 'N52 20x10x5 / N35 15x5 / N35 15x2',
     pkgSize: '1 item',
     payment: '',
     destination: 'MX',
     list: ['N52 20x10x5 218', 'N35 15x5 120', 'N35 15x2 163'],
-    progress: 75,
-    progressColor: 'blue',
-    signLabel: 'info',
-    signDate: 'Est. Nov 09 — Nov 11, 2026',
-    signNote: 'Third C4 parcel is in transit with SF Express (SF6047995766703). ETD 2026-11-03. Latest 17track scan: Nov 8 - Hacienda de Cuautitlan, State of Mexico - in transit, already cleared and on the final delivery leg. Products: N52 20x10x5 (218) / N35 15x5 (120) / N35 15x2 (163).',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
+    signDate: 'Delivered Nov 09, 2026',
+    signNote: 'Delivered Nov 9, 2026 at Miramar, Zapopan, Jalisco, Mexico (SF Express SF6047995766703, 6 days door to door). 17track shows out for delivery at 07:00 and "Your express has been delivered" at 14:26 (-06:00) on Nov 9. Products: N52 20x10x5 (218) / N35 15x5 (120) / N35 15x2 (163).',
     steps: [
       {
         label: 'Production\nComplete',
         cls: 'done'
       },
       {
-        label: 'Booked\nSF Express\n2026-11-03',
+        label: 'Air Freight\nShipped\n2026-11-03',
         cls: 'done'
       },
       {
         label: 'In Transit\nAir Freight',
-        cls: 'current'
+        cls: 'done'
       },
       {
         label: 'Customs\n& Delivery\nMexico',
-        cls: 'future'
+        cls: 'done'
       },
       {
-        label: 'Customer\nSigned',
-        cls: 'future'
+        label: 'Delivered\n11-09',
+        cls: 'done'
       }
     ],
     alert: null,
@@ -3754,7 +3758,7 @@ const orderEK20260721 = {
   // that never got a packing list (20x10x2 14,000 and 30x10x2 7 = 14,007 measured per line).
   produced: [],
   // Stated on the progress bar so the 100% green never hides the fact that D6 has no vessel yet.
-  shippedNote: 'D6 (10 boxes, 27,382 pcs, 168.60 KG) is counted as shipped at your instruction \u2014 the cargo is packed, weighed and handed over. No vessel, ETD, ETA or transport number has been issued yet; they will appear on the D6 card as soon as the carrier confirms them.',
+  shippedNote: 'D6 (10 boxes, 27,382 pcs, 168.60 KG) is counted as shipped at your instruction \u2014 the cargo is packed, weighed and handed over. UPS number 1ZK6E8620307905073, ETD Nov 19 and ETA Dec 19, 2026 are now on the D6 card; the vessel name is still unassigned and UPS has not scanned the parcel yet.',
   producing: []
 };
 // ---- Fulfilment accounting (single source of truth for the progress bar) ----
@@ -4531,11 +4535,11 @@ function showAll() {
   const d5 = orders['D5'];
   if (d5) pushUpdate('hot', d5.id + ': ' + d5.highlight, d5.id);
   const d6 = orders['D6'];
-  if (d6) pushUpdate('warn', d6.id + ': ' + d6.highlight, d6.id);
+  if (d6) pushUpdate('hot', d6.id + ': ' + d6.highlight, d6.id);
   // A5 door magnet order - awaiting vessel (dest MX)
   const a5 = orders['A5'];
   if (a5) pushUpdate('warn', a5.id + ': ' + a5.highlight, a5.id);
-  // C4 air freight split - two parcels shipped, one awaiting pickup (dest MX)
+  // C4 air freight split - all three parcels delivered (dest MX)
   ['C4-1', 'C4-2', 'C4-3'].forEach(id => {
     const o = orders[id];
     if (o) pushUpdate(o.status === 'delivered' ? 'good' : 'hot', o.id + ': ' + o.highlight, o.id);
@@ -4545,7 +4549,7 @@ function showAll() {
     const dShipped = Object.values(orderEK20260721.shipped || {}).reduce((a, b) => a + b, 0);
     const dCal = computeFulfillment(orderEK20260721);
     const dPct = orderEK20260721.totalQty > 0 ? ((dShipped / orderEK20260721.totalQty) * 100).toFixed(1) : '0.0';
-    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched (' + dPct + '%), D6 included at your instruction (vessel and tracking still to be assigned). ' + dCal.open.toLocaleString() + ' pcs still appear on no packing list.</li>');
+    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched (' + dPct + '%), D6 included at your instruction (UPS number issued Nov 12; vessel still to be assigned). ' + dCal.open.toLocaleString() + ' pcs still appear on no packing list.</li>');
   }
   // Remaining delivered shipments - auto-folded once older than 30 days
   ['B4','B5','C3','B3','C2','C1','B1','A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
