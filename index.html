@@ -518,7 +518,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 12, 2026 15:47 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 16, 2026 11:17 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -1310,9 +1310,9 @@ const orders = {
 
   A5: {
     id: 'A5',
-    status: 'enroute',
-    badge: 'Delivery Rescheduled — FedEx MX',
-    badgeClass: 'enroute',
+    status: 'delivered',
+    badge: 'Delivered \u2014 Nov 13',
+    badgeClass: 'delivered',
     title: 'N35 Door Magnet Order',
     sub: '8 boxes | 196.20 KG | 11,950 pcs',
     ship: 'FedEx (Mexico domestic)',
@@ -1321,17 +1321,17 @@ const orders = {
     etd: '2026-11-07',
     etaOrig: '2026-10-15',
     etaReal: '',
-    highlight: 'All eight FedEx Mexico domestic parcels now show live scans. They left the Cuautitlan Izcalli hub on Nov 10, 2026 and reached the local FedEx facility in Guadalajara, Jalisco on Nov 11. At 12:25 the same day FedEx recorded a request to change the delivery date, so the parcels are at the local facility awaiting a new delivery date. No parcel has a delivery event yet. Products: doormagnet L46 / badges magnet / mounting screws.',
+    highlight: 'All eight FedEx Mexico domestic parcels were delivered on Nov 13, 2026 at 14:49 local time (-06:00) in Zapopan, Jalisco, Mexico. FedEx loaded the parcels on the delivery vehicle at 10:14 the same morning, which closes the Nov 11 request to change the delivery date. All eight tracking numbers carry the same Delivered event, so no parcel is outstanding. Products: doormagnet L46 / badges magnet / mounting screws.',
     products: 'N35 doormagnet L46 / badges magnet / screw',
     pkgSize: '8 boxes',
     payment: '',
     destination: 'MX',
     list: ['N35 doormagnet L46 4950', 'badges magnet 2000', 'screw 5000'],
-    progress: 85,
-    progressColor: 'blue',
-    signLabel: 'info',
-    signDate: 'Delivery date change requested Nov 11, 2026',
-    signNote: 'FedEx (Mexico domestic) collected all eight boxes in Mexico City on Nov 7, 2026 (MEXICO, DF to ZAPOPAN, JA). Parcel numbers: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829 — all eight now have scans. They departed the Cuautitlan Izcalli hub Nov 10, arrived at the local FedEx facility in Guadalajara Nov 11, and FedEx recorded "A request was made to change this delivery date" at 12:25 that day. This is a rescheduling request, not a lost parcel and not a delivery; the signature will be posted only after FedEx reports a delivery event.',
+    progress: 100,
+    progressColor: 'green',
+    signLabel: 'delivered',
+    signDate: 'Delivered Nov 13, 2026',
+    signNote: 'FedEx (Mexico domestic) collected all eight boxes in Mexico City on Nov 7, 2026 (MEXICO, DF to ZAPOPAN, JA). Parcel numbers: 8798 9273 7759 / 7760 / 7770 / 7781 / 7792 / 7807 / 7818 / 7829. They departed the Cuautitlan Izcalli hub Nov 10 and reached the Guadalajara local facility Nov 11, when FedEx recorded a request to change the delivery date at 12:25. FedEx logged the parcels as not delivered and not attempted at 17:50 on Nov 12, loaded them on the delivery vehicle at 10:14 on Nov 13, and confirmed Delivered at 14:49 (-06:00) in ZAPOPAN, JA. 17track reports package status Delivered on 8 of 8 parcels; please confirm the signed proof of delivery with the receiver.',
     steps: [
       {
         label: 'Packed\n8 Boxes',
@@ -1350,12 +1350,12 @@ const orders = {
         cls: 'done'
       },
       {
-        label: 'Delivery\nRescheduled',
-        cls: 'current'
+        label: 'Out for\nDelivery\n11-13',
+        cls: 'done'
       },
       {
-        label: 'Customer\nSigned',
-        cls: 'future'
+        label: 'Delivered\nZapopan\n11-13',
+        cls: 'done'
       }
     ],
     alert: null,
@@ -3159,7 +3159,7 @@ const orders = {
     etd: '2026-11-19',
     etaOrig: '2026-12-19',
     etaReal: '2026-12-19',
-    highlight: 'UPS number 1ZK6E8620307905073 was assigned to D6 on Nov 12, 2026, with ETD Nov 19, 2026 and ETA Dec 19, 2026 (destination US). The ten boxes, 27,382 pcs and 168.60 KG are unchanged from the Nov 9 packing list and remain counted as shipped at your instruction. The vessel name has not been issued, and 17track shows no carrier scan for the new number yet. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
+    highlight: 'UPS number 1ZK6E8620307905073 was assigned to D6 on Nov 12, 2026, with ETD Nov 19, 2026 and ETA Dec 19, 2026 (destination US). The ten boxes, 27,382 pcs and 168.60 KG are unchanged from the Nov 9 packing list and remain counted as shipped at your instruction. The vessel name has not been issued. UPS created the label on Nov 11, 2026 but has not taken physical possession of the parcel yet, which is normal for cargo still at sea. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
     products: 'N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2',
     pkgSize: '10 boxes',
     payment: '',
@@ -3169,7 +3169,7 @@ const orders = {
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'ETD Nov 19, 2026 — ETA Dec 19, 2026',
-    signNote: 'The Nov 9, 2026 packing list lists all ten boxes individually, each with its own weight and polarity (N-S / S-N): 27,382 pcs in total, 168.60 KG. UPS number 1ZK6E8620307905073 was assigned on Nov 12 with ETD Nov 19 and ETA Dec 19, 2026. The vessel name is still to be confirmed, and 17track has no scan events for this number yet. This shipment stays counted as shipped at your instruction; it will not be marked delivered until UPS reports an actual delivery.',
+    signNote: 'The Nov 9, 2026 packing list lists all ten boxes individually, each with its own weight and polarity (N-S / S-N): 27,382 pcs in total, 168.60 KG. UPS number 1ZK6E8620307905073 was assigned on Nov 12 with ETD Nov 19 and ETA Dec 19, 2026. The vessel name is still to be confirmed. UPS created the label on Nov 11, 2026 and has not received the parcel yet; a label-only status is normal while cargo is at sea. This shipment stays counted as shipped at your instruction; it will not be marked delivered until UPS reports an actual delivery.',
     steps: [
       {
         label: 'Production /\nPacking',
@@ -3758,7 +3758,7 @@ const orderEK20260721 = {
   // that never got a packing list (20x10x2 14,000 and 30x10x2 7 = 14,007 measured per line).
   produced: [],
   // Stated on the progress bar so the 100% green never hides the fact that D6 has no vessel yet.
-  shippedNote: 'D6 (10 boxes, 27,382 pcs, 168.60 KG) is counted as shipped at your instruction \u2014 the cargo is packed, weighed and handed over. UPS number 1ZK6E8620307905073, ETD Nov 19 and ETA Dec 19, 2026 are now on the D6 card; the vessel name is still unassigned and UPS has not scanned the parcel yet.',
+  shippedNote: 'D6 (10 boxes, 27,382 pcs, 168.60 KG) is counted as shipped at your instruction \u2014 the cargo is packed, weighed and handed over. UPS number 1ZK6E8620307905073, ETD Nov 19 and ETA Dec 19, 2026 are now on the D6 card; the vessel name is still unassigned and UPS has created the label (Nov 11, 2026) but has not received the parcel yet.',
   producing: []
 };
 // ---- Fulfilment accounting (single source of truth for the progress bar) ----
@@ -4536,9 +4536,9 @@ function showAll() {
   if (d5) pushUpdate('hot', d5.id + ': ' + d5.highlight, d5.id);
   const d6 = orders['D6'];
   if (d6) pushUpdate('hot', d6.id + ': ' + d6.highlight, d6.id);
-  // A5 door magnet order - awaiting vessel (dest MX)
+  // A5 door magnet order - delivered Nov 13, 2026 (dest MX)
   const a5 = orders['A5'];
-  if (a5) pushUpdate('warn', a5.id + ': ' + a5.highlight, a5.id);
+  if (a5) pushUpdate('good', a5.id + ': ' + a5.highlight, a5.id);
   // C4 air freight split - all three parcels delivered (dest MX)
   ['C4-1', 'C4-2', 'C4-3'].forEach(id => {
     const o = orders[id];
