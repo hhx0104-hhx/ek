@@ -518,7 +518,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 18, 2026 10:34 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 18, 2026 16:33 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -2885,11 +2885,11 @@ const orders = {
     sub: '7 boxes | 127.00 KG | 52,993 pcs',
     ship: 'EVER LOTUS',
     voyage: '0026E',
-    tracking: 'UPS 1ZG2C1210339503076',
+    tracking: 'UPS 1ZK6E8620327467732',
     etd: '2026-10-26',
     etaOrig: '2026-11-26',
     etaReal: '2026-11-26',
-    highlight: 'Fourth Order D shipment departed Oct 26, 2026 on EVER LOTUS 0026E, ETA US port Nov 26, 2026. UPS label 1ZG2C1210339503076 was created Oct 15, 2026 and UPS has not received the parcel yet, which is normal while the container is at sea. Products: N35 12x1.5 / 12x2 / D25 / 30x10x2 (52,993 pcs).',
+    highlight: 'Fourth Order D shipment departed Oct 26, 2026 on EVER LOTUS 0026E, ETA US port Nov 26, 2026. Excel replaced the UPS number with 1ZK6E8620327467732 on Nov 18, 2026; 17track has no tracking record for the new number yet, which is normal while the container is at sea. Products: N35 12x1.5 / 12x2 / D25 / 30x10x2 (52,993 pcs).',
     products: 'N35 D25 / 12x2 / 12x1.5 / 30x10x2',
     pkgSize: '7 boxes',
     payment: '',
@@ -2899,7 +2899,7 @@ const orders = {
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. Nov 26 — Dec 03, 2026',
-    signNote: 'Vessel EVER LOTUS 0026E departed Oct 26, 2026, ETA US port Nov 26, 2026. UPS label 1ZG2C1210339503076 created Oct 15, 2026 - still showing Label Created / UPS has not received the package yet, which is normal while the cargo is at sea. Last-mile delivery typically follows 3-5 business days after the UPS receiving scan.',
+    signNote: 'Vessel EVER LOTUS 0026E departed Oct 26, 2026, ETA US port Nov 26, 2026. UPS number 1ZK6E8620327467732 replaced the earlier number per Excel on Nov 18, 2026. 17track currently returns no tracking information for the replacement number; this is normal before the UPS receiving scan while the cargo is at sea. Last-mile delivery typically follows 3-5 business days after customs.',
     steps: [
       {
         label: 'Production /\nPacking',
@@ -2991,11 +2991,11 @@ const orders = {
     sub: '15 boxes | 230.90 KG | 37,852 pcs',
     ship: 'PONA',
     voyage: '',
-    tracking: 'UPS 1ZG2C1210314375814',
+    tracking: 'UPS 1ZK6E8620330069282',
     etd: '2026-10-29',
     etaOrig: '2026-11-29',
     etaReal: '2026-11-29',
-    highlight: 'Fifth Order D shipment departed Oct 29, 2026 on vessel PONA, ETA Nov 29, 2026. UPS label 1ZG2C1210314375814 is issued and still awaiting the UPS receiving scan, which is normal while the container is at sea. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,852 pcs).',
+    highlight: 'Fifth Order D shipment departed Oct 29, 2026 on vessel PONA, ETA Nov 29, 2026. Excel replaced the UPS number with 1ZK6E8620330069282 on Nov 18, 2026; 17track has no tracking record for the new number yet, which is normal while the container is at sea. Products: N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3 (37,852 pcs).',
     products: 'N35 20x3-5 / 18x2 / 25x2 / 25x3-5 / 25x3',
     pkgSize: '15 boxes',
     payment: '',
@@ -3005,7 +3005,7 @@ const orders = {
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'Est. Nov 29 — Dec 06, 2026',
-    signNote: 'Fifth Order D shipment departed Oct 29, 2026 on vessel PONA with ETA Nov 29, 2026. The UPS label (1ZG2C1210314375814) is created but UPS has not scanned the parcel yet, which is normal while the container is at sea. Last-mile delivery 3-7 business days after customs.',
+    signNote: 'Fifth Order D shipment departed Oct 29, 2026 on vessel PONA with ETA Nov 29, 2026. UPS number 1ZK6E8620330069282 replaced the earlier number per Excel on Nov 18, 2026. 17track currently returns no tracking information for the replacement number, which is normal while the container is at sea. Last-mile delivery 3-7 business days after customs.',
     steps: [
       {
         label: 'Production /\nPacking',
@@ -3724,7 +3724,7 @@ const orderEK20260721 = {
   ],
   // DISPATCHED quantities for Order D, D1 through D6 -> 537,330 pcs.
   // D1 (1ZK6B4420325075331), D2 (1ZG2C1210300042226), D3 (1ZG2C1210304724349),
-  // D4 (1ZG2C1210339503076), D5 (1ZG2C1210314375814) all carry a carrier number.
+  // D4 (1ZK6E8620327467732), D5 (1ZK6E8620330069282) all carry a carrier number.
   // D6 (27,382 pcs, 10 boxes, 168.60 KG) was folded into this map on 2026-11-09 at the
   // customer's instruction. It has a signed packing list but still NO vessel, ETD, ETA or
   // transport number - the shortfall against the order is tracked in `open`, not here.
