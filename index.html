@@ -519,7 +519,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 19, 2026 13:40 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 19, 2026 13:41 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -3859,14 +3859,14 @@ window.orderEK20260721 = orderEK20260721;
 // ========== SO261023-001 Master Order (formerly Order E / EK20261020) ==========
 // Excel Sea Order renamed the third order column from "Order E:EK20261020" to
 // "SO261023-001" on 2026-11-19. 16 product lines after merging the two 30x5 rows
-// (800 + 500 = 1,300); total ordered 252,800 pcs. First shipment SO261023-001-1
+// (300 + 500 = 800); total ordered 252,300 pcs. First shipment SO261023-001-1
 // (75,590 pcs, 9 boxes) is counted as shipped at the customer's instruction that
 // this order has started shipping. No tracking number or vessel is invented.
 const orderSO261023001 = {
   id: 'SO261023-001',
   orderLabel: 'SO261023-001',
   totalProducts: 16,
-  totalQty: 252800,
+  totalQty: 252300,
   totalAmount: 0,
   paidAmount: 0,
   pendingAmount: 0,
@@ -3880,7 +3880,7 @@ const orderSO261023001 = {
     {grade: 'N35', size: '16x2', ordered: 10000},
     {grade: 'N35', size: '18x3', ordered: 1500},
     {grade: 'N35', size: '20x5', ordered: 5000},
-    {grade: 'N35', size: '30x5', ordered: 1300},
+    {grade: 'N35', size: '30x5', ordered: 800},
     {grade: 'N35', size: '40x5', ordered: 1000},
     {grade: 'N35', size: '10x3-3.2', ordered: 8000},
     {grade: 'N35', size: '12x3-3.2', ordered: 2000},
