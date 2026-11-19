@@ -496,6 +496,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="tag" onclick="quickSearch('D4')">D4</span>
       <span class="tag" onclick="quickSearch('D5')">D5</span>
       <span class="tag" onclick="quickSearch('D6')">D6</span>
+      <span class="tag" onclick="quickSearch('SO261023-001')">SO261023-001</span>
       <span class="tag-sep">|</span>
       <span class="tag-label">Master:</span>
       <span class="tag" onclick="quickSearch('EK20260506')">EK20260506</span>
@@ -518,7 +519,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="result" id="result"></div>
 
   <div class="footer">
-    Last updated: Nov 18, 2026 16:33 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
+    Last updated: Nov 19, 2026 13:40 (GMT+8) | Data source: Excel Schedule + ShipFinder AIS + 17track API (UPS/SF/FedEx)
   </div>
 </div>
 
@@ -3153,13 +3154,13 @@ const orders = {
     badgeClass: 'enroute',
     title: 'N35 Series Magnets (Order D)',
     sub: '10 boxes | 168.60 KG | 27,382 pcs',
-    ship: 'TBA',
+    ship: 'OOCL ECUADOR',
     voyage: '',
     tracking: 'UPS 1ZK6E8620307905073',
     etd: '2026-11-19',
     etaOrig: '2026-12-19',
     etaReal: '2026-12-19',
-    highlight: 'UPS number 1ZK6E8620307905073 was assigned to D6 on Nov 12, 2026, with ETD Nov 19, 2026 and ETA Dec 19, 2026 (destination US). The ten boxes, 27,382 pcs and 168.60 KG are unchanged from the Nov 9 packing list and remain counted as shipped at your instruction. The vessel name has not been issued. UPS created the label on Nov 11, 2026 but has not taken physical possession of the parcel yet, which is normal for cargo still at sea. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
+    highlight: 'UPS number 1ZK6E8620307905073 was assigned to D6 on Nov 12, 2026, with ETD Nov 19, 2026 and ETA Dec 19, 2026 (destination US). The ten boxes, 27,382 pcs and 168.60 KG are unchanged from the Nov 9 packing list and are counted as shipped. The vessel has now been named OOCL ECUADOR in the Excel schedule (ETD Nov 19, 2026). UPS created the label on Nov 11, 2026 but has not taken physical possession of the parcel yet, which is normal for cargo still at sea. Products: N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2.',
     products: 'N35 20x3-5 / 25x3-5 / 18x2 / 20x10x2 / 25x3 / 25x2',
     pkgSize: '10 boxes',
     payment: '',
@@ -3169,7 +3170,7 @@ const orders = {
     progressColor: 'blue',
     signLabel: 'info',
     signDate: 'ETD Nov 19, 2026 — ETA Dec 19, 2026',
-    signNote: 'The Nov 9, 2026 packing list lists all ten boxes individually, each with its own weight and polarity (N-S / S-N): 27,382 pcs in total, 168.60 KG. UPS number 1ZK6E8620307905073 was assigned on Nov 12 with ETD Nov 19 and ETA Dec 19, 2026. The vessel name is still to be confirmed. UPS created the label on Nov 11, 2026 and has not received the parcel yet; a label-only status is normal while cargo is at sea. This shipment stays counted as shipped at your instruction; it will not be marked delivered until UPS reports an actual delivery.',
+    signNote: 'The Nov 9, 2026 packing list lists all ten boxes individually, each with its own weight and polarity (N-S / S-N): 27,382 pcs in total, 168.60 KG. UPS number 1ZK6E8620307905073 was assigned on Nov 12 with ETD Nov 19 and ETA Dec 19, 2026; the Excel schedule now names the vessel OOCL ECUADOR. UPS created the label on Nov 11, 2026 and has not received the parcel yet; a label-only status is normal while cargo is at sea. It will not be marked delivered until UPS reports an actual delivery.',
     steps: [
       {
         label: 'Production /\nPacking',
@@ -3451,6 +3452,71 @@ const orders = {
         ]
       }
     ]
+  },
+
+  'SO261023-001-1': {
+    id: 'SO261023-001-1',
+    status: 'enroute',
+    badge: 'Shipped — Vessel TBA',
+    badgeClass: 'enroute',
+    title: 'N35 Series Magnets (SO261023-001)',
+    sub: '9 boxes | 179.15 KG | 75,590 pcs',
+    ship: 'TBA',
+    voyage: '',
+    tracking: 'Not assigned',
+    etd: '2026-11-26',
+    etaOrig: '2026-12-26',
+    etaReal: '2026-12-26',
+    highlight: 'First shipment of SO261023-001 (formerly Order E / EK20261020), dispatched on customer instruction as of Nov 19, 2026. The Excel schedule lists nine boxes, 75,590 pcs and 179.15 KG, with ETD Nov 26, 2026, ETA Dec 26, 2026 and destination US. No carrier number and no vessel name have been issued yet - they will be added as soon as the Excel schedule provides them. Products: N35 8x3 / 8x2 / 20x5 / 30x5 / 15x3.',
+    products: 'N35 8x3 / 8x2 / 20x5 / 30x5 / 15x3',
+    pkgSize: '9 boxes',
+    payment: '',
+    destination: 'US',
+    list: ['N35 8x3 35000', 'N35 8x2 25000', 'N35 20x5 5014', 'N35 30x5 576', 'N35 15x3 10000'],
+    progress: 45,
+    progressColor: 'blue',
+    signLabel: 'info',
+    signDate: 'ETD Nov 26, 2026 — ETA Dec 26, 2026',
+    signNote: 'The Excel schedule of Nov 19, 2026 lists all nine boxes individually with their weights: 75,590 pcs in total, 179.15 KG. ETD is Nov 26, 2026, ETA is Dec 26, 2026 and the destination is US. This batch is recorded as shipped at your instruction that SO261023-001 has started shipping; no carrier number or vessel name exists yet, so none has been invented. It will not be marked delivered until a real carrier reports a delivery.',
+    steps: [
+      {
+        label: 'Production /\nPacking',
+        cls: 'done'
+      },
+      {
+        label: 'Packed &\nWeighed 11-19',
+        cls: 'done'
+      },
+      {
+        label: 'Handed Over\n11-19',
+        cls: 'current'
+      },
+      {
+        label: 'ETD\n11-26',
+        cls: 'future'
+      },
+      {
+        label: 'ETA\n12-26',
+        cls: 'future'
+      },
+      {
+        label: 'Customer\nSigned',
+        cls: 'future'
+      }
+    ],
+    alert: null,
+    orderId: 'SO261023-001',
+    boxes: [
+      { num: 1, weight: 19.15, items: [ {grade: 'N35', size: '8x3', qty: 16380} ] },
+      { num: 2, weight: 21.70, items: [ {grade: 'N35', size: '8x3', qty: 18620} ] },
+      { num: 3, weight: 19.00, items: [ {grade: 'N35', size: '8x2', qty: 25000} ] },
+      { num: 4, weight: 20.65, items: [ {grade: 'N35', size: '20x5', qty: 1680} ] },
+      { num: 5, weight: 20.65, items: [ {grade: 'N35', size: '20x5', qty: 1680} ] },
+      { num: 6, weight: 20.65, items: [ {grade: 'N35', size: '20x5', qty: 1654} ] },
+      { num: 7, weight: 16.40, items: [ {grade: 'N35', size: '30x5', qty: 300}, {grade: 'N35', size: '30x5', qty: 276} ] },
+      { num: 8, weight: 21.20, items: [ {grade: 'N35', size: '15x3', qty: 5180} ] },
+      { num: 9, weight: 19.75, items: [ {grade: 'N35', size: '15x3', qty: 4820} ] }
+    ]
   }
 };
 
@@ -3725,9 +3791,10 @@ const orderEK20260721 = {
   // DISPATCHED quantities for Order D, D1 through D6 -> 537,330 pcs.
   // D1 (1ZK6B4420325075331), D2 (1ZG2C1210300042226), D3 (1ZG2C1210304724349),
   // D4 (1ZK6E8620327467732), D5 (1ZK6E8620330069282) all carry a carrier number.
-  // D6 (27,382 pcs, 10 boxes, 168.60 KG) was folded into this map on 2026-11-09 at the
-  // customer's instruction. It has a signed packing list but still NO vessel, ETD, ETA or
-  // transport number - the shortfall against the order is tracked in `open`, not here.
+  // D6 (27,382 pcs, 10 boxes, 168.60 KG) was folded into this map at the customer's
+  // instruction. It now carries its own UPS number (1ZK6E8620307905073) and vessel
+  // (OOCL ECUADOR, named in Excel on 2026-11-19). The shortfall against the order is
+  // tracked in `open`, not here.
   shipped: {
       'N35 2x1': 50000,
       'N35 3X3': 10000,
@@ -3750,7 +3817,7 @@ const orderEK20260721 = {
       'N35 20x10x2': 56000,
       'N35 20x3-5': 40016
     },
-  // Nothing is staged waiting to leave any more: D6 now sits inside `shipped`. `packed` stays as
+  // Nothing is staged waiting to leave: D6 now sits inside `shipped`. `packed` stays as
   // an empty map so the three-bucket accounting keeps working unchanged.
   packed: {},
   shipments: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
@@ -3758,7 +3825,7 @@ const orderEK20260721 = {
   // that never got a packing list (20x10x2 14,000 and 30x10x2 7 = 14,007 measured per line).
   produced: [],
   // Stated on the progress bar so the 100% green never hides the fact that D6 has no vessel yet.
-  shippedNote: 'D6 (10 boxes, 27,382 pcs, 168.60 KG) is counted as shipped at your instruction \u2014 the cargo is packed, weighed and handed over. UPS number 1ZK6E8620307905073, ETD Nov 19 and ETA Dec 19, 2026 are now on the D6 card; the vessel name is still unassigned and UPS has created the label (Nov 11, 2026) but has not received the parcel yet.',
+  shippedNote: 'D6 (10 boxes, 27,382 pcs, 168.60 KG) is counted as shipped; the cargo is packed, weighed and handed over. It now carries UPS number 1ZK6E8620307905073 and vessel OOCL ECUADOR (named in Excel on Nov 19), with ETD Nov 19 and ETA Dec 19, 2026. UPS created the label on Nov 11, 2026 but has not received the parcel yet.',
   producing: []
 };
 // ---- Fulfilment accounting (single source of truth for the progress bar) ----
@@ -3788,6 +3855,53 @@ function computeFulfillment(ord) {
 window.computeFulfillment = computeFulfillment;
 
 window.orderEK20260721 = orderEK20260721;
+
+// ========== SO261023-001 Master Order (formerly Order E / EK20261020) ==========
+// Excel Sea Order renamed the third order column from "Order E:EK20261020" to
+// "SO261023-001" on 2026-11-19. 16 product lines after merging the two 30x5 rows
+// (800 + 500 = 1,300); total ordered 252,800 pcs. First shipment SO261023-001-1
+// (75,590 pcs, 9 boxes) is counted as shipped at the customer's instruction that
+// this order has started shipping. No tracking number or vessel is invented.
+const orderSO261023001 = {
+  id: 'SO261023-001',
+  orderLabel: 'SO261023-001',
+  totalProducts: 16,
+  totalQty: 252800,
+  totalAmount: 0,
+  paidAmount: 0,
+  pendingAmount: 0,
+  items: [
+    {grade: 'N35', size: '8x1', ordered: 20000},
+    {grade: 'N35', size: '8x2', ordered: 25000},
+    {grade: 'N35', size: '8x3', ordered: 35000},
+    {grade: 'N35', size: '10x1', ordered: 50000},
+    {grade: 'N35', size: '10x1.5', ordered: 60000},
+    {grade: 'N35', size: '12x3', ordered: 9000},
+    {grade: 'N35', size: '16x2', ordered: 10000},
+    {grade: 'N35', size: '18x3', ordered: 1500},
+    {grade: 'N35', size: '20x5', ordered: 5000},
+    {grade: 'N35', size: '30x5', ordered: 1300},
+    {grade: 'N35', size: '40x5', ordered: 1000},
+    {grade: 'N35', size: '10x3-3.2', ordered: 8000},
+    {grade: 'N35', size: '12x3-3.2', ordered: 2000},
+    {grade: 'N35', size: '15x3-4', ordered: 10000},
+    {grade: 'N35', size: '15x5-4', ordered: 5000},
+    {grade: 'N35', size: '15x3', ordered: 10000}
+  ],
+  shipped: {
+    'N35 8x2': 25000,
+    'N35 8x3': 35000,
+    'N35 20x5': 5014,
+    'N35 30x5': 576,
+    'N35 15x3': 10000
+  },
+  packed: {},
+  shipments: ['SO261023-001-1'],
+  produced: [],
+  shippedNote: 'First shipment SO261023-001-1 (9 boxes, 75,590 pcs, 179.15 KG) is counted as shipped at your instruction that SO261023-001 has started shipping. ETD Nov 26, 2026 and ETA Dec 26, 2026 (destination US) come from the Excel schedule; no carrier number or vessel name has been issued yet, so none has been invented. The 20x5 line ships 14 pcs above the ordered quantity as real packing spares.',
+  producing: []
+};
+window['orderSO261023-001'] = orderSO261023001;
 
 // ---- Auto-collapsing panels ------------------------------------------------
 // Completed overviews (100% shipped) start COLLAPSED, so the customer never has
@@ -4536,6 +4650,9 @@ function showAll() {
   if (d5) pushUpdate('hot', d5.id + ': ' + d5.highlight, d5.id);
   const d6 = orders['D6'];
   if (d6) pushUpdate('hot', d6.id + ': ' + d6.highlight, d6.id);
+  // SO261023-001 first shipment - started shipping Nov 19 per customer, no carrier number yet
+  const so1 = orders['SO261023-001-1'];
+  if (so1) pushUpdate('hot', so1.id + ': ' + so1.highlight, so1.id);
   // A5 door magnet order - delivered Nov 13, 2026 (dest MX)
   const a5 = orders['A5'];
   if (a5) pushUpdate('good', a5.id + ': ' + a5.highlight, a5.id);
@@ -4549,7 +4666,7 @@ function showAll() {
     const dShipped = Object.values(orderEK20260721.shipped || {}).reduce((a, b) => a + b, 0);
     const dCal = computeFulfillment(orderEK20260721);
     const dPct = orderEK20260721.totalQty > 0 ? ((dShipped / orderEK20260721.totalQty) * 100).toFixed(1) : '0.0';
-    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched (' + dPct + '%), D6 included at your instruction (UPS number issued Nov 12; vessel still to be assigned). ' + dCal.open.toLocaleString() + ' pcs still appear on no packing list.</li>');
+    recentUpdates.push('<li class="hot">Order D (EK20260721): ' + orderEK20260721.totalProducts + ' product lines, ' + orderEK20260721.totalQty.toLocaleString() + ' pcs - ' + dShipped.toLocaleString() + ' pcs dispatched (' + dPct + '%), D6 carries UPS 1ZK6E8620307905073 and vessel OOCL ECUADOR (named Nov 19). ' + dCal.open.toLocaleString() + ' pcs still appear on no packing list.</li>');
   }
   // Remaining delivered shipments - auto-folded once older than 30 days
   ['B4','B5','C3','B3','C2','C1','B1','A12-1','A12-2','A4','A9','A10','A11'].forEach(id => {
@@ -4590,6 +4707,7 @@ function showAll() {
     ${updateBannerHtml}
     ${renderOrderOverview(orderEK20260506)}
     ${renderOrderOverview(orderEK20260721)}
+    ${renderOrderOverview(orderSO261023001)}
     ${airOverviewHtml}
     <div class="all-section">
       <div class="all-title">All Shipments Overview</div>
